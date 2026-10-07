@@ -40,7 +40,7 @@ Juego (pantalla completa)
 
 ### INT-3 · Predio — MVP
 1. EL SISTEMA DEBE mostrar el club como una aldea isométrica con el **estadio grande a un costado** como protagonista y la **villa** (resto de edificios) agrupada del otro lado, con paisaje según la ambientación (CLU-1).
-2. EL SISTEMA DEBE permitir desplazar y hacer zoom (arrastrar, rueda o pellizcar).
+2. EL SISTEMA DEBE tener un **mapa más grande que la pantalla** (estadio, villa y entorno alrededor) y una cámara que se mueve: arrastrar para desplazar, rueda o pellizcar para zoom. La cámara arranca encuadrando estadio y villa completos, sin cortar ninguno.
 3. EL SISTEMA DEBE mostrar sobre cada edificio su estado: en obra (fechas restantes), mejora disponible o staff vacante.
 
 ### INT-4 · Modales y navegación — MVP

@@ -90,7 +90,7 @@ Router simple por hash (`#/predio`, `#/despacho`, ...) para que funcione el bot�
 
 ## 6. Datos mock (INT-7)
 
-`src/datos/mock/partida.json` con una `Partida` completa según el modelo de `steering/tecnica.md`: club recién creado en la B Nacional, plantel de 22 jugadores, 6 situaciones del Despacho pendientes, 4 DTs, 5 sponsors y fixture de 20 equipos. La UI arranca desde este archivo hasta que la lógica de las fases 3 y 4 lo reemplace.
+`src/datos/mock/partida.json` con una `Partida` completa según el modelo de `steering/tecnica.md`: club recién creado en la B Nacional, plantel de 22 jugadores, 6 movidas del Despacho pendientes, 4 DTs, 5 sponsors y fixture de 20 equipos. La UI arranca desde este archivo hasta que la lógica de las fases 3 y 4 lo reemplace.
 
 ## 7. Trazabilidad
 

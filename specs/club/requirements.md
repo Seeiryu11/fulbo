@@ -69,7 +69,7 @@ EL SISTEMA DEBE incluir edificios mejorables, cada uno con niveles y un efecto c
 
 | Edificio | Efecto | Staff que habilita |
 |----------|--------|--------------------|
-| **Oficinas (el Despacho)** | llegan las situaciones; + opciones en situaciones de AFA, política y economía | Abogado, contador, secretario |
+| **Oficinas (el Despacho)** | llegan las movidas; + opciones en movidas de AFA, política y economía | Abogado, contador, secretario |
 | Cancha de entrenamiento | + mejora de atributos por semana | Preparador físico, ayudantes |
 | Gimnasio / recuperación | + recuperación física, − lesiones | Kinesiólogo |
 | Departamento médico | − tiempo de lesión | Médico |
@@ -87,10 +87,10 @@ MVP: Oficinas (Despacho), Cancha de entrenamiento, Oficina de ojeadores, Oficina
 ### CLU-5 · Staff — V1
 1. EL SISTEMA DEBE permitir contratar staff con nombre, especialidad, nivel y sueldo.
 2. EL SISTEMA DEBE limitar el nivel del staff al nivel de su edificio.
-3. EL SISTEMA DEBE aplicar los efectos del staff a la simulación, a los entrenamientos y a los situaciones del Despacho.
+3. EL SISTEMA DEBE aplicar los efectos del staff a la simulación, a los entrenamientos y a los movidas del Despacho.
 
 ### CLU-6 · Plantel — MVP
-1. EL SISTEMA DEBE mantener un plantel de 18 a 25 jugadores con nombre, apodo, posición, edad, atributos, estado físico, moral y **personalidad** (rasgos que disparan situaciones del Despacho: fiestero, cabulero, influencer, calentón, profesional).
+1. EL SISTEMA DEBE mantener un plantel de 18 a 25 jugadores con nombre, apodo, posición, edad, atributos, estado físico, moral y **personalidad** (rasgos que disparan movidas del Despacho: fiestero, cabulero, influencer, calentón, profesional).
 2. Atributos iniciales: **Pegada, Velocidad, Gambeta, Pase, Marca, Físico, Liderazgo** (más **Atajada** para arqueros).
 3. EL SISTEMA DEBE calcular una valoración general (estrellas, como BOLA).
 4. EL SISTEMA DEBE generar nombres y apodos argentinos ficticios creíbles.
@@ -107,7 +107,7 @@ MVP: Oficinas (Despacho), Cancha de entrenamiento, Oficina de ojeadores, Oficina
 2. CUANDO contrato un DT, EL SISTEMA DEBE aplicar sus bonus: atributos del plantel, moral, efecto de un estilo de juego o mejora de un minijuego (ej. + tiempo en la pizarra).
 3. EL SISTEMA DEBE permitir un solo DT activo a la vez; cambiarlo rescinde el contrato anterior (con costo).
 4. EL SISTEMA DEBE mostrar los DTs nuevos en el diario de novedades (estilo SportNews de BOLA).
-5. EL SISTEMA PUEDE disparar situaciones del Despacho relacionados con el DT (el DT pide refuerzos o renuncia en público, choque de egos con un referente, el DT se pelea con la barra).
+5. EL SISTEMA PUEDE disparar movidas del Despacho relacionados con el DT (el DT pide refuerzos o renuncia en público, choque de egos con un referente, el DT se pelea con la barra).
 
 ### CLU-7 · Mercado y ojeadores — V1
 1. EL SISTEMA DEBE ofrecer jugadores en el mercado según el nivel de la oficina de ojeadores.
@@ -137,21 +137,21 @@ MVP: Oficinas (Despacho), Cancha de entrenamiento, Oficina de ojeadores, Oficina
 
 2. EL SISTEMA DEBE dejar **cambiar el entorno** en cualquier momento desde la identidad del club (con costo, como una mudanza), sin perder nada de lo construido.
 3. EL SISTEMA DEBE combinar el entorno con el estilo del estadio (CLU-2): cualquier estilo funciona en cualquier entorno.
-4. EL SISTEMA DEBE usar el entorno para las situaciones locales del Despacho (DES-8).
+4. EL SISTEMA DEBE usar el entorno para las movidas locales del Despacho (DES-8).
 5. EL SISTEMA DEBE construir cada entorno con el mismo sistema de piezas (terreno, vegetación, horizonte, cielo, luz), para que agregar uno nuevo no implique rehacer el juego.
 
 MVP: Ciudad, Campo y Montaña. V1: el resto.
 
 ### CLU-9 · Sponsors — MVP
 1. EL SISTEMA DEBE tener espacios de sponsor: pecho, espalda, manga, short, carteles del estadio y naming rights del estadio.
-2. CUANDO un sponsor me ofrece contrato, EL SISTEMA DEBE mostrar plata por temporada, requisitos (fama, Lujo, resultados) y **efectos secundarios** (ej. casa de apuestas: mucha plata, situaciones del Despacho de amaño y críticas; yerba del barrio: poca plata, + hinchas).
+2. CUANDO un sponsor me ofrece contrato, EL SISTEMA DEBE mostrar plata por temporada, requisitos (fama, Lujo, resultados) y **efectos secundarios** (ej. casa de apuestas: mucha plata, movidas del Despacho de amaño y críticas; yerba del barrio: poca plata, + hinchas).
 3. EL SISTEMA DEBE usar marcas ficticias por rubro: cerveza, casa de apuestas, exchange cripto, billetera virtual, yerba, telefonía, prepaga, corralón.
 
 ### CLU-10 · Economía — MVP
 1. EL SISTEMA DEBE manejar **Pesos** (moneda blanda: partidos, sponsors, recaudación) y **Fama** (seguidores: desbloqueos y ofertas).
 2. EL SISTEMA DEBE pagar sueldos y mantenimiento por temporada.
 3. EL SISTEMA DEBE aplicar **inflación** a los precios cada temporada, con ingresos que acompañan para que no sea castigo puro. *Chiste + mecánica.*
-4. EL SISTEMA DEBE dar "algo para hacer al volver" (obras terminadas, informes de ojeadores, situaciones del Despacho pendientes).
+4. EL SISTEMA DEBE dar "algo para hacer al volver" (obras terminadas, informes de ojeadores, movidas del Despacho pendientes).
 
 ### CLU-12 · Competencia: arrancás en la B Nacional — MVP
 **Historia:** Como dueño, quiero arrancar desde abajo y pelear el ascenso, para que llegar a Primera se sienta ganado.

@@ -52,7 +52,7 @@ interface Partida {
   fecha: number                // fecha actual dentro de la temporada
   club: Club
   ligas: { bNacional: Liga; primera: Liga }
-  despacho: SituacionInstancia[]
+  despacho: MovidaInstancia[]
   marcas: Record<string, number | boolean>  // flags globales para cadenas (DES-4)
 }
 
@@ -110,7 +110,7 @@ interface Liga { nombre: string; equipos: EquipoLiga[]; fixture: Partido[][]; }
 interface Partido { local: Id; visitante: Id; resultado?: [number, number]; eventos?: EventoPartido[] }
 
 // Despacho
-interface SituacionDef {               // vive en datos/situaciones/*.json
+interface MovidaDef {               // vive en datos/movidas/*.json
   id: string
   alcance: 'jugador'|'club'
   ambito: 'plantel'|'staff'|'sponsors'|'hinchas'|'politica'|'afa'|'ciudad'|'prensa'|'economia'|'obras'|'mercado'|'inferiores'
@@ -120,7 +120,7 @@ interface SituacionDef {               // vive en datos/situaciones/*.json
   opciones: { texto: string; efectos: Efecto[]; desenlace: string; habilita?: string[] }[]
   vence?: number; opcionPorDefecto?: number
 }
-interface SituacionInstancia { def: string; jugador?: Id; creadoEn: { temporada: number; fecha: number }; resuelto?: number }
+interface MovidaInstancia { def: string; jugador?: Id; creadoEn: { temporada: number; fecha: number }; resuelto?: number }
 
 type Efecto =
   | { tipo: 'pesos' | 'fama'; valor: number }

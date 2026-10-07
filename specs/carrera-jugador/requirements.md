@@ -19,5 +19,5 @@ Un modo o capa donde tenés **tu propio jugador**, estilo Potrero: decisiones en
 
 ## Qué hay que dejar preparado mientras tanto
 
-- El modelo de situaciones del Despacho debe permitir agregar `alcance: 'yo'` sin romper los eventos existentes.
+- El modelo de movidas del Despacho debe permitir agregar `alcance: 'yo'` sin romper los eventos existentes.
 - El jugador del plantel no debe asumir que nunca habrá uno "controlado por el usuario".

@@ -26,7 +26,7 @@
 ## Tono
 
 - Humor con cariño. Se ríe del fútbol, no de personas reales.
-- PG-13: joda, boliche, tatuajes, escándalos y apuestas, sí. Sexo explícito, menores en situaciones de riesgo o discurso de odio, no.
+- PG-13: joda, boliche, tatuajes, escándalos y apuestas, sí. Sexo explícito, menores en movidas de riesgo o discurso de odio, no.
 - Las apuestas y la cripto aparecen como **sátira y ambiente** (sponsors, eventos, tentaciones con consecuencias). El juego no tiene apuestas con plata real.
 
 ## Estética

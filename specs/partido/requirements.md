@@ -60,7 +60,7 @@ El partido es el corazón jugable. Hay un solo motor de simulación que sirve pa
 2. EL SISTEMA DEBE tomar el relato de un banco de frases editable sin tocar código.
 
 ### PAR-10 · Interrupciones del Despacho — V1
-1. CUANDO hay un situación del Despacho marcado como "en partido", EL SISTEMA DEBE mostrarlo en el entretiempo como notificación con decisión rápida.
+1. CUANDO hay un movida del Despacho marcado como "en partido", EL SISTEMA DEBE mostrarlo en el entretiempo como notificación con decisión rápida.
 2. EL SISTEMA DEBE aplicar la consecuencia en el segundo tiempo.
 
 ### PAR-11 · VAR — Después
