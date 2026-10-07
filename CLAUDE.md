@@ -30,3 +30,4 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - `referencias/_tools/serve.ps1`: servidor estático local (configurado en `.claude/launch.json` como `bola-static`, puerto 8765).
 - Los videos de referencia son HEVC: para sacar fotogramas hace falta ffmpeg (`winget install Gyan.FFmpeg`). Ya están extraídos en `referencias/frames/` y analizados en `referencias/analisis.md`.
 - Mockup a PNG: Edge headless con `--screenshot` sobre la página servida por `serve.ps1`.
+- Repo: https://github.com/Seeiryu11/fulbo (público). Los videos `.mov` no se suben (pasan los 100 MB); están en la compu original.
