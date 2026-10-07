@@ -12,7 +12,7 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - Sos **el dueño del club**: hacés lo del DT y contratás DTs que suben estadísticas. El jugador propio (primera persona, estilo Potrero) está **postergado** en `specs/carrera-jugador`.
 - **No se imita Facebook** ni ninguna red. Que BOLA fuera de Facebook es solo contexto. La nostalgia es el **estilo visual de BOLA**.
 - **Sin "Eras"**: el contenido es el fútbol de hoy (cerveza, apuestas, cripto, TikTok, streamers).
-- Navegador primero (celular después). Arte intermedio lindo en SVG, como `referencias/mockups/predio.png`.
+- Navegador primero (celular después). Look profesional, no de juguete: escala real, mucho espacio, ciudad de fondo, sin casitas genéricas (ver `referencias/estadios-bola/`).
 - Economía: solo **Pesos y Fama**, sin moneda premium hasta que el juego esté aceitado.
 - Obras por **fechas jugadas**, no tiempo real.
 - Se arranca en la **B Nacional**: el 1.º asciende directo, el 2.º juega repechaje contra el anteúltimo de Primera.
@@ -25,11 +25,11 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 
 ## Estado (2026-10-07)
 - Requisitos aprobados: interfaz, club, despacho, partido.
-- `specs/interfaz/design.md` en revisión: mockup v2 (`referencias/mockups/predio.png`) con el estadio a un costado y la villa del otro, esperando opinión del usuario.
+- **Dirección de arte en revisión**: el usuario rechazó el SVG isométrico (se ve "aldea para niños"). Referencia de lo que quiere: `referencias/estadios-bola/` (estadios 3D pre-renderizados de BOLA, escala grande, ciudad de fondo). Propuesta: 3D real con Three.js, prueba en `referencias/mockups/predio-3d.html` y `.png`. Falta que el usuario apruebe.
 - Próximo paso: aprobar el diseño de la interfaz → `specs/interfaz/tasks.md` → instalar Node (`winget install OpenJS.NodeJS.LTS`) → programar.
 
 ## Herramientas
 - `referencias/_tools/serve.ps1`: servidor estático local (configurado en `.claude/launch.json` como `bola-static`, puerto 8765).
 - Los videos de referencia son HEVC: para sacar fotogramas hace falta ffmpeg (`winget install Gyan.FFmpeg`). Ya están extraídos en `referencias/frames/` y analizados en `referencias/analisis.md`.
 - Mockup a PNG: Edge headless con `--screenshot` sobre la página servida por `serve.ps1`.
-- Repo: https://github.com/Seeiryu11/fulbo (público). Los videos `.mov` no se suben (pasan los 100 MB); están en la compu original.
+- Repo: https://github.com/Seeiryu11/fulbo (público). Guía para otra compu: `GUIA-OTRA-COMPU.md`. Al terminar una sesión, siempre commit + push. Los videos `.mov` no se suben (pasan los 100 MB).

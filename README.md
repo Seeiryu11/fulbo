@@ -5,6 +5,10 @@ Sos el dueño del club. El estilo visual es nostalgia de los juegos sociales de 
 
 > Estado: **Fase 1 – diseño** (spec driven development; requisitos aprobados). Todavía no hay código.
 
+## Seguir desde otra compu
+
+Ver [GUIA-OTRA-COMPU.md](GUIA-OTRA-COMPU.md). Importante: GitHub no guarda solo; antes de dejar una compu hay que hacer commit + push.
+
 ## Cómo se trabaja
 
 Ver [steering/proceso.md](steering/proceso.md): requisitos → diseño → tareas → código. No se programa sin spec aprobada.

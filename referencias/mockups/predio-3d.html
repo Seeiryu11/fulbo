@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predio 3D — prueba</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--amarillo:#F5C518;--amarillo-osc:#C99500;--rojo:#C8202F;--hud1:#2F6FB5;--hud2:#1B3F73}
+  html,body{margin:0;height:100%;overflow:hidden;background:#9fd3f5;font-family:Nunito,Tahoma,sans-serif}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;overflow:hidden}
+  canvas{position:absolute;inset:0;display:block}
+  .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;gap:10px;z-index:3}
+  .pan{background:linear-gradient(var(--hud1),var(--hud2));border:3px solid #fff;border-radius:14px;box-shadow:0 4px 0 rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.35);color:#fff;padding:6px 12px;display:flex;align-items:center;gap:10px}
+  .nombre{font-family:'Lilita One';font-size:22px;line-height:1;text-shadow:0 2px 0 #0b2140}
+  .sub{font-size:12px;color:#cfe3ff;font-weight:800}
+  .barra{width:150px;height:14px;border-radius:8px;background:#0b2140;border:2px solid #fff;overflow:hidden;margin-top:4px}
+  .barra i{display:block;height:100%;width:62%;background:linear-gradient(#9cf06b,#3fae2a)}
+  .nv{font-family:'Lilita One';background:var(--amarillo);color:#3a2800;border:2px solid #fff;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:16px}
+  .monto{font-family:'Lilita One';font-size:22px;text-shadow:0 2px 0 #0b2140}
+  .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:19px;border:2px solid #fff}
+  .esp{flex:1}
+  .play{position:absolute;left:22px;bottom:22px;width:130px;height:130px;border-radius:50%;z-index:3;background:radial-gradient(circle at 50% 35%,#4a4a4a,#111 70%);border:6px solid var(--amarillo);box-shadow:0 6px 0 #6b4f00,0 10px 20px rgba(0,0,0,.4);display:grid;place-items:center;font-size:40px}
+  .play b{position:absolute;bottom:-14px;font-family:'Lilita One';font-size:28px;color:#fff;text-shadow:-2px -2px 0 #2a1a00,2px -2px 0 #2a1a00,-2px 2px 0 #2a1a00,2px 2px 0 #2a1a00,0 4px 0 #2a1a00}
+  .nav{position:absolute;left:190px;right:190px;bottom:16px;height:70px;border-radius:18px;border:4px solid #fff;z-index:3;background:linear-gradient(#ffe066,var(--amarillo) 55%,var(--amarillo-osc));box-shadow:0 6px 0 #7a5a00,0 12px 24px rgba(0,0,0,.35);display:flex;justify-content:space-around;align-items:center}
+  .tab{display:flex;flex-direction:column;align-items:center;font-family:'Lilita One';color:#4a3200;font-size:16px;padding:4px 14px;border-radius:12px;position:relative}
+  .tab .e{font-size:26px;line-height:1.1}.tab.on{background:rgba(255,255,255,.55)}
+  .badge{position:absolute;top:-6px;right:2px;background:var(--rojo);color:#fff;font-family:'Lilita One';font-size:13px;border:2px solid #fff;border-radius:12px;padding:0 6px}
+  .lbl{position:absolute;z-index:2;transform:translate(-50%,-100%);white-space:nowrap;font-weight:900;font-size:12px;color:#fff;background:rgba(16,32,56,.85);border:1.5px solid #fff;border-radius:7px;padding:2px 8px}
+  .lbl.big{font-family:'Lilita One';font-weight:400;font-size:15px;background:linear-gradient(#ffe066,#e0a800);color:#3a2800;border:2px solid #fff;border-radius:14px;padding:3px 12px;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+  .lbl.alerta{font-family:'Lilita One';font-weight:400;font-size:14px;background:linear-gradient(#ff7a8e,#d63650);border:2px solid #fff;border-radius:14px;padding:3px 12px}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="hud">
+    <div class="pan" style="min-width:330px">
+      <svg width="44" height="52" viewBox="0 0 48 56"><path d="M24 2 L44 9 V27 C44 41 34 50 24 54 C14 50 4 41 4 27 V9 Z" fill="#fff"/><path d="M24 6 L40 11.5 V27 C40 38.5 32 46 24 49.5 C16 46 8 38.5 8 27 V11.5 Z" fill="#C8202F"/><path d="M8 22 H40 V30 H8 Z" fill="#fff"/><text x="24" y="29" text-anchor="middle" font-family="Lilita One" font-size="9" fill="#C8202F">AVF</text></svg>
+      <div><div class="nombre">Atlético Villa Ferro</div><div class="sub">★★★☆☆ · B Nacional · 4.º</div><div style="display:flex;gap:6px;align-items:center"><div class="barra"><i></i></div><div class="nv">7</div></div></div>
+    </div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#ffe066,#e0a800)">💰</div><div class="monto">$ 1.245.000</div></div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#ff8fd0,#c2369a)">⭐</div><div class="monto">4,3k</div></div>
+    <div class="esp"></div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#cfd8e6,#8a99b0)">⚙️</div></div>
+  </div>
+  <div class="play">⚽<b>JUGAR</b></div>
+  <div class="nav">
+    <div class="tab on"><span class="e">🏟️</span>Club</div>
+    <div class="tab"><span class="e">📣</span>Despacho<span class="badge">3</span></div>
+    <div class="tab"><span class="e">👥</span>Plantel</div>
+    <div class="tab"><span class="e">📋</span>Táctica</div>
+    <div class="tab"><span class="e">📅</span>Fixture</div>
+    <div class="tab"><span class="e">⋯</span>Más</div>
+  </div>
+</div>
+
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<script type="module">
+import * as THREE from 'three';
+
+const W = 1280, H = 720;
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(W, H);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#9fd3f5');
+scene.fog = new THREE.Fog('#b9e0f7', 420, 900);
+
+const camera = new THREE.PerspectiveCamera(30, W / H, 1, 3000);
+camera.position.set(150, 270, 360);
+camera.lookAt(45, 0, -10);
+
+scene.add(new THREE.HemisphereLight('#dff1ff', '#6c8a4a', 0.9));
+const sol = new THREE.DirectionalLight('#fff4dc', 2.2);
+sol.position.set(-160, 260, 140); sol.castShadow = true;
+sol.shadow.mapSize.set(2048, 2048);
+Object.assign(sol.shadow.camera, { left: -260, right: 260, top: 220, bottom: -220, near: 10, far: 800 });
+sol.shadow.bias = -0.0004;
+scene.add(sol);
+
+// ---------- utilidades ----------
+const mat = (c, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.85, metalness: 0.0 }, o));
+function caja(w, h, d, m, x, y, z, parent = scene) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), typeof m === 'string' ? mat(m) : m);
+  mesh.position.set(x, y + h / 2, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
+}
+function plano(w, d, m, x, z, y = 0.02) {
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, d), typeof m === 'string' ? mat(m) : m);
+  mesh.rotation.x = -Math.PI / 2; mesh.position.set(x, y, z); mesh.receiveShadow = true; scene.add(mesh); return mesh;
+}
+function canvasTex(w, h, draw, rep) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  if (rep) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+  return t;
+}
+
+// ---------- suelo ----------
+plano(3000, 3000, '#86b860', 0, 0, 0);
+const pasto = canvasTex(256, 256, (g, w, h) => { g.fillStyle = '#7fb35a'; g.fillRect(0, 0, w, h); g.fillStyle = '#88bc62'; g.fillRect(0, 0, w / 2, h); }, [40, 40]);
+plano(800, 800, mat('#fff', { map: pasto }), 40, 0, 0.01);
+
+// calles
+const asfalto = mat('#5c6068', { roughness: 0.95 });
+function calle(x, z, w, d) {
+  plano(w, d, asfalto, x, z, 0.05);
+  const horiz = w > d;
+  for (let k = -(horiz ? w : d) / 2 + 4; k < (horiz ? w : d) / 2; k += 12) plano(horiz ? 6 : .6, horiz ? .6 : 6, '#f2f2f2', horiz ? x + k : x, horiz ? z : z + k, 0.07);
+  plano(horiz ? w : 3, horiz ? 3 : d, '#d9d3c4', horiz ? x : x - d / 2 * 0 - (w / 2 + 1.5), horiz ? z - d / 2 - 1.5 : z, 0.06);
+}
+calle(40, 118, 560, 12);     // avenida del frente
+calle(40, -128, 560, 12);    // calle del fondo
+calle(-185, -5, 12, 250);    // lateral izquierda
+calle(108, -5, 12, 250);     // calle entre estadio y villa
+calle(255, -5, 12, 250);     // lateral derecha
+
+// ---------- estadio ----------
+const ROJO = '#C8202F';
+const estadio = new THREE.Group(); estadio.position.set(-38, 0, -5); scene.add(estadio);
+// explanada de hormigón
+const hormigon = mat('#d6d2c8', { roughness: 0.95 });
+caja(270, 0.4, 230, hormigon, 0, 0, 0, estadio);
+// cancha
+const tCancha = canvasTex(1050, 680, (g, w, h) => {
+  for (let i = 0; i < 14; i++) { g.fillStyle = i % 2 ? '#3f9a3e' : '#47a645'; g.fillRect(i * w / 14, 0, w / 14 + 1, h); }
+  g.strokeStyle = '#fff'; g.lineWidth = 4; const s = 10;
+  g.strokeRect(2, 2, w - 4, h - 4); g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, h); g.stroke();
+  g.beginPath(); g.arc(w / 2, h / 2, 9.15 * s, 0, 7); g.stroke();
+  for (const lado of [0, 1]) { const x0 = lado ? w - 16.5 * s : 0; g.strokeRect(x0, h / 2 - 20.15 * s, 16.5 * s, 40.3 * s); const x1 = lado ? w - 5.5 * s : 0; g.strokeRect(x1, h / 2 - 9.15 * s, 5.5 * s, 18.3 * s);
+    g.beginPath(); g.arc(lado ? w - 11 * s : 11 * s, h / 2, 9.15 * s, lado ? Math.PI * 0.7 : -Math.PI * 0.3, lado ? Math.PI * 1.3 : Math.PI * 0.3); g.stroke(); }
+});
+const cancha = new THREE.Mesh(new THREE.PlaneGeometry(105, 68), mat('#fff', { map: tCancha }));
+cancha.rotation.x = -Math.PI / 2; cancha.position.set(0, 0.45, 0); cancha.receiveShadow = true; estadio.add(cancha);
+const borde = new THREE.Mesh(new THREE.PlaneGeometry(125, 86), mat('#3a8f3a')); borde.rotation.x = -Math.PI / 2; borde.position.set(0, 0.43, 0); borde.receiveShadow = true; estadio.add(borde);
+// arcos
+for (const sx of [-1, 1]) { const arco = new THREE.Group(); arco.position.set(sx * 52.5, .45, 0); estadio.add(arco);
+  caja(.3, 2.44, .3, '#fff', 0, 0, -3.66, arco); caja(.3, 2.44, .3, '#fff', 0, 0, 3.66, arco); caja(.3, .3, 7.6, '#fff', 0, 2.3, 0, arco);
+  const red = caja(2, 2.4, 7.3, mat('#ffffff', { transparent: true, opacity: .35 }), sx * 1.1, 0, 0, arco); red.castShadow = false; }
+
+// textura de butacas
+function texButacas(c1, c2, letras) {
+  return canvasTex(512, 128, (g, w, h) => {
+    g.fillStyle = '#2a2d33'; g.fillRect(0, 0, w, h);
+    for (let r = 0; r < 8; r++) for (let k = 0; k < 64; k++) { g.fillStyle = (k + r) % 9 === 0 ? c2 : c1; g.fillRect(k * 8 + 1, r * 16 + 3, 6, 9); }
+  }, [6, 1]);
+}
+// tribuna: gradas escalonadas + muro trasero + techo opcional
+function tribuna({ largo, prof, alto, filas = 14, color = ROJO, techo = false, anillo = false }, x, z, rotY) {
+  const g = new THREE.Group(); g.position.set(x, .4, z); g.rotation.y = rotY; estadio.add(g);
+  const tb = texButacas(color, '#ffffff');
+  const mGrada = mat('#ffffff', { map: tb, roughness: .7 });
+  const mCem = mat('#cfd3d9');
+  for (let i = 0; i < filas; i++) {
+    const h = (i + 1) * alto / filas, d = prof / filas;
+    const m = caja(largo, h, d, [mCem, mCem, mGrada, mCem, mCem, mCem], 0, 0, i * d + d / 2, g);
+  }
+  caja(largo + 1, alto + 4, 2, '#e9eaec', 0, 0, prof + 1, g);                       // muro trasero
+  for (let k = -largo / 2; k <= largo / 2; k += largo / 8) caja(1.6, alto + 5, 2.6, '#f4f5f7', k, 0, prof + 2.2, g);  // columnas de fachada
+  caja(largo + 1, 1.4, 2.4, ROJO, 0, alto + 4, prof + 1.4, g);                       // franja de color
+  if (anillo) { // segundo anillo
+    for (let i = 0; i < 8; i++) { const h = alto + 5 + (i + 1) * 1.4; caja(largo - 6, 1.4, 1.8, [mCem, mCem, mGrada, mCem, mCem, mCem], 0, h - 1.4, prof + 3 + i * 1.8, g); }
+    caja(largo - 4, alto + 18, 2, '#e9eaec', 0, 0, prof + 18.5, g);
+  }
+  if (techo) {
+    const altoT = anillo ? alto + 22 : alto + 8, profT = anillo ? prof + 20 : prof + 4;
+    const roof = caja(largo + 4, .8, profT * 0.85, mat('#eef1f5', { roughness: .5, metalness: .2 }), 0, altoT, profT - profT * 0.85 / 2 + 1, g);
+    roof.rotation.x = -0.08;
+    for (let k = -largo / 2; k <= largo / 2; k += largo / 6) { caja(.6, 1.6, profT * .85, '#b8bec8', k, altoT + .8, profT - profT * .85 / 2 + 1, g); }
+    caja(largo + 4, 2, 1.2, ROJO, 0, altoT - .8, profT - profT * .85 + 1.4, g);
+  }
+  return g;
+}
+// lados largos (z) y cabeceras (x)
+tribuna({ largo: 112, prof: 22, alto: 13, filas: 16, techo: true, anillo: true }, 0, -43, Math.PI);        // platea (fondo), dos anillos
+tribuna({ largo: 112, prof: 12, alto: 5, filas: 10, color: '#ffffff' }, 0, 43, 0); // platea cercana
+tribuna({ largo: 74, prof: 18, alto: 10, filas: 14 }, -61, 0, -Math.PI / 2);                           // popular local
+tribuna({ largo: 74, prof: 18, alto: 10, filas: 14, color: '#7f8894' }, 61, 0, Math.PI / 2);          // visitante
+// esquinas: torres de luz
+for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+  const t = new THREE.Group(); t.position.set(sx * 72, .4, sz * 58); estadio.add(t);
+  caja(2, 42, 2, '#9aa3b1', 0, 0, 0, t);
+  const panel = caja(9, 5, 1.2, mat('#2d3440'), 0, 42, 0, t); panel.lookAt(estadio.position.x, 20, estadio.position.z);
+  const luz = caja(8, 4, .4, mat('#fffbe0', { emissive: '#fff4c0', emissiveIntensity: 1.2 }), 0, 42.5, 0, t); luz.lookAt(0, 20, 0); luz.position.add(new THREE.Vector3(-sx * .6, 0, -sz * .6));
+}
+// pantalla gigante sobre la popular visitante
+caja(22, 9, 1.2, mat('#101820', { emissive: '#1a3d6b', emissiveIntensity: .6 }), 64 + 17, 15, 0, estadio).rotation.y = -Math.PI / 2;
+// público (puntitos) en la popular local
+const hinchas = new THREE.InstancedMesh(new THREE.BoxGeometry(.9, 1.4, .9), mat('#ffffff'), 600);
+const tmp = new THREE.Object3D(); const col = new THREE.Color();
+for (let i = 0; i < 600; i++) { const fila = i % 14, k = Math.floor(i / 14);
+  tmp.position.set(-61 - 18 * (fila + .5) / 14, .4 + (fila + 1) * 10 / 14 + .7, -35 + (k * 1.66) % 70); tmp.updateMatrix(); hinchas.setMatrixAt(i, tmp.matrix);
+  hinchas.setColorAt(i, col.set(i % 3 ? ROJO : '#ffffff')); }
+estadio.add(hinchas);
+// estacionamiento del estadio
+plano(36, 190, asfalto, 82, -5, .5);
+
+// ---------- la villa (a la derecha) ----------
+function lote(x, z, w, d) { caja(w, .6, d, hormigon, x, 0, z); const p = plano(w - 4, d - 4, '#7fb35a', x, z, .62); return p; }
+// oficinas (el Despacho)
+lote(165, -75, 80, 66);
+const ofi = new THREE.Group(); ofi.position.set(160, .6, -78); scene.add(ofi);
+const vidrio = mat('#8cc4ee', { roughness: .15, metalness: .4 });
+caja(46, 22, 28, '#eef0f2', 0, 0, 0, ofi);
+for (let p = 0; p < 4; p++) caja(46.4, 3.2, 28.4, vidrio, 0, 2.5 + p * 5, 0, ofi);
+caja(48, 1.6, 30, ROJO, 0, 22, 0, ofi);
+caja(8, 4, 8, '#d0d5dc', 14, 23.6, -6, ofi);
+caja(.4, 14, .4, '#ddd', -20, 0, 18, ofi); caja(6, 3.6, .2, ROJO, -17, 10, 18, ofi);
+// prensa y redes
+lote(215, -75, 50, 66);
+const pre = new THREE.Group(); pre.position.set(215, .6, -78); scene.add(pre);
+caja(30, 12, 24, '#3a4556', 0, 0, 0, pre);
+caja(26, 7, .4, mat('#0f1722', { emissive: '#3b1220', emissiveIntensity: .5 }), 0, 2.5, 12.2, pre);
+caja(.6, 12, .6, '#9aa3b1', 9, 12, -6, pre); caja(5, 5, .4, '#e9edf2', 9, 22, -6, pre);
+// entrenamiento
+lote(180, 45, 130, 120);
+const tEntr = canvasTex(512, 330, (g, w, h) => { for (let i = 0; i < 10; i++) { g.fillStyle = i % 2 ? '#3f9a3e' : '#48a646'; g.fillRect(i * w / 10, 0, w / 10 + 1, h); } g.strokeStyle = '#fff'; g.lineWidth = 3; g.strokeRect(2, 2, w - 4, h - 4); g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, h); g.stroke(); g.beginPath(); g.arc(w / 2, h / 2, 40, 0, 7); g.stroke(); });
+const entr = new THREE.Mesh(new THREE.PlaneGeometry(90, 58), mat('#fff', { map: tEntr })); entr.rotation.x = -Math.PI / 2; entr.position.set(165, .7, 40); entr.receiveShadow = true; scene.add(entr);
+for (const sx of [-1, 1]) { caja(.3, 2.2, .3, '#fff', 165 + sx * 45, .7, 37); caja(.3, 2.2, .3, '#fff', 165 + sx * 45, .7, 43); caja(.3, .3, 6.3, '#fff', 165 + sx * 45, 2.6, 40); }
+// ojeadores + parrilla
+const ojea = caja(18, 7, 14, '#e7dcc7', 230, .6, 18); caja(19, 1, 15, '#2f5f9e', 230, 7.6, 18);
+const parr = caja(16, 5, 12, '#f0e2c8', 230, .6, 72); caja(17, .8, 13, '#2f7d3a', 230, 5.6, 72);
+
+// árboles low-poly
+const copa = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(3.2, 0), mat('#4f9a3e', { flatShading: true }), 400);
+const tronco = new THREE.InstancedMesh(new THREE.CylinderGeometry(.4, .5, 3, 5), mat('#7a5233'), 400);
+copa.castShadow = tronco.castShadow = true;
+let n = 0; const arbolEn = (x, z) => { if (n >= 400) return; const s = .8 + ((x * 13 + z * 7) % 10) / 25; tmp.scale.set(s, s, s);
+  tmp.position.set(x, 1.5 * s, z); tmp.updateMatrix(); tronco.setMatrixAt(n, tmp.matrix);
+  tmp.position.set(x, 4.6 * s, z); tmp.updateMatrix(); copa.setMatrixAt(n, tmp.matrix); copa.setColorAt(n, col.set(n % 3 ? '#4f9a3e' : '#5fae47')); n++; };
+for (let x = -175; x < 255; x += 9) { arbolEn(x, 127); arbolEn(x, -137); }
+for (let z = -110; z < 112; z += 10) { arbolEn(-178, z); arbolEn(118, z); }
+for (let x = 120; x < 250; x += 12) arbolEn(x, 106);
+tmp.scale.set(1, 1, 1); scene.add(copa, tronco);
+
+// ciudad de fondo
+const tVent = canvasTex(64, 128, (g, w, h) => { g.fillStyle = '#c9d3de'; g.fillRect(0, 0, w, h); for (let y = 4; y < h; y += 10) for (let x = 4; x < w; x += 10) { g.fillStyle = (x * y) % 7 ? '#7f9bb8' : '#e8f1fa'; g.fillRect(x, y, 6, 6); } });
+for (let i = 0; i < 70; i++) {
+  const x = -420 + i * 13 + ((i * 37) % 9), z = -230 - ((i * 53) % 120), h = 30 + ((i * 71) % 110), w = 10 + (i * 17) % 14;
+  const t = tVent.clone(); t.needsUpdate = true; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(w / 10, h / 14);
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), mat('#fff', { map: t, roughness: .6 })); m.position.set(x, h / 2, z); scene.add(m);
+}
+
+renderer.render(scene, camera);
+
+// ---------- etiquetas HTML proyectadas ----------
+function etiqueta(texto, x, y, z, cls = '') {
+  const v = new THREE.Vector3(x, y, z).project(camera);
+  const d = document.createElement('div'); d.className = 'lbl ' + cls; d.textContent = texto;
+  d.style.left = ((v.x + 1) / 2 * W) + 'px'; d.style.top = ((1 - v.y) / 2 * H) + 'px'; stage.appendChild(d);
+}
+etiqueta('Estadio Villa Ferro · Categoría 3 · 28.000', -38, 60, -5, 'big');
+etiqueta('⬆ Techar la popular local', -110, 22, -5, 'alerta');
+etiqueta('Oficinas · el Despacho  📣 3', 160, 32, -78);
+etiqueta('Prensa y redes', 215, 18, -78);
+etiqueta('Entrenamiento · Nv 3', 165, 8, 40);
+etiqueta('Ojeadores', 230, 12, 18);
+etiqueta('Parrilla', 230, 9, 72);
+window.listo = true;
+
+function fit() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

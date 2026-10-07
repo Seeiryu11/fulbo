@@ -71,5 +71,5 @@ Juego (pantalla completa)
 
 ## Decisiones tomadas
 - **D1 (2026-10-07, corregida) · Navegador primero, sin marco.** Se diseña para navegador de escritorio, a pantalla completa. No hay Facebook falso: BOLA era un juego de Facebook y eso era solo contexto. Celular en V1 (INT-8).
-- **D2 (2026-10-07) · Arte intermedio.** No es el arte final, pero tiene que ser lindo y verse bien: isometría con volumen, sombras, gradientes y brillo estilo BOLA, en vectores (SVG), reemplazable sin tocar la lógica.
+- **D2 (2026-10-07, revisada) · Arte: en revisión.** El SVG isométrico se descartó por verse infantil. Se busca un look profesional como los estadios 3D de BOLA (`referencias/estadios-bola/`). Propuesta: 3D en el navegador con Three.js (prueba: `referencias/mockups/predio-3d.png`).
 - **D3 (2026-10-07) · Vos sos el dueño.** La creación inicial es solo del club; no se crea jugador propio.
