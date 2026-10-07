@@ -120,6 +120,28 @@ MVP: Oficinas (Despacho), Cancha de entrenamiento, Oficina de ojeadores, Oficina
 3. EL SISTEMA DEBE mostrar la camiseta y los sponsors en el partido, en el estadio y en las publicaciones del club.
 4. EL SISTEMA DEBE dejarme elegir la **ambientación** del club (DES-8) y el **estilo** del estadio (CLU-2); el paisaje sale de ahí. Ambientaciones absurdas como la luna se desbloquean.
 
+### CLU-13 · Entorno de fondo cambiable — MVP
+**Historia:** Como dueño, quiero elegir dónde está mi club y poder cambiarlo, para que mi estadio se vea único.
+1. EL SISTEMA DEBE ofrecer **entornos** completos para el fondo y los alrededores del club, cada uno con terreno, vegetación, clima, luz y horizonte propios:
+
+   | Entorno | Cómo se ve |
+   |---------|------------|
+   | Ciudad | Avenidas, edificios altos y skyline de fondo |
+   | Campo | Llanura, alambrados, silos, molinos, árboles en hilera |
+   | Montaña | Cordillera de fondo, pinos, terreno con desniveles |
+   | Frío | Nieve, cielo gris, pinos nevados, luces cálidas |
+   | Caribe | Mar turquesa, playa, palmeras, sol fuerte |
+   | Costa | Puerto, rambla, médanos |
+   | Desierto | Arena, rocas, cielo despejado |
+   | Luna (desbloqueable) | Guiño a BOLA |
+
+2. EL SISTEMA DEBE dejar **cambiar el entorno** en cualquier momento desde la identidad del club (con costo, como una mudanza), sin perder nada de lo construido.
+3. EL SISTEMA DEBE combinar el entorno con el estilo del estadio (CLU-2): cualquier estilo funciona en cualquier entorno.
+4. EL SISTEMA DEBE usar el entorno para las situaciones locales del Despacho (DES-8).
+5. EL SISTEMA DEBE construir cada entorno con el mismo sistema de piezas (terreno, vegetación, horizonte, cielo, luz), para que agregar uno nuevo no implique rehacer el juego.
+
+MVP: Ciudad, Campo y Montaña. V1: el resto.
+
 ### CLU-9 · Sponsors — MVP
 1. EL SISTEMA DEBE tener espacios de sponsor: pecho, espalda, manga, short, carteles del estadio y naming rights del estadio.
 2. CUANDO un sponsor me ofrece contrato, EL SISTEMA DEBE mostrar plata por temporada, requisitos (fama, Lujo, resultados) y **efectos secundarios** (ej. casa de apuestas: mucha plata, situaciones del Despacho de amaño y críticas; yerba del barrio: poca plata, + hinchas).
@@ -149,6 +171,7 @@ MVP: Oficinas (Despacho), Cancha de entrenamiento, Oficina de ojeadores, Oficina
 - **D2 (2026-10-07)** Las obras duran fechas jugadas, no tiempo real → CLU-3.
 - **D3 (2026-10-07)** Solo **Pesos y Fama**, sin moneda premium. La monetización se agrega cuando el juego esté aceitado → CLU-10.
 - **D5 (2026-10-07)** El estadio es la atracción principal de la aldea, a un costado y bien grande; el resto del club ("la villa") se agrupa del otro lado. No es pantalla partida literal → CLU-1.
+- **D7 (2026-10-07)** El fondo del club es un **entorno cambiable** (ciudad, campo, montaña, frío, Caribe, costa, desierto…) → CLU-13.
 - **D6 (2026-10-07)** Mucha variedad de estadios: categorías × estilos (ascenso, Primera, europeo, andino, invierno extremo, tropical…) × piezas. La ambientación no está atada a Argentina como país → CLU-2, DES-8.
 - **D4 (2026-10-07)** Se arranca en la **B Nacional**: el 1.º asciende directo y el 2.º juega repechaje contra un equipo de Primera → CLU-12.
 

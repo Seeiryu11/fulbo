@@ -9,8 +9,8 @@ Estado: `propuesta` (el stack es una opción recomendada, no una decisión cerra
 | Lenguaje | **TypeScript** | El modelo de datos es grande (club, plantel, eventos); los tipos evitan romper cosas entre specs. |
 | Build / dev server | **Vite** | Arranca al instante, recarga en vivo y genera un sitio estático que se sube a cualquier lado. |
 | UI (menús, modales, HUD, Despacho) | **Preact** + CSS propio | Componentes como React pero livianos. La UI es casi toda paneles y listas. |
-| Predio isométrico | **SVG** generado por código | Arte intermedio vectorial: sombras, gradientes y brillo. Cada pieza del estadio es un componente que se puede cambiar por arte final sin tocar la lógica. |
-| Partido jugable (fase 5) | **PixiJS** sobre canvas | Recién cuando lleguemos; no se instala antes. |
+| Club en 3D (estadio, villa, entorno) | **Three.js** (WebGL) | Decidido el 2026-10-07: el SVG se veía infantil. El 3D da escala real, luz y sombras, y el estadio por piezas es natural (cada tribuna, techo o fachada es un objeto que se reemplaza). Prueba: `referencias/mockups/predio-europeo.png`. |
+| Partido jugable (fase 5) | **Three.js** (misma escena 3D) | Se reutiliza el estadio del club como escenario del partido. |
 | Estado del juego | Store propio (un objeto `Partida` + acciones puras) | Lógica separada de la UI y testeable sin navegador. |
 | Guardado | **localStorage** / IndexedDB en el navegador | Sin backend hasta la parte social. |
 | Tests | **Vitest** | Para la lógica (economía, obras, eventos, simulación). |
@@ -34,7 +34,7 @@ src/
     hud/
     pantallas/    predio, despacho, plantel, tactica, dts, mercado, identidad, sponsors, fixture, diario, fecha/*
     componentes/  Modal, Boton, Panel, Contador, Avatar, Escudo, Camiseta...
-    iso/          SVG isométrico: Estadio, Pieza, Edificio, Terreno
+    escena3d/     Three.js: estadio por piezas, villa, entornos, cámara y etiquetas
   tests/
 ```
 

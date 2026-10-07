@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estadio europeo — prototipo</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--amarillo:#F5C518;--amarillo-osc:#C99500;--rojo:#C8202F;--hud1:#2F6FB5;--hud2:#1B3F73}
+  html,body{margin:0;height:100%;overflow:hidden;background:#a9d6f2;font-family:Nunito,Tahoma,sans-serif}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;overflow:hidden}
+  canvas{position:absolute;inset:0;display:block}
+  .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;gap:10px;z-index:3}
+  .pan{background:linear-gradient(var(--hud1),var(--hud2));border:3px solid #fff;border-radius:14px;box-shadow:0 4px 0 rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.35);color:#fff;padding:6px 12px;display:flex;align-items:center;gap:10px}
+  .nombre{font-family:'Lilita One';font-size:22px;line-height:1;text-shadow:0 2px 0 #0b2140}
+  .sub{font-size:12px;color:#cfe3ff;font-weight:800}
+  .barra{width:150px;height:14px;border-radius:8px;background:#0b2140;border:2px solid #fff;overflow:hidden;margin-top:4px}
+  .barra i{display:block;height:100%;width:62%;background:linear-gradient(#9cf06b,#3fae2a)}
+  .nv{font-family:'Lilita One';background:var(--amarillo);color:#3a2800;border:2px solid #fff;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:16px}
+  .monto{font-family:'Lilita One';font-size:22px;text-shadow:0 2px 0 #0b2140}
+  .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:19px;border:2px solid #fff}
+  .esp{flex:1}
+  .play{position:absolute;left:22px;bottom:22px;width:124px;height:124px;border-radius:50%;z-index:3;background:radial-gradient(circle at 50% 35%,#4a4a4a,#111 70%);border:6px solid var(--amarillo);box-shadow:0 6px 0 #6b4f00,0 10px 20px rgba(0,0,0,.4);display:grid;place-items:center;font-size:40px}
+  .play b{position:absolute;bottom:-14px;font-family:'Lilita One';font-size:28px;color:#fff;text-shadow:-2px -2px 0 #2a1a00,2px -2px 0 #2a1a00,-2px 2px 0 #2a1a00,2px 2px 0 #2a1a00,0 4px 0 #2a1a00}
+  .nav{position:absolute;left:180px;right:180px;bottom:16px;height:66px;border-radius:18px;border:4px solid #fff;z-index:3;background:linear-gradient(#ffe066,var(--amarillo) 55%,var(--amarillo-osc));box-shadow:0 6px 0 #7a5a00,0 12px 24px rgba(0,0,0,.35);display:flex;justify-content:space-around;align-items:center}
+  .tab{display:flex;flex-direction:column;align-items:center;font-family:'Lilita One';color:#4a3200;font-size:15px;padding:3px 14px;border-radius:12px;position:relative}
+  .tab .e{font-size:24px;line-height:1.1}.tab.on{background:rgba(255,255,255,.55)}
+  .badge{position:absolute;top:-6px;right:2px;background:var(--rojo);color:#fff;font-family:'Lilita One';font-size:13px;border:2px solid #fff;border-radius:12px;padding:0 6px}
+  .lbl{position:absolute;z-index:2;transform:translate(-50%,-100%);white-space:nowrap;font-weight:900;font-size:12px;color:#fff;background:rgba(16,32,56,.85);border:1.5px solid #fff;border-radius:7px;padding:2px 8px}
+  .lbl.big{font-family:'Lilita One';font-weight:400;font-size:16px;background:linear-gradient(#ffe066,#e0a800);color:#3a2800;border:2px solid #fff;border-radius:14px;padding:3px 14px;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="hud">
+    <div class="pan" style="min-width:330px">
+      <svg width="44" height="52" viewBox="0 0 48 56"><path d="M24 2 L44 9 V27 C44 41 34 50 24 54 C14 50 4 41 4 27 V9 Z" fill="#fff"/><path d="M24 6 L40 11.5 V27 C40 38.5 32 46 24 49.5 C16 46 8 38.5 8 27 V11.5 Z" fill="#C8202F"/><path d="M8 22 H40 V30 H8 Z" fill="#fff"/><text x="24" y="29" text-anchor="middle" font-family="Lilita One" font-size="9" fill="#C8202F">AVF</text></svg>
+      <div><div class="nombre">Atlético Villa Ferro</div><div class="sub">★★★★★ · Primera · 1.º</div><div style="display:flex;gap:6px;align-items:center"><div class="barra"><i></i></div><div class="nv">42</div></div></div>
+    </div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#ffe066,#e0a800)">💰</div><div class="monto">$ 984.300.000</div></div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#ff8fd0,#c2369a)">⭐</div><div class="monto">2,1M</div></div>
+    <div class="esp"></div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#cfd8e6,#8a99b0)">⚙️</div></div>
+  </div>
+  <div class="play">⚽<b>JUGAR</b></div>
+  <div class="nav">
+    <div class="tab on"><span class="e">🏟️</span>Club</div>
+    <div class="tab"><span class="e">📣</span>Despacho<span class="badge">3</span></div>
+    <div class="tab"><span class="e">👥</span>Plantel</div>
+    <div class="tab"><span class="e">📋</span>Táctica</div>
+    <div class="tab"><span class="e">📅</span>Fixture</div>
+    <div class="tab"><span class="e">⋯</span>Más</div>
+  </div>
+</div>
+
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<script type="module">
+import * as THREE from 'three';
+
+const W = 1280, H = 720, ROJO = '#C8202F';
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(W, H);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#a9d6f2');
+scene.fog = new THREE.Fog('#c3e2f5', 650, 1400);
+
+const camera = new THREE.PerspectiveCamera(30, W / H, 1, 4000);
+const MIRA = new THREE.Vector3(105, 0, 10);
+camera.position.set(MIRA.x + 120, 380, MIRA.z + 560);
+camera.lookAt(MIRA);
+const HERO = new URLSearchParams(location.search).has('hero');
+if (HERO) {
+  camera.fov = 32; camera.updateProjectionMatrix();
+  camera.position.set(125, 190, 200); camera.lookAt(-6, -4, -12);
+  document.querySelectorAll('.hud,.play,.nav').forEach(e => e.style.display = 'none');
+}
+
+scene.add(new THREE.HemisphereLight('#e6f4ff', '#6f8a55', 0.95));
+const sol = new THREE.DirectionalLight('#fff3dd', 2.4);
+sol.position.set(-240, 320, 200); sol.castShadow = true;
+sol.shadow.mapSize.set(4096, 4096);
+Object.assign(sol.shadow.camera, { left: -420, right: 420, top: 340, bottom: -340, near: 10, far: 1200 });
+sol.shadow.bias = -0.0003; sol.shadow.normalBias = 0.6;
+scene.add(sol);
+
+// ---------- utilidades ----------
+const mat = (c, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.8, metalness: 0 }, o));
+function caja(w, h, d, m, x, y, z, parent = scene) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), typeof m === 'string' ? mat(m) : m);
+  mesh.position.set(x, y + h / 2, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
+}
+function plano(w, d, m, x, z, y = 0.02, parent = scene) {
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, d), typeof m === 'string' ? mat(m) : m);
+  mesh.rotation.x = -Math.PI / 2; mesh.position.set(x, y, z); mesh.receiveShadow = true; parent.add(mesh); return mesh;
+}
+function canvasTex(w, h, draw, rep) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; if (rep) t.repeat.set(rep[0], rep[1]);
+  return t;
+}
+let semilla = 7; const rnd = () => (semilla = (semilla * 16807) % 2147483647) / 2147483647;
+
+// ---------- curva del estadio: rectángulo redondeado (superelipse) ----------
+const A0 = 60, B0 = 42, NEXP = 0.42;   // borde interno de las tribunas, desde el centro de la cancha
+function curva(o, t) {
+  const c = Math.cos(t), s = Math.sin(t);
+  return [(A0 + o) * Math.sign(c) * Math.pow(Math.abs(c), NEXP), (B0 + o) * Math.sign(s) * Math.pow(Math.abs(s), NEXP)];
+}
+// superficie entre dos anillos (o1,y1) → (o2,y2)
+function anillo(o1, y1, o2, y2, material, { seg = 320, uMetro = 40, parent } = {}) {
+  const pos = [], uv = [], idx = []; let largo = 0, prev = null;
+  for (let i = 0; i <= seg; i++) {
+    const t = i / seg * Math.PI * 2, p1 = curva(o1, t), p2 = curva(o2, t);
+    if (prev) largo += Math.hypot(p1[0] - prev[0], p1[1] - prev[1]); prev = p1;
+    pos.push(p1[0], y1, p1[1], p2[0], y2, p2[1]); uv.push(largo / uMetro, 0, largo / uMetro, 1);
+    if (i < seg) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setIndex(idx); g.computeVertexNormals();
+  const m = new THREE.Mesh(g, material); m.castShadow = true; m.receiveShadow = true; (parent || estadio).add(m); return m;
+}
+const estadio = new THREE.Group(); scene.add(estadio);
+
+// ---------- entorno: ciudad ----------
+plano(5000, 5000, '#8db866', 0, 0, 0);
+const baldosa = canvasTex(256, 256, (g, w, h) => { g.fillStyle = '#d9d6cf'; g.fillRect(0, 0, w, h); g.strokeStyle = '#c7c3ba'; g.lineWidth = 2; for (let k = 0; k <= w; k += 32) { g.beginPath(); g.moveTo(k, 0); g.lineTo(k, h); g.stroke(); g.beginPath(); g.moveTo(0, k); g.lineTo(w, k); g.stroke(); } }, [60, 50]);
+plano(330, 280, mat('#fff', { map: baldosa, roughness: .95 }), 0, 0, .05);          // explanada del estadio
+const asfalto = mat('#4f535a', { roughness: .95 });
+function calle(x, z, w, d) {
+  plano(w, d, asfalto, x, z, .06); const horiz = w > d;
+  for (let k = -(horiz ? w : d) / 2 + 5; k < (horiz ? w : d) / 2; k += 14) plano(horiz ? 7 : .6, horiz ? .6 : 7, '#f0f0f0', horiz ? x + k : x, horiz ? z : z + k, .08);
+}
+calle(150, 160, 900, 16); calle(150, -165, 900, 16); calle(-185, 0, 16, 600); calle(185, 0, 16, 600); calle(460, 0, 16, 600);
+// árboles
+const copa = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(3.4, 1), mat('#4d8f3c', { flatShading: true, roughness: .9 }), 900);
+const tronco = new THREE.InstancedMesh(new THREE.CylinderGeometry(.45, .6, 3.4, 6), mat('#6e4a2e'), 900);
+copa.castShadow = tronco.castShadow = true;
+const tmp = new THREE.Object3D(), col = new THREE.Color(); let nArb = 0;
+function arbol(x, z, s = 1) { if (nArb >= 900) return; s *= .85 + rnd() * .35; tmp.rotation.set(0, rnd() * 6, 0); tmp.scale.set(s, s, s);
+  tmp.position.set(x, 1.7 * s, z); tmp.updateMatrix(); tronco.setMatrixAt(nArb, tmp.matrix);
+  tmp.position.set(x, 5.4 * s, z); tmp.updateMatrix(); copa.setMatrixAt(nArb, tmp.matrix);
+  copa.setColorAt(nArb, col.set(['#4d8f3c', '#5a9e44', '#437f36'][nArb % 3])); nArb++; }
+for (let x = -170; x <= 170; x += 11) { arbol(x, 146); arbol(x, -150); }
+for (let z = -135; z <= 135; z += 11) { arbol(-170, z); arbol(170, z); }
+// ciudad de fondo: torres y edificios medianos
+const tVent = (base, luz) => canvasTex(64, 128, (g, w, h) => { g.fillStyle = base; g.fillRect(0, 0, w, h); for (let y = 4; y < h; y += 9) for (let x = 3; x < w; x += 8) { g.fillStyle = rnd() < .2 ? luz : '#6f8aa6'; g.fillRect(x, y, 5, 6); } });
+const texturasCiudad = [tVent('#d7dde5', '#eef5ff'), tVent('#c9d2dc', '#e4eef9'), tVent('#e3ddd2', '#fff6e6')];
+for (let i = 0; i < 140; i++) {
+  const lejos = i < 80;
+  const x = -700 + rnd() * 1500, z = lejos ? -330 - rnd() * 380 : -200 - rnd() * 110;
+  if (!lejos && x > -230 && x < 520 && z > -220) continue;
+  const h = lejos ? 40 + rnd() * 150 : 18 + rnd() * 40, w = 14 + rnd() * 22, d = 14 + rnd() * 22;
+  const t = texturasCiudad[i % 3].clone(); t.needsUpdate = true; t.repeat.set(w / 12, h / 14);
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat('#fff', { map: t, roughness: .55, metalness: .1 }));
+  m.position.set(x, h / 2, z); m.castShadow = !lejos; m.receiveShadow = true; scene.add(m);
+}
+// manzanas bajas a los costados
+for (let i = 0; i < 40; i++) { const lado = i % 2 ? 1 : -1, x = lado < 0 ? -260 - rnd() * 140 : 520 + rnd() * 160, z = -140 + rnd() * 320, h = 8 + rnd() * 16, w = 16 + rnd() * 18;
+  const t = texturasCiudad[2].clone(); t.needsUpdate = true; t.repeat.set(w / 12, h / 14);
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), mat('#fff', { map: t })); m.position.set(x, h / 2, z); m.castShadow = true; m.receiveShadow = true; scene.add(m); }
+
+// ---------- cancha ----------
+const tCancha = canvasTex(1050, 680, (g, w, h) => {
+  for (let i = 0; i < 18; i++) { g.fillStyle = i % 2 ? '#3b8f3a' : '#44a142'; g.fillRect(i * w / 18, 0, w / 18 + 1, h); }
+  g.strokeStyle = 'rgba(255,255,255,.95)'; g.lineWidth = 4; const s = 10;
+  g.strokeRect(2, 2, w - 4, h - 4); g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, h); g.stroke();
+  g.beginPath(); g.arc(w / 2, h / 2, 9.15 * s, 0, 7); g.stroke();
+  for (const L of [0, 1]) { g.strokeRect(L ? w - 16.5 * s : 0, h / 2 - 20.15 * s, 16.5 * s, 40.3 * s); g.strokeRect(L ? w - 5.5 * s : 0, h / 2 - 9.15 * s, 5.5 * s, 18.3 * s);
+    g.beginPath(); g.arc(L ? w - 11 * s : 11 * s, h / 2, 9.15 * s, L ? Math.PI * .7 : -Math.PI * .3, L ? Math.PI * 1.3 : Math.PI * .3); g.stroke(); }
+});
+tCancha.wrapS = tCancha.wrapT = THREE.ClampToEdgeWrapping;
+plano(2 * A0 + 6, 2 * B0 + 6, '#3a8a3a', 0, 0, .2, estadio);
+plano(105, 68, mat('#fff', { map: tCancha, roughness: .9 }), 0, 0, .25, estadio);
+for (const sx of [-1, 1]) { caja(.25, 2.44, .25, '#fff', sx * 52.5, .25, -3.66, estadio); caja(.25, 2.44, .25, '#fff', sx * 52.5, .25, 3.66, estadio); caja(.25, .25, 7.6, '#fff', sx * 52.5, 2.5, 0, estadio);
+  const red = caja(2.2, 2.4, 7.3, mat('#fff', { transparent: true, opacity: .3 }), sx * 53.7, .25, 0, estadio); red.castShadow = false; }
+// carteles LED perimetrales
+const tLED = canvasTex(1024, 64, (g, w, h) => { const marcas = ['APOSTAR', 'YERBA LA PATRONA', 'BILLETERA YA', 'CERVEZA DEL SUR', 'CRIPTOGOL', 'TELCO+']; for (let i = 0; i < 6; i++) { g.fillStyle = ['#0f7a3c', '#f5c518', '#2b5bd7', '#c8202f', '#111', '#7a2bd7'][i]; g.fillRect(i * w / 6, 0, w / 6, h); g.fillStyle = i === 1 ? '#222' : '#fff'; g.font = 'bold 30px Arial'; g.textAlign = 'center'; g.fillText(marcas[i], i * w / 6 + w / 12, 43); } }, [3, 1]);
+anillo(-4, .2, -4, 1.1, mat('#fff', { map: tLED, emissive: '#ffffff', emissiveMap: tLED, emissiveIntensity: .45, side: THREE.DoubleSide }), { uMetro: 120 });
+
+// ---------- butacas ----------
+function texGradas(colorA, colorB, filas) {
+  return canvasTex(512, 512, (g, w, h) => {
+    const fh = h / filas;
+    for (let r = 0; r < filas; r++) {
+      g.fillStyle = '#3a3e45'; g.fillRect(0, r * fh, w, fh);
+      for (let k = 0; k < 64; k++) {
+        const x = k * 8; const ocupado = rnd() < .62;
+        g.fillStyle = (k % 16 < 8) ? colorA : colorB; g.fillRect(x + 1, r * fh + fh * .25, 6, fh * .55);
+        if (ocupado) { g.fillStyle = ['#f2d0b0', '#c89670', '#8a5a3c', '#e9e9e9', colorA, '#1d1d1d'][Math.floor(rnd() * 6)]; g.fillRect(x + 2, r * fh + fh * .05, 4, fh * .45); }
+      }
+    }
+  });
+}
+const mGradaBaja = mat('#fff', { map: texGradas(ROJO, '#a8182a', 24), roughness: .8, side: THREE.DoubleSide });
+mGradaBaja.map.repeat.set(1, 1);
+const mGradaAlta = mat('#fff', { map: texGradas(ROJO, '#ffffff', 26), roughness: .8, side: THREE.DoubleSide });
+const hormigon = mat('#d8dbe0', { roughness: .9, side: THREE.DoubleSide });
+const vidrioVIP = mat('#2a3c52', { roughness: .15, metalness: .5, emissive: '#ffcf8a', emissiveIntensity: .18, side: THREE.DoubleSide });
+
+// anillo inferior, palcos, anillo superior
+anillo(0, .8, 0, 2.2, hormigon);                       // muro frente a la cancha
+anillo(0, 2.2, 21, 15, mGradaBaja, { uMetro: 45 });
+anillo(21, 15, 21, 20, vidrioVIP);                      // palcos vidriados
+anillo(21, 20, 23.5, 20, hormigon);                     // pasillo
+anillo(23.5, 20.3, 23.5, 21.5, hormigon);
+anillo(23.5, 21.5, 46, 38, mGradaAlta, { uMetro: 50 });
+anillo(46, 38, 46, 40, hormigon);
+
+// ---------- fachada ----------
+const tFachada = canvasTex(256, 256, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#e84a5a'); gr.addColorStop(1, '#9e1424'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 3; for (let k = -h; k < w; k += 32) { g.beginPath(); g.moveTo(k, h); g.lineTo(k + h, 0); g.stroke(); g.beginPath(); g.moveTo(k, 0); g.lineTo(k + h, h); g.stroke(); } }, [1, 1]);
+anillo(48, 7, 48, 40, mat('#fff', { map: tFachada, emissive: '#ff3b4f', emissiveMap: tFachada, emissiveIntensity: .25, roughness: .4, metalness: .1, side: THREE.DoubleSide }), { uMetro: 18 });
+anillo(49.5, 0, 49.5, 7, mat('#9fc9e8', { roughness: .1, metalness: .55, side: THREE.DoubleSide }), { uMetro: 18 });   // planta baja vidriada
+anillo(49.5, 7, 48, 7, hormigon);
+// columnas / costillas de la fachada
+const NCOST = 96;
+const costillas = new THREE.InstancedMesh(new THREE.BoxGeometry(1.1, 44, 2.6), mat('#f4f5f7', { roughness: .4, metalness: .2 }), NCOST);
+costillas.castShadow = true;
+for (let i = 0; i < NCOST; i++) { const t = i / NCOST * Math.PI * 2, [x, z] = curva(50.2, t); tmp.position.set(x, 22, z); tmp.rotation.set(0, 0, 0); tmp.scale.set(1, 1, 1); tmp.lookAt(0, 22, 0); tmp.updateMatrix(); costillas.setMatrixAt(i, tmp.matrix); }
+estadio.add(costillas);
+
+// ---------- techo ----------
+const membrana = mat('#f3f5f8', { roughness: .35, metalness: .1, side: THREE.DoubleSide });
+anillo(52, 46, 14, 41, membrana);
+anillo(52, 46, 52, 43.5, mat('#e6e9ee', { side: THREE.DoubleSide }));
+anillo(14, 41, 14, 40, mat('#fffbe6', { emissive: '#fff6d0', emissiveIntensity: 1.0, side: THREE.DoubleSide }));   // aro de luces
+// cerchas radiales
+const NC = 72;
+const cerchas = new THREE.InstancedMesh(new THREE.BoxGeometry(.8, 1.6, 1), mat('#c9cfd8', { metalness: .4, roughness: .4 }), NC);
+cerchas.castShadow = true;
+for (let i = 0; i < NC; i++) { const t = i / NC * Math.PI * 2, a = curva(14, t), b = curva(52, t), L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  tmp.position.set((a[0] + b[0]) / 2, 44.4, (a[1] + b[1]) / 2); tmp.scale.set(1, 1, L); tmp.rotation.set(0, 0, 0); tmp.lookAt(b[0], 45.6, b[1]); tmp.updateMatrix(); cerchas.setMatrixAt(i, tmp.matrix); }
+estadio.add(cerchas);
+// pantallas gigantes en dos esquinas
+for (const [t, r] of [[Math.PI * .25, 1], [Math.PI * 1.25, -1]]) { const [x, z] = curva(30, t); const p = caja(16, 8, 1, mat('#0b1220', { emissive: '#1d4f8f', emissiveIntensity: .7 }), x, 30, z, estadio); p.lookAt(0, 30, 0); }
+
+// ---------- explanada: accesos, nombre, monumento ----------
+const tNombre = canvasTex(1024, 160, (g, w, h) => { g.fillStyle = 'rgba(0,0,0,0)'; g.clearRect(0, 0, w, h); g.fillStyle = '#ffffff'; g.font = 'bold 110px Arial'; g.textAlign = 'center'; g.fillText('VILLA FERRO ARENA', w / 2, 120); });
+const cartelNombre = new THREE.Mesh(new THREE.PlaneGeometry(70, 11), mat('#fff', { map: tNombre, transparent: true, emissive: '#ffffff', emissiveMap: tNombre, emissiveIntensity: .6 }));
+{ const [x, z] = curva(52.5, Math.PI / 2); cartelNombre.position.set(x, 32, z); estadio.add(cartelNombre); }
+for (const t of [Math.PI / 2 - .5, Math.PI / 2 + .5, -Math.PI / 2]) { const [x, z] = curva(58, t); const esc = caja(16, .8, 10, '#c4c0b6', x, 0, z, estadio); esc.lookAt(0, .4, 0); }
+// estatua del ídolo en la plaza
+caja(8, 3, 8, '#bfc4cc', -70, 0, 110); caja(2.4, 6, 2.4, '#8f7a4a', -70, 3, 110); caja(3.6, 2, 2, '#8f7a4a', -70, 7.2, 110);
+// macetones con árboles en la plaza
+for (let k = -130; k <= 130; k += 26) { caja(5, 1, 5, '#b8b3a8', k, 0, 128); arbol(k, 128, 1.1); }
+// estacionamiento
+plano(110, 90, asfalto, -105, -95, .07);
+for (let k = 0; k < 10; k++) plano(.4, 80, '#e8e8e8', -155 + k * 11, -95, .09);
+for (let i = 0; i < 46; i++) { const c = caja(4.4, 1.5, 2.1, ['#e9e9e9', '#2b2f36', '#9aa1ab', '#c8202f', '#3c6fd1'][i % 5], -152 + (i % 9) * 11 + rnd(), .07, -130 + Math.floor(i / 9) * 13 + rnd() * 2); c.rotation.y = Math.PI / 2; }
+
+// ---------- la villa (a la derecha) ----------
+const lote = (x, z, w, d) => { caja(w, .5, d, '#d6d2c8', x, 0, z); plano(w - 6, d - 6, '#86bb5e', x, z, .52); };
+lote(320, -80, 230, 140); lote(320, 85, 230, 140);
+// oficinas (Despacho)
+const vidrioOf = mat('#87bfe6', { roughness: .12, metalness: .45 });
+caja(60, 26, 32, '#f1f2f4', 265, .5, -100);
+for (let p = 0; p < 5; p++) caja(60.4, 3.4, 32.4, vidrioOf, 265, 3 + p * 4.6, -100);
+caja(62, 1.8, 34, ROJO, 265, 26.5, -100);
+// prensa
+caja(40, 14, 28, '#3a4556', 345, .5, -100); caja(34, 8, .5, mat('#0f1722', { emissive: '#4a1420', emissiveIntensity: .6 }), 345, 3.5, -85.8);
+// ojeadores y parrilla
+caja(26, 9, 18, '#e7dcc7', 395, .5, -55); caja(27, 1, 19, '#2f5f9e', 395, 9.5, -55);
+caja(22, 6, 16, '#f0e2c8', 255, .5, -45); caja(23, .8, 17, '#2f7d3a', 255, 6.5, -45);
+// canchas de entrenamiento
+const tEnt = canvasTex(512, 330, (g, w, h) => { for (let i = 0; i < 10; i++) { g.fillStyle = i % 2 ? '#3b8f3a' : '#45a043'; g.fillRect(i * w / 10, 0, w / 10 + 1, h); } g.strokeStyle = '#fff'; g.lineWidth = 3; g.strokeRect(2, 2, w - 4, h - 4); g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, h); g.stroke(); g.beginPath(); g.arc(w / 2, h / 2, 40, 0, 7); g.stroke(); });
+tEnt.wrapS = tEnt.wrapT = THREE.ClampToEdgeWrapping;
+plano(95, 60, mat('#fff', { map: tEnt }), 268, 85, .6); plano(95, 60, mat('#fff', { map: tEnt }), 372, 85, .6);
+for (let x = 215; x <= 430; x += 12) { arbol(x, 160 - 6); arbol(x, -156); }
+
+copa.count = tronco.count = nArb;   // los no usados quedarían apilados en el origen
+copa.instanceMatrix.needsUpdate = true; tronco.instanceMatrix.needsUpdate = true; scene.add(copa, tronco);
+
+renderer.render(scene, camera);
+
+// ---------- etiquetas ----------
+function etiqueta(texto, x, y, z, cls = '') {
+  const v = new THREE.Vector3(x, y, z).project(camera);
+  const d = document.createElement('div'); d.className = 'lbl ' + cls; d.textContent = texto;
+  d.style.left = ((v.x + 1) / 2 * W) + 'px'; d.style.top = ((1 - v.y) / 2 * H) + 'px'; stage.appendChild(d);
+}
+if (!HERO) {
+  etiqueta('Villa Ferro Arena · Estilo europeo · Categoría 5 · 62.000', 0, 62, 0, 'big');
+  etiqueta('Oficinas · el Despacho 📣 3', 265, 34, -100);
+  etiqueta('Prensa y redes', 345, 20, -100);
+  etiqueta('Ciudad deportiva · Entrenamiento', 320, 6, 85);
+}
+window.listo = true; window.__escena = { scene, camera, THREE };
+
+function fit() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

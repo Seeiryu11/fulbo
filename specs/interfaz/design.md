@@ -28,7 +28,7 @@ El juego ocupa toda la ventana del navegador. Sin marco de ninguna red.
 - **Celular (V1):** HUD compacto en dos líneas y navegación como barra inferior fija.
 ## 2. Dirección visual (arte intermedio)
 
-Referencia visual: `referencias/mockups/predio.png` (generado desde `predio.html`, todo SVG + CSS, sin imágenes externas).
+> **Nota (2026-10-07):** las secciones de isometría SVG de abajo quedaron **obsoletas** por la decisión de pasar a 3D (D2 en `requirements.md`); se reescriben con la escena 3D. Referencia visual actual: `referencias/mockups/predio-europeo.png` y `estadio-europeo-hero.png`.
 
 **Tokens** (`ui/tema.css`):
 

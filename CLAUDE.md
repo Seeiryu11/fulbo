@@ -21,11 +21,13 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - **Variedad de estadios**: categoría (barrio → del futuro) × estilo (ascenso, Primera, europeo, inglés, andino, invierno extremo, tropical, desierto, futurista) × piezas. La ambientación NO está atada a Argentina como país.
 - **El Despacho** (antes "Muro") son las oficinas del club: ahí llegan las situaciones.
 - **Situaciones estilo Potrero para TODO el club**, no solo jugadores: sponsors, política institucional, AFA, la ciudad del club, economía, obras, prensa (`specs/despacho`, DES-0).
-- Stack: TypeScript + Vite + Preact + SVG es solo una **opción recomendada**, no cerrada.
+- Stack: **Three.js** para el 3D (decidido). TypeScript + Vite + Preact para la UI es opción recomendada, no cerrada.
 
 ## Estado (2026-10-07)
 - Requisitos aprobados: interfaz, club, despacho, partido.
-- **Dirección de arte en revisión**: el usuario rechazó el SVG isométrico (se ve "aldea para niños"). Referencia de lo que quiere: `referencias/estadios-bola/` (estadios 3D pre-renderizados de BOLA, escala grande, ciudad de fondo). Propuesta: 3D real con Three.js, prueba en `referencias/mockups/predio-3d.html` y `.png`. Falta que el usuario apruebe.
+- **Arte: 3D con Three.js (decidido)**. Look profesional como `referencias/estadios-bola/`. Prototipo del estadio europeo: `referencias/mockups/predio-europeo.html` (vista del club) y `?hero` (toma cercana). Las secciones SVG de `specs/interfaz/design.md` están obsoletas y hay que reescribirlas.
+- **Entorno de fondo cambiable** (ciudad, campo, montaña, frío, Caribe, costa, desierto) → CLU-13.
+- Ojo con la cámara: el usuario quiere el estadio protagonista pero sin que tape todo; la villa tiene que tener peso.
 - Próximo paso: aprobar el diseño de la interfaz → `specs/interfaz/tasks.md` → instalar Node (`winget install OpenJS.NodeJS.LTS`) → programar.
 
 ## Herramientas

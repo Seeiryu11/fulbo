@@ -32,7 +32,7 @@
 ## Estética
 
 - **Base BOLA/Playdom**: paneles amarillos con brillo, botones gordos, tipografía con contorno y sombra, íconos 3D chicos, isometría con volumen y césped a cuadros.
-- **Arte intermedio** al principio: lindo y terminado a la vista, en vectores (SVG), reemplazable por arte final sin tocar la lógica.
+- **3D en el navegador** (Three.js), con look profesional como los estadios de BOLA (`referencias/estadios-bola/`): escala real, mucho espacio, luz y sombras, entorno de fondo cambiable. Nada de estética de juguete. La UI (HUD, botones, paneles) mantiene el estilo gordito de BOLA.
 - **Paleta inicial**: amarillo panel `#F5C518`, verde cancha `#2E8B3A`, azul cielo `#4FA3E0`, rojo `#E02424`, crema `#FFF6D5`.
 
 ## Reglas de contenido
