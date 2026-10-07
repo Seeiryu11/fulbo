@@ -11,14 +11,14 @@ El juego ocupa toda la ventana del navegador. Sin marco de ninguna red.
 │ [escudo] Club Atlético X  ★★★☆☆   Nv 3 ▓▓▓▓░░   💰 $1.2M   ⭐ Fama 4.3k  📣3 ⚙ │  HUD
 │                                                                              │
 │                                                                              │
-│        ESTADIO (≈ mitad de la pantalla)    │        LA VILLA                   │
-│        la atracción principal, crece       │  entrenamiento, prensa, ojeadores,│
-│        de cancha de barrio a estadio 2040  │  inferiores, sede, parrilla…      │
+│        ESTADIO (protagonista, grande)      │        LA VILLA                   │
+│        la atracción principal, crece       │  oficinas, entrenamiento, prensa, │
+│        categorías × estilos × piezas      │  inferiores, sede, parrilla…      │
 │                                                                              │
 │                                                                              │
 │  ( PLAY )                                                       [ Diario ]   │
 │ ┌──────────────────────────────────────────────────────────────────────────┐ │
-│ │  🏟 Predio   📣 Muro (3)   👥 Plantel   📋 Táctica   📅 Fixture   ⋯ Más   │ │  navegación
+│ │  🏟 Predio   📣 Despacho (3)   👥 Plantel   📋 Táctica   📅 Fixture   ⋯ Más   │ │  navegación
 │ └──────────────────────────────────────────────────────────────────────────┘ │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -50,7 +50,7 @@ Referencia visual: `referencias/mockups/predio.png` (generado desde `predio.html
 
 ## 3. Navegación y rutas
 
-Router simple por hash (`#/predio`, `#/muro`, ...) para que funcione el botón atrás (INT-4.3).
+Router simple por hash (`#/predio`, `#/despacho`, ...) para que funcione el botón atrás (INT-4.3).
 
 | Ruta | Pantalla | Tipo |
 |------|----------|------|
@@ -58,8 +58,8 @@ Router simple por hash (`#/predio`, `#/muro`, ...) para que funcione el botón a
 | `#/predio` | Predio isométrico | principal |
 | `#/predio/estadio` | Estructura del estadio | modal |
 | `#/predio/edificio/:tipo` | Edificio | modal |
-| `#/muro` | Feed | principal |
-| `#/muro/:id` | Decisión → Desenlace | modal |
+| `#/despacho` | Feed | principal |
+| `#/despacho/:id` | Decisión → Desenlace | modal |
 | `#/plantel` · `#/plantel/:id` | Lista · Ficha | principal · modal |
 | `#/tactica` | Formación, titulares, estilo, charla, cábala | principal |
 | `#/dts` · `#/mercado` · `#/sponsors` · `#/identidad` · `#/diario` | Menú "Más" | principal |
@@ -68,11 +68,11 @@ Router simple por hash (`#/predio`, `#/muro`, ...) para que funcione el botón a
 
 ## 4. Pantallas clave
 
-**Predio** — un mapa isométrico continuo: a la izquierda el **estadio**, que ocupa ~la mitad de la pantalla sobre su terreno reservado completo; a la derecha **la villa**, con 3 edificios en el MVP (cancha de entrenamiento, ojeadores, prensa) y la parrilla; el resto de los lotes aparecen como "terreno baldío — se desbloquea en Nv X". Sobre cada edificio: cartel con nivel y, si corresponde, una burbuja ("🚧 2 fechas", "⬆", "👤 vacante"). Abajo a la izquierda, el botón **PLAY** redondo y gigante (como BOLA). Fondo según el tema.
+**Predio** — una aldea isométrica continua: a un costado el **estadio**, grande y protagonista, sobre su terreno reservado completo (al principio una cancha chica pero prolija, con espacio preparado para crecer); del otro lado **la villa**, con las oficinas (Despacho), entrenamiento, ojeadores, prensa y parrilla; el resto de los lotes aparecen como "terreno baldío — se desbloquea en Nv X". Sobre cada edificio: cartel con nivel y, si corresponde, una burbuja ("🚧 2 fechas", "⬆", "👤 vacante"). Abajo a la izquierda, el botón **PLAY** redondo y gigante (como BOLA). Paisaje según la ambientación.
 
 **Estructura del estadio** — panel izquierdo con el estadio y las stats Capacidad / Valor / Lujo; panel derecho con una grilla 3×3 de piezas del sector elegido (miniatura, precio, candado con nivel). Pestañas de sector arriba. Al elegir una pieza se ve la vista previa en el estadio antes de confirmar.
 
-**Muro** — feed vertical de tarjetas. Cada tarjeta toma la forma de su origen, dibujada con el estilo del juego: video vertical con caption (tipo TikTok), tuit, story, burbuja de audio de WhatsApp, recorte de diario o captura de stream. Lleva avatar, autor ficticio, texto, imagen de plantilla, reacciones y 1–2 comentarios de hinchas. Las tarjetas pendientes muestran el botón **Decidir**. Arriba, un filtro: Todo / Pendientes / Jugadores / Club.
+**Despacho** — feed vertical de tarjetas. Cada tarjeta toma la forma de su origen, dibujada con el estilo del juego: video vertical con caption (tipo TikTok), tuit, story, burbuja de audio de WhatsApp, recorte de diario o captura de stream. Lleva avatar, autor ficticio, texto, imagen de plantilla, reacciones y 1–2 comentarios de hinchas. Las tarjetas pendientes muestran el botón **Decidir**. Arriba, un filtro: Todo / Pendientes / Jugadores / Club.
 
 **Decisión** — modal con la imagen de plantilla, el texto y de 2 a 4 botones de opción apilados. No se muestran los efectos exactos, solo pistas de íconos (💵 🔥 😠). Después, el **Desenlace**: texto corto + lista de cambios aplicados ("Moral del Tucu −10", "Fama +2.000").
 
@@ -90,7 +90,7 @@ Router simple por hash (`#/predio`, `#/muro`, ...) para que funcione el botón a
 
 ## 6. Datos mock (INT-7)
 
-`src/datos/mock/partida.json` con una `Partida` completa según el modelo de `steering/tecnica.md`: club recién creado en la B Nacional, plantel de 22 jugadores, 6 eventos del Muro pendientes, 4 DTs, 5 sponsors y fixture de 20 equipos. La UI arranca desde este archivo hasta que la lógica de las fases 3 y 4 lo reemplace.
+`src/datos/mock/partida.json` con una `Partida` completa según el modelo de `steering/tecnica.md`: club recién creado en la B Nacional, plantel de 22 jugadores, 6 situaciones del Despacho pendientes, 4 DTs, 5 sponsors y fixture de 20 equipos. La UI arranca desde este archivo hasta que la lógica de las fases 3 y 4 lo reemplace.
 
 ## 7. Trazabilidad
 

@@ -21,7 +21,7 @@ Ver [steering/proceso.md](steering/proceso.md): requisitos → diseño → tarea
 | [specs/interfaz/requirements.md](specs/interfaz/requirements.md) | HUD, predio, pantallas, flujo de fecha | aprobado |
 | [specs/partido/requirements.md](specs/partido/requirements.md) | Partido: jugar / mirar / simular, minijuegos, relato | aprobado |
 | [specs/club/requirements.md](specs/club/requirements.md) | Estadio por piezas, predio, staff, plantel, camiseta, sponsors, economía | aprobado |
-| [specs/muro/requirements.md](specs/muro/requirements.md) | Situaciones y decisiones de todo el club, estilo Potrero | aprobado |
+| [specs/despacho/requirements.md](specs/despacho/requirements.md) | Situaciones y decisiones de todo el club, estilo Potrero | aprobado |
 | [specs/carrera-jugador/requirements.md](specs/carrera-jugador/requirements.md) | Jugador propio estilo Potrero (separado para después) | postergado |
 | [referencias/analisis.md](referencias/analisis.md) | Qué vimos en los videos de BOLA y Potrero | — |
 

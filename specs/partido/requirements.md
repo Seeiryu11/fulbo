@@ -44,7 +44,7 @@ El partido es el corazón jugable. Hay un solo motor de simulación que sirve pa
 
 ### PAR-6 · Atributos que importan — MVP
 1. EL SISTEMA DEBE usar en la simulación los atributos de cada jugador (a definir en `specs/club`), su **estado físico** y su **moral**.
-2. EL SISTEMA DEBE aplicar los efectos activos que vienen del Muro (ej. resaca, lesión oculta, motivación extra).
+2. EL SISTEMA DEBE aplicar los efectos activos que vienen del Despacho (ej. resaca, lesión oculta, motivación extra).
 
 ### PAR-7 · La hinchada (Aguante) — V1
 1. EL SISTEMA DEBE mostrar una barra de Aguante que sube con buenas jugadas y baja con goles en contra.
@@ -59,8 +59,8 @@ El partido es el corazón jugable. Hay un solo motor de simulación que sirve pa
 1. EL SISTEMA DEBE narrar los eventos con frases de relato argentino, sin repetir la misma frase dos veces en un partido.
 2. EL SISTEMA DEBE tomar el relato de un banco de frases editable sin tocar código.
 
-### PAR-10 · Interrupciones del Muro — V1
-1. CUANDO hay un evento del Muro marcado como "en partido", EL SISTEMA DEBE mostrarlo en el entretiempo como notificación con decisión rápida.
+### PAR-10 · Interrupciones del Despacho — V1
+1. CUANDO hay un situación del Despacho marcado como "en partido", EL SISTEMA DEBE mostrarlo en el entretiempo como notificación con decisión rápida.
 2. EL SISTEMA DEBE aplicar la consecuencia en el segundo tiempo.
 
 ### PAR-11 · VAR — Después

@@ -17,13 +17,15 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - Obras por **fechas jugadas**, no tiempo real.
 - Se arranca en la **B Nacional**: el 1.º asciende directo, el 2.º juega repechaje contra el anteúltimo de Primera.
 - Orden: **toda la interfaz primero** (con datos mock), el partido jugable **al final**.
-- **El estadio es la atracción principal**: ocupa ~la mitad de la pantalla y crece por categorías (cancha de barrio → ascenso → Primera → moderno → europeo → del futuro). La otra mitad es "la villa" (entrenamiento, prensa, ojeadores, etc.).
-- **Situaciones estilo Potrero para TODO el club**, no solo jugadores: sponsors, política institucional, AFA, la ciudad del club, economía, obras, prensa (`specs/muro`, MUR-0).
+- **El estadio es la atracción principal** de la aldea, a un costado y grande (no es pantalla partida literal); la villa (oficinas, entrenamiento, prensa…) se agrupa del otro lado. Al principio la cancha es chica pero el terreno está preparado y se ve lindo.
+- **Variedad de estadios**: categoría (barrio → del futuro) × estilo (ascenso, Primera, europeo, inglés, andino, invierno extremo, tropical, desierto, futurista) × piezas. La ambientación NO está atada a Argentina como país.
+- **El Despacho** (antes "Muro") son las oficinas del club: ahí llegan las situaciones.
+- **Situaciones estilo Potrero para TODO el club**, no solo jugadores: sponsors, política institucional, AFA, la ciudad del club, economía, obras, prensa (`specs/despacho`, DES-0).
 - Stack: TypeScript + Vite + Preact + SVG es solo una **opción recomendada**, no cerrada.
 
 ## Estado (2026-10-07)
-- Requisitos aprobados: interfaz, club, muro, partido.
-- `specs/interfaz/design.md` en revisión: el mockup `referencias/mockups/predio.png` tiene el estadio al centro y hay que rehacerlo con el layout estadio + villa.
+- Requisitos aprobados: interfaz, club, despacho, partido.
+- `specs/interfaz/design.md` en revisión: rehacer el mockup `referencias/mockups/predio.png` con el estadio a un costado y la villa del otro.
 - Próximo paso: aprobar el diseño de la interfaz → `specs/interfaz/tasks.md` → instalar Node (`winget install OpenJS.NodeJS.LTS`) → programar.
 
 ## Herramientas

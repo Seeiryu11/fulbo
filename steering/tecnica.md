@@ -8,13 +8,13 @@ Estado: `propuesta` (el stack es una opción recomendada, no una decisión cerra
 |------|----------|---------|
 | Lenguaje | **TypeScript** | El modelo de datos es grande (club, plantel, eventos); los tipos evitan romper cosas entre specs. |
 | Build / dev server | **Vite** | Arranca al instante, recarga en vivo y genera un sitio estático que se sube a cualquier lado. |
-| UI (menús, modales, HUD, Muro) | **Preact** + CSS propio | Componentes como React pero livianos. La UI es casi toda paneles y listas. |
+| UI (menús, modales, HUD, Despacho) | **Preact** + CSS propio | Componentes como React pero livianos. La UI es casi toda paneles y listas. |
 | Predio isométrico | **SVG** generado por código | Arte intermedio vectorial: sombras, gradientes y brillo. Cada pieza del estadio es un componente que se puede cambiar por arte final sin tocar la lógica. |
 | Partido jugable (fase 5) | **PixiJS** sobre canvas | Recién cuando lleguemos; no se instala antes. |
 | Estado del juego | Store propio (un objeto `Partida` + acciones puras) | Lógica separada de la UI y testeable sin navegador. |
 | Guardado | **localStorage** / IndexedDB en el navegador | Sin backend hasta la parte social. |
 | Tests | **Vitest** | Para la lógica (economía, obras, eventos, simulación). |
-| Validación de datos | **Zod** | Valida los JSON de eventos, DTs y sponsors al cargarlos (MUR-5.2). |
+| Validación de datos | **Zod** | Valida los JSON de eventos, DTs y sponsors al cargarlos (DES-5.2). |
 | App móvil (después) | PWA → Capacitor si hace falta tienda | Mismo código. |
 
 **Requisito de entorno:** hace falta **Node.js LTS** en la PC (hoy no está instalado). Se instala igual que ffmpeg:
@@ -27,12 +27,12 @@ winget install OpenJS.NodeJS.LTS
 
 ```
 src/
-  dominio/        tipos + reglas puras (sin UI): club, estadio, economia, liga, muro, simulacion
+  dominio/        tipos + reglas puras (sin UI): club, estadio, economia, liga, despacho, simulacion
   datos/          JSON editables: eventos, dts, sponsors, piezas, edificios, frases de relato, nombres
   estado/         la Partida en curso, acciones, guardado
   ui/
     hud/
-    pantallas/    predio, muro, plantel, tactica, dts, mercado, identidad, sponsors, fixture, diario, fecha/*
+    pantallas/    predio, despacho, plantel, tactica, dts, mercado, identidad, sponsors, fixture, diario, fecha/*
     componentes/  Modal, Boton, Panel, Contador, Avatar, Escudo, Camiseta...
     iso/          SVG isométrico: Estadio, Pieza, Edificio, Terreno
   tests/
@@ -52,8 +52,8 @@ interface Partida {
   fecha: number                // fecha actual dentro de la temporada
   club: Club
   ligas: { bNacional: Liga; primera: Liga }
-  muro: EventoInstancia[]
-  marcas: Record<string, number | boolean>  // flags globales para cadenas (MUR-4)
+  despacho: SituacionInstancia[]
+  marcas: Record<string, number | boolean>  // flags globales para cadenas (DES-4)
 }
 
 interface Club {
@@ -61,10 +61,9 @@ interface Club {
   colores: [string, string, string?]
   escudo: { forma: string; icono: string; iniciales: string }
   camiseta: { patron: 'lisa'|'bastones'|'franja'|'banda'|'aros'|'cuartos'; colores: string[]; cuello: string }
-  tema: 'barrio'|'ciudad'|'costa'|'montana'|'luna'
+  ambientacion: { lugar: 'barrio'|'ciudad'|'pueblo'|'puerto'; paisaje: 'llanura'|'conurbano'|'costa'|'montana'|'nieve'|'tropico'|'desierto'|'luna' }
   nivel: number; xp: number
   pesos: number; fama: number
-  ciudad: { tipo: 'conurbano'|'capital'|'interior'|'pueblo'|'puerto'|'turistica'; region: string }
   relaciones: Record<'hinchas'|'barra'|'socios'|'comision'|'afa'|'municipio'|'prensa'|'sponsors'|'plantel', number>  // 0–100
   estadio: Estadio
   edificios: Edificio[]
@@ -76,12 +75,14 @@ interface Club {
 }
 
 interface Estadio {
+  categoria: 1|2|3|4|5|6
+  estilo: 'ascenso'|'primera_arg'|'europeo'|'ingles'|'andino'|'invierno'|'tropical'|'desierto'|'futurista'
   sectores: Record<'norte'|'sur'|'este'|'oeste'|'cancha'|'techo'|'luces'|'pantalla'|'palcos', Id | null>  // id de pieza
   obras: Obra[]
 }
 // Capacidad, Valor y Lujo se calculan a partir de las piezas (no se guardan).
 
-interface Pieza { id: Id; sector: string; nombre: string; precio: number; nivelRequerido: number;
+interface Pieza { id: Id; sector: string; categoria: number; estilo?: string; nombre: string; precio: number; nivelRequerido: number;
                   fechasObra: number; capacidad: number; valor: number; lujo: number }
 
 interface Edificio { tipo: TipoEdificio; nivel: number; obra?: Obra; staff: Id[] }
@@ -108,8 +109,8 @@ interface Sponsor { id: Id; marca: string; rubro: string; espacio: string; pagoP
 interface Liga { nombre: string; equipos: EquipoLiga[]; fixture: Partido[][]; }
 interface Partido { local: Id; visitante: Id; resultado?: [number, number]; eventos?: EventoPartido[] }
 
-// Muro
-interface EventoDef {               // vive en datos/eventos/*.json
+// Despacho
+interface SituacionDef {               // vive en datos/situaciones/*.json
   id: string
   alcance: 'jugador'|'club'
   ambito: 'plantel'|'staff'|'sponsors'|'hinchas'|'politica'|'afa'|'ciudad'|'prensa'|'economia'|'obras'|'mercado'|'inferiores'
@@ -119,7 +120,7 @@ interface EventoDef {               // vive en datos/eventos/*.json
   opciones: { texto: string; efectos: Efecto[]; desenlace: string; habilita?: string[] }[]
   vence?: number; opcionPorDefecto?: number
 }
-interface EventoInstancia { def: string; jugador?: Id; creadoEn: { temporada: number; fecha: number }; resuelto?: number }
+interface SituacionInstancia { def: string; jugador?: Id; creadoEn: { temporada: number; fecha: number }; resuelto?: number }
 
 type Efecto =
   | { tipo: 'pesos' | 'fama'; valor: number }

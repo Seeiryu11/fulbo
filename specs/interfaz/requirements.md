@@ -1,6 +1,6 @@
 # Interfaz — Requisitos
 
-Estado: `aprobado` · Prefijo: `INT` · Depende de: `steering/producto.md` (estética), `specs/club`, `specs/muro`, `specs/partido`
+Estado: `aprobado` · Prefijo: `INT` · Depende de: `steering/producto.md` (estética), `specs/club`, `specs/despacho`, `specs/partido`
 
 ## Resumen
 
@@ -10,12 +10,12 @@ Toda la interfaz del juego, construida **antes** que el partido jugable: HUD est
 
 ```
 Juego (pantalla completa)
-├── HUD (escudo y nombre, nivel+XP, Pesos, Fama, contador del Muro, configuración)
+├── HUD (escudo y nombre, nivel+XP, Pesos, Fama, contador del Despacho, configuración)
 ├── PREDIO (pantalla principal, isométrica)
 │   ├── Estadio → modal Estructura (sectores y piezas)
 │   ├── Edificio → modal Edificio (nivel, efecto, mejorar, staff)
 │   └── Botón JUGAR → flujo de fecha
-├── MURO (feed de eventos) → modal Decisión → modal Desenlace
+├── DESPACHO (feed de eventos) → modal Decisión → modal Desenlace
 ├── PLANTEL (lista) → ficha de jugador
 ├── TÁCTICA (formación, titulares, estilo, charla, cábala)
 ├── DTs (catálogo y contrato)
@@ -35,24 +35,24 @@ Juego (pantalla completa)
 2. EL SISTEMA DEBE escalar el contenido para verse bien desde 1280×720 hasta pantallas grandes.
 
 ### INT-2 · HUD — MVP
-1. EL SISTEMA DEBE mostrar siempre escudo y nombre del club, nivel con barra de XP, Pesos, Fama y contador de eventos pendientes del Muro.
+1. EL SISTEMA DEBE mostrar siempre escudo y nombre del club, nivel con barra de XP, Pesos, Fama y contador de eventos pendientes del Despacho.
 2. CUANDO un valor cambia, EL SISTEMA DEBE animar el cambio (contador que sube o baja, "+5.000").
 
 ### INT-3 · Predio — MVP
-1. EL SISTEMA DEBE mostrar el club isométrico con el **estadio ocupando ~la mitad de la pantalla** y la **villa** (resto de edificios) en la otra mitad, con fondo según la ciudad (CLU-1).
+1. EL SISTEMA DEBE mostrar el club como una aldea isométrica con el **estadio grande a un costado** como protagonista y la **villa** (resto de edificios) agrupada del otro lado, con paisaje según la ambientación (CLU-1).
 2. EL SISTEMA DEBE permitir desplazar y hacer zoom (arrastrar, rueda o pellizcar).
 3. EL SISTEMA DEBE mostrar sobre cada edificio su estado: en obra (fechas restantes), mejora disponible o staff vacante.
 
 ### INT-4 · Modales y navegación — MVP
 1. EL SISTEMA DEBE usar modales estilo BOLA (panel con borde grueso, título con contorno, botón X rojo) para todas las pantallas secundarias.
-2. EL SISTEMA DEBE tener una barra de navegación hacia: Predio, Muro, Plantel, Táctica, Fixture y "Más".
+2. EL SISTEMA DEBE tener una barra de navegación hacia: Predio, Despacho, Plantel, Táctica, Fixture y "Más".
 3. EL SISTEMA DEBE poder volver atrás con el botón del navegador o del sistema.
 
 ### INT-5 · Flujo de fecha — MVP
 1. CUANDO toco JUGAR, EL SISTEMA DEBE mostrar la **previa** (rival, comparación de equipos, táctica, charla, cábala).
 2. CUANDO confirmo, EL SISTEMA DEBE mostrar la **simulación** como relato en vivo acelerado (texto, marcador, reloj, barra de Aguante).
 3. CUANDO llega una jugada clave, EL SISTEMA DEBE abrir el **minijuego** correspondiente (al principio puede ser un placeholder).
-4. CUANDO termina, EL SISTEMA DEBE mostrar el **resumen** como publicación de las redes del club, y después las recompensas, el avance de obras y los eventos nuevos del Muro.
+4. CUANDO termina, EL SISTEMA DEBE mostrar el **resumen** como publicación de las redes del club, y después las recompensas, el avance de obras y los eventos nuevos del Despacho.
 
 ### INT-6 · Creación inicial — MVP
 1. LA PRIMERA VEZ, EL SISTEMA DEBE guiar la creación de tu club (nombre, colores, escudo, camiseta, tema del predio) en pocos pasos.

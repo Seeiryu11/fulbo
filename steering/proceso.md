@@ -24,7 +24,7 @@ No se escribe código de una feature sin `requirements.md` y `design.md` aprobad
 ## Convenciones
 
 - **Estado** en el encabezado de cada archivo: `borrador` → `en revisión` → `aprobado`.
-- **IDs de requisito**: `<PREFIJO>-<n>` (PAR = partido, CLU = club, MUR = muro). Criterios de aceptación: `PAR-3.2`.
+- **IDs de requisito**: `<PREFIJO>-<n>` (PAR = partido, CLU = club, DES = despacho). Criterios de aceptación: `PAR-3.2`.
 - **Formato de criterios** (estilo EARS):
   - `CUANDO <evento>, EL SISTEMA DEBE <respuesta>.`
   - `MIENTRAS <estado>, EL SISTEMA DEBE <respuesta>.`

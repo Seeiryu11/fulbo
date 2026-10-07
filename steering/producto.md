@@ -8,14 +8,14 @@
 
 ## Quién sos
 
-- **El dueño del club.** Manejás todo: obras, plantel, táctica, staff, DTs, sponsors y las decisiones del Muro.
+- **El dueño del club.** Manejás todo: obras, plantel, táctica, staff, DTs, sponsors y las decisiones del Despacho.
 - La carrera de un jugador propio (estilo Potrero, primera persona) queda **postergada** en `specs/carrera-jugador`, para agregarla más adelante.
 
 ## Pilares
 
 1. **El partido** — se simula con jugadas clave definidas por minijuegos. El partido jugable 3/4 estilo BOLA llega al final. → `specs/partido`
 2. **El club** — estadio por piezas, predio, staff, DTs, plantel, camiseta, sponsors y liga. Se mejora por partes, estilo Clash of Clans + modo carrera. → `specs/club`
-3. **El Muro** — eventos con decisiones locas, realistas y con sabor, estilo Potrero, que le pasan a tus jugadores y al club. → `specs/muro`
+3. **El Despacho** — eventos con decisiones locas, realistas y con sabor, estilo Potrero, que le pasan a tus jugadores y al club. → `specs/despacho`
 
 ## Ambientación
 

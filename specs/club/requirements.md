@@ -8,38 +8,56 @@ El club es la base que hacés crecer, como el ayuntamiento y la aldea de Clash o
 
 ## Requisitos
 
-### CLU-1 · El club en pantalla: estadio + villa — MVP
+### CLU-1 · El club en pantalla: el estadio protagonista + la villa — MVP
 **Historia:** Como dueño, quiero que el estadio sea la atracción principal de mi club, para que cada mejora se note y den ganas de seguir creciendo.
-1. EL SISTEMA DEBE mostrar el club como un solo mapa isométrico continuo con dos zonas:
-   - **El estadio**: ocupa aproximadamente la **mitad de la pantalla** y es la pieza protagonista.
-   - **La villa**: la otra mitad, con el resto de los edificios del club (entrenamiento, prensa, ojeadores, inferiores, sede, parrilla…).
-2. EL SISTEMA DEBE reservar desde el principio el **terreno completo del estadio**, aunque al comienzo sea una cancha de barrio, para que se vea el espacio a llenar.
+1. EL SISTEMA DEBE mostrar el club como **un solo mapa isométrico continuo** (una aldea), ordenado en dos zonas:
+   - **El estadio**, a un costado y bien grande: es lo primero que se ve y la pieza protagonista.
+   - **La villa**: el resto del club (oficinas / Despacho, entrenamiento, prensa, ojeadores, inferiores, parrilla…), agrupada del otro lado.
+   No es una pantalla partida literal: es una forma de ordenar la aldea.
+2. EL SISTEMA DEBE reservar desde el principio el **terreno completo del estadio**. Al arrancar, la cancha es chica y el terreno se ve "a medio hacer" (alambrado, tierra, marcas de obra futura), pero tiene que verse **lindo y prolijo**, no vacío ni roto: césped cuidado, árboles, caminos, bancos, banderas.
 3. CUANDO toco un edificio, EL SISTEMA DEBE mostrar su nivel, sus efectos y la opción de mejorarlo.
 4. EL SISTEMA DEBE mostrar un HUD fijo con escudo y nombre del club, nivel y XP, Pesos, Fama y acceso a configuración.
 5. EL SISTEMA DEBE tener un botón principal de JUGAR, siempre visible.
 
-### CLU-2 · Estadio por categorías y piezas — MVP
-**Historia:** Como dueño, quiero llevar mi cancha de tablones hasta un estadio europeo y después a uno del futuro, mejorándolo parte por parte.
-1. EL SISTEMA DEBE organizar el estadio en **categorías**; cada una cambia la silueta completa:
+### CLU-2 · Estadio: categorías × estilos × piezas — MVP
+**Historia:** Como dueño, quiero que mi estadio sea único: que crezca de una cancha de barrio a un estadio enorme y que tenga la cara del lugar donde está mi club.
+1. EL SISTEMA DEBE combinar tres capas para que haya mucha variedad:
+   - **Categoría** (cuánto creció). Cambia el tamaño y la silueta:
 
-   | Cat. | Nombre | Cómo se ve |
-   |------|--------|------------|
-   | 1 | Cancha de barrio | Alambrado, tablones, vestuario de chapa, sin luces |
-   | 2 | Estadio de ascenso | Tribunas de cemento, primera platea, torres de luz |
-   | 3 | Estadio de Primera | Plateas en los cuatro lados, techos parciales, palcos, pantalla |
-   | 4 | Estadio moderno | Anillo cerrado, LED perimetral, VAR, hospitality, estacionamiento |
-   | 5 | Estadio europeo | Techo completo, fachada iluminada con los colores del club, museo, tienda, tour |
-   | 6 | Estadio del futuro | Techo retráctil, césped retráctil, fachada de pantallas, hologramas, drones, acceso biométrico |
+     | Cat. | Nombre | Rasgos |
+     |------|--------|--------|
+     | 1 | Cancha de barrio | Alambrado, tablones, vestuario de chapa, sin luces |
+     | 2 | Estadio de ascenso | Tribunas de cemento, primera platea, torres de luz |
+     | 3 | Estadio de Primera | Plateas en los cuatro lados, techos parciales, palcos, pantalla |
+     | 4 | Estadio grande | Anillo cerrado, LED perimetral, VAR, hospitality |
+     | 5 | Estadio de élite | Techo completo, fachada iluminada, museo, tienda, tour |
+     | 6 | Estadio del futuro | Techo y césped retráctiles, fachada de pantallas, hologramas, drones |
 
-2. EL SISTEMA DEBE dividir el estadio en **sectores** (4 tribunas, cancha, techo, iluminación, pantalla, palcos, fachada, accesos) y, dentro de cada categoría, ofrecer **piezas** por sector con precio, nivel requerido y duración de obra.
+   - **Estilo** (cómo se ve y dónde está). Define materiales, techos, fachadas, colores y entorno. Lista inicial:
+
+     | Estilo | Inspiración |
+     |--------|-------------|
+     | Ascenso rioplatense | Cemento a la vista, paravalanchas, trapos, alambrado alto |
+     | Primera argentina | Bombonera/Monumental-like: tribunas empinadas, plateas, popular colorida |
+     | Europeo moderno | Techo continuo, butacas de color, fachada de vidrio y membrana |
+     | Inglés clásico | Ladrillo, tribunas pegadas a la cancha, techos a dos aguas |
+     | Andino de altura | Montaña de fondo, gradas sobre la ladera, cielo muy azul |
+     | Invierno extremo | Nieve, cúpula o techo pesado, calefacción, luces cálidas (tipo Rusia) |
+     | Tropical / costero | Palmeras, techos livianos, mar de fondo |
+     | Desierto / petrodólar | Estadio-joya, climatizado, fachada dorada |
+     | Futurista | Formas orgánicas, pantallas, luces de neón |
+
+   - **Piezas** por sector (4 tribunas, cancha, techo, iluminación, pantalla, palcos, fachada, accesos), con precio, nivel requerido y duración de obra.
+2. EL SISTEMA DEBE permitir elegir el estilo al crear el club (sugerido por la ambientación, DES-8) y **cambiarlo o mezclarlo** más adelante (ej. una tribuna inglesa en un estadio rioplatense) con un costo.
 3. EL SISTEMA DEBE exigir, para subir de categoría, un mínimo de piezas de la categoría actual y un nivel de club, como subir el ayuntamiento en Clash of Clans. El salto de categoría es la obra más grande y larga del juego.
-4. EL SISTEMA DEBE calcular **Capacidad**, **Valor** y **Lujo** del estadio a partir de sus piezas.
+4. EL SISTEMA DEBE calcular **Capacidad**, **Valor** y **Lujo** a partir de las piezas.
 5. EL SISTEMA DEBE usar la Capacidad para la recaudación y el Aguante, y el Lujo para la fama, los sponsors y los eventos especiales (recitales, finales neutrales, partidos de selección).
-6. EL SISTEMA DEBE reflejar visualmente cada pieza construida y cada categoría.
-7. EL SISTEMA DEBE permitir personalizar el estadio: nombre (o naming rights), colores de butacas y fachada, y trapos o banderas.
+6. EL SISTEMA DEBE reflejar visualmente cada pieza, categoría y estilo.
+7. EL SISTEMA DEBE permitir personalizar: nombre (o naming rights), colores de butacas y fachada, trapos y banderas.
 
-MVP: categorías 1 a 3 jugables, con el 4 al 6 mostrados como objetivo bloqueado. V1: 4 a 6.
+**Producción de arte (decisión técnica):** cada estilo es un **kit** (paleta + materiales + set de techos/fachadas + entorno) aplicado sobre la misma geometría de piezas, para que sumar estilos no multiplique el trabajo.
 
+MVP: categorías 1 a 3 en 2 estilos (Ascenso rioplatense y uno más), con el resto mostrado como objetivo bloqueado. V1: categorías 4 a 6 y más estilos.
 ### CLU-3 · Obras por fechas — MVP
 1. CUANDO inicio una mejora, EL SISTEMA DEBE asignarle una duración en **fechas jugadas** y mostrar las fechas restantes sobre el edificio.
 2. EL SISTEMA DEBE avanzar las obras solo cuando se juega o se simula una fecha.
@@ -51,34 +69,35 @@ EL SISTEMA DEBE incluir edificios mejorables, cada uno con niveles y un efecto c
 
 | Edificio | Efecto | Staff que habilita |
 |----------|--------|--------------------|
+| **Oficinas (el Despacho)** | llegan las situaciones; + opciones en situaciones de AFA, política y economía | Abogado, contador, secretario |
 | Cancha de entrenamiento | + mejora de atributos por semana | Preparador físico, ayudantes |
 | Gimnasio / recuperación | + recuperación física, − lesiones | Kinesiólogo |
 | Departamento médico | − tiempo de lesión | Médico |
 | Comedor | + rendimiento estable | Nutricionista, cocinero |
 | Oficina de ojeadores | + calidad y cantidad de jugadores en el mercado | Ojeadores (por región) |
 | Pensión / inferiores | genera juveniles cada temporada | Coordinador de inferiores |
-| Oficina de prensa y redes | − impacto negativo de escándalos del Muro, + fama | Community manager, asesor de prensa |
+| Oficina de prensa y redes | − impacto negativo de escándalos del Despacho, + fama | Community manager, asesor de prensa |
 | Consultorio | + moral, − efectos de presión | Psicólogo |
 | Buffet / parrilla | + ingresos por partido de local | — |
 | Tienda oficial | + ingresos por camisetas (escala con fama) | — |
 | Sede social | + hinchas, desbloquea eventos de barrio | — |
 
-MVP: Cancha de entrenamiento, Oficina de ojeadores, Oficina de prensa.
+MVP: Oficinas (Despacho), Cancha de entrenamiento, Oficina de ojeadores, Oficina de prensa.
 
 ### CLU-5 · Staff — V1
 1. EL SISTEMA DEBE permitir contratar staff con nombre, especialidad, nivel y sueldo.
 2. EL SISTEMA DEBE limitar el nivel del staff al nivel de su edificio.
-3. EL SISTEMA DEBE aplicar los efectos del staff a la simulación, a los entrenamientos y a los eventos del Muro.
+3. EL SISTEMA DEBE aplicar los efectos del staff a la simulación, a los entrenamientos y a los situaciones del Despacho.
 
 ### CLU-6 · Plantel — MVP
-1. EL SISTEMA DEBE mantener un plantel de 18 a 25 jugadores con nombre, apodo, posición, edad, atributos, estado físico, moral y **personalidad** (rasgos que disparan eventos del Muro: fiestero, cabulero, influencer, calentón, profesional).
+1. EL SISTEMA DEBE mantener un plantel de 18 a 25 jugadores con nombre, apodo, posición, edad, atributos, estado físico, moral y **personalidad** (rasgos que disparan situaciones del Despacho: fiestero, cabulero, influencer, calentón, profesional).
 2. Atributos iniciales: **Pegada, Velocidad, Gambeta, Pase, Marca, Físico, Liderazgo** (más **Atajada** para arqueros).
 3. EL SISTEMA DEBE calcular una valoración general (estrellas, como BOLA).
 4. EL SISTEMA DEBE generar nombres y apodos argentinos ficticios creíbles.
 
 ### CLU-6b · Vos sos el dueño — MVP
 **Historia:** Como dueño, quiero manejar todo el club, incluida la parte deportiva, para que cada resultado sea mío.
-1. EL SISTEMA DEBE darte todas las decisiones del club: obras, plantel, mercado, staff, sponsors y Muro.
+1. EL SISTEMA DEBE darte todas las decisiones del club: obras, plantel, mercado, staff, sponsors y Despacho.
 2. EL SISTEMA DEBE darte las funciones de DT: formación, titulares, estilo de juego, charla técnica y cábala.
 3. EL SISTEMA NO DEBE incluir por ahora un jugador propio controlado por vos (ver `specs/carrera-jugador`, postergada).
 
@@ -88,7 +107,7 @@ MVP: Cancha de entrenamiento, Oficina de ojeadores, Oficina de prensa.
 2. CUANDO contrato un DT, EL SISTEMA DEBE aplicar sus bonus: atributos del plantel, moral, efecto de un estilo de juego o mejora de un minijuego (ej. + tiempo en la pizarra).
 3. EL SISTEMA DEBE permitir un solo DT activo a la vez; cambiarlo rescinde el contrato anterior (con costo).
 4. EL SISTEMA DEBE mostrar los DTs nuevos en el diario de novedades (estilo SportNews de BOLA).
-5. EL SISTEMA PUEDE disparar eventos del Muro relacionados con el DT (el DT pide refuerzos o renuncia en público, choque de egos con un referente, el DT se pelea con la barra).
+5. EL SISTEMA PUEDE disparar situaciones del Despacho relacionados con el DT (el DT pide refuerzos o renuncia en público, choque de egos con un referente, el DT se pelea con la barra).
 
 ### CLU-7 · Mercado y ojeadores — V1
 1. EL SISTEMA DEBE ofrecer jugadores en el mercado según el nivel de la oficina de ojeadores.
@@ -99,18 +118,18 @@ MVP: Cancha de entrenamiento, Oficina de ojeadores, Oficina de prensa.
 1. EL SISTEMA DEBE dejarme elegir el nombre del club, los colores y el escudo (forma + ícono + iniciales).
 2. EL SISTEMA DEBE tener un editor de camiseta con patrón (lisa, bastones, franja, banda, aros, cuartos), colores, cuello y número.
 3. EL SISTEMA DEBE mostrar la camiseta y los sponsors en el partido, en el estadio y en las publicaciones del club.
-4. EL SISTEMA DEBE dejarme elegir la **ciudad** del club (ver MUR-8); el paisaje de fondo sale de ahí (conurbano, ciudad, costa, montaña, pueblo). Temas absurdos como la luna se desbloquean.
+4. EL SISTEMA DEBE dejarme elegir la **ambientación** del club (DES-8) y el **estilo** del estadio (CLU-2); el paisaje sale de ahí. Ambientaciones absurdas como la luna se desbloquean.
 
 ### CLU-9 · Sponsors — MVP
 1. EL SISTEMA DEBE tener espacios de sponsor: pecho, espalda, manga, short, carteles del estadio y naming rights del estadio.
-2. CUANDO un sponsor me ofrece contrato, EL SISTEMA DEBE mostrar plata por temporada, requisitos (fama, Lujo, resultados) y **efectos secundarios** (ej. casa de apuestas: mucha plata, eventos del Muro de amaño y críticas; yerba del barrio: poca plata, + hinchas).
+2. CUANDO un sponsor me ofrece contrato, EL SISTEMA DEBE mostrar plata por temporada, requisitos (fama, Lujo, resultados) y **efectos secundarios** (ej. casa de apuestas: mucha plata, situaciones del Despacho de amaño y críticas; yerba del barrio: poca plata, + hinchas).
 3. EL SISTEMA DEBE usar marcas ficticias por rubro: cerveza, casa de apuestas, exchange cripto, billetera virtual, yerba, telefonía, prepaga, corralón.
 
 ### CLU-10 · Economía — MVP
 1. EL SISTEMA DEBE manejar **Pesos** (moneda blanda: partidos, sponsors, recaudación) y **Fama** (seguidores: desbloqueos y ofertas).
 2. EL SISTEMA DEBE pagar sueldos y mantenimiento por temporada.
 3. EL SISTEMA DEBE aplicar **inflación** a los precios cada temporada, con ingresos que acompañan para que no sea castigo puro. *Chiste + mecánica.*
-4. EL SISTEMA DEBE dar "algo para hacer al volver" (obras terminadas, informes de ojeadores, eventos del Muro pendientes).
+4. EL SISTEMA DEBE dar "algo para hacer al volver" (obras terminadas, informes de ojeadores, situaciones del Despacho pendientes).
 
 ### CLU-12 · Competencia: arrancás en la B Nacional — MVP
 **Historia:** Como dueño, quiero arrancar desde abajo y pelear el ascenso, para que llegar a Primera se sienta ganado.
@@ -129,7 +148,8 @@ MVP: Cancha de entrenamiento, Oficina de ojeadores, Oficina de prensa.
 - **D1 (2026-10-07, corregida)** Sos **el dueño del club**: hacés todo lo del DT y además podés contratar DTs que suben estadísticas → CLU-6b, CLU-6c. El jugador propio queda postergado en `specs/carrera-jugador`.
 - **D2 (2026-10-07)** Las obras duran fechas jugadas, no tiempo real → CLU-3.
 - **D3 (2026-10-07)** Solo **Pesos y Fama**, sin moneda premium. La monetización se agrega cuando el juego esté aceitado → CLU-10.
-- **D5 (2026-10-07)** El estadio es la atracción principal: ocupa ~la mitad de la pantalla y crece por categorías hasta un estadio europeo y uno del futuro; el resto del club ("la villa") ocupa la otra mitad → CLU-1, CLU-2.
+- **D5 (2026-10-07)** El estadio es la atracción principal de la aldea, a un costado y bien grande; el resto del club ("la villa") se agrupa del otro lado. No es pantalla partida literal → CLU-1.
+- **D6 (2026-10-07)** Mucha variedad de estadios: categorías × estilos (ascenso, Primera, europeo, andino, invierno extremo, tropical…) × piezas. La ambientación no está atada a Argentina como país → CLU-2, DES-8.
 - **D4 (2026-10-07)** Se arranca en la **B Nacional**: el 1.º asciende directo y el 2.º juega repechaje contra un equipo de Primera → CLU-12.
 
 ## Preguntas abiertas
