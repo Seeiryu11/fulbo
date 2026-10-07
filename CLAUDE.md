@@ -25,7 +25,7 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 
 ## Estado (2026-10-07)
 - Requisitos aprobados: interfaz, club, despacho, partido.
-- `specs/interfaz/design.md` en revisión: rehacer el mockup `referencias/mockups/predio.png` con el estadio a un costado y la villa del otro.
+- `specs/interfaz/design.md` en revisión: mockup v2 (`referencias/mockups/predio.png`) con el estadio a un costado y la villa del otro, esperando opinión del usuario.
 - Próximo paso: aprobar el diseño de la interfaz → `specs/interfaz/tasks.md` → instalar Node (`winget install OpenJS.NodeJS.LTS`) → programar.
 
 ## Herramientas

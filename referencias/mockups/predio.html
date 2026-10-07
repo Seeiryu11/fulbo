@@ -86,15 +86,6 @@
     <div class="pan" style="position:relative"><div class="ico" style="background:linear-gradient(#ff7a8a,#D7263D)">📣</div><span class="badge">3</span><div class="ico" style="background:linear-gradient(#cfd8e6,#8a99b0)">⚙️</div></div>
   </div>
 
-  <div class="toast">
-    <div class="cab"><span>📱 vía TikTok · hace 12 min</span><span>Despacho</span></div>
-    <div class="cue">
-      <div class="av">🧔</div>
-      <div><p>"El Tucu" Medina se tatuó la copa en el gemelo… y la final es el domingo 😳</p><small>❤️ 48,2k · 💬 3.101 · "ese tatuaje se infecta seguro"</small></div>
-    </div>
-    <div class="bot"><div class="btn v">Bancarlo</div><div class="btn a">Ver opciones</div></div>
-  </div>
-
   <div class="play"><span>⚽</span><b>JUGAR</b></div>
   <div class="nav">
     <div class="tab on"><span class="e">🏟️</span>Predio</div>
@@ -109,7 +100,7 @@
 
 <script>
 // ---------- utilidades isométricas ----------
-const TW = 58, TH = 29, ZH = 27, CX = 660, CY = 158;
+const TW = 60, TH = 30, ZH = 28, CX = 565, CY = 150;
 const svg = document.getElementById('scene');
 const NS = 'http://www.w3.org/2000/svg';
 const P = (x, y, z = 0) => [CX + (x - y) * TW / 2, CY + (x + y) * TH / 2 - z * ZH];
@@ -162,32 +153,123 @@ function cartel(x, y, z, str) { // cartel de nombre bajo edificios
   const t = el('text', { x: sx, y: sy + 14.5, 'text-anchor': 'middle', 'font-family': 'Nunito', 'font-weight': 900, 'font-size': 12, fill: '#fff' }); t.textContent = str;
 }
 
-// ---------- barrio de fondo ----------
+// ---------- escena v2: estadio protagonista a la izquierda, villa a la derecha ----------
+const ROJO = '#D7263D', BLANCO = '#f4f4f4';
+
+// barrio de fondo (detrás de los bordes superiores)
 const casas = [];
-for (let i = -1; i < 16; i += 2.2) casas.push([i, -4.2], [-4.2, i]);
-for (let i = 0; i < 16; i += 2.6) casas.push([i + 1, -6.6], [-6.6, i + 1]);
+for (let i = -1; i < 20; i += 2.2) casas.push([i, -3.4]);
+for (let i = 0; i < 15; i += 2.2) casas.push([-3.4, i]);
+for (let i = 1; i < 20; i += 2.6) casas.push([i, -5.8]);
+for (let i = 1; i < 15; i += 2.6) casas.push([-5.8, i]);
 casas.sort((a, b) => (a[0] + a[1]) - (b[0] + b[1]));
 const paredes = ['#f2e2c4', '#e9d1d1', '#d8e6f2', '#f6edc0', '#dfe9d2'];
 casas.forEach(([x, y], i) => {
-  const c = paredes[i % paredes.length];
-  box(x, y, 0, 1.4, 1.4, 1.1 + (i % 3) * .25, c);
-  techo(x - .05, y - .05, 1.1 + (i % 3) * .25, 1.5, 1.5, .6, i % 2 ? '#c4553a' : '#a8432f');
+  const h = 1.1 + (i % 3) * .25, c = paredes[i % paredes.length];
+  box(x, y, 0, 1.4, 1.4, h, c);
+  techo(x - .05, y - .05, h, 1.5, 1.5, .6, i % 2 ? '#c4553a' : '#a8432f');
 });
-// tanque de agua y cartel de sponsor en el barrio
-box(-2.4, -2.4, 0, .3, .3, 3.2, '#8a8f99'); box(-2.75, -2.75, 3.2, 1, 1, .8, '#cfd5de', { shine: 1 });
-box(4.2, -2.2, 0, .15, .15, 2.4, '#5b5b5b'); box(8.2, -2.2, 0, .15, .15, 2.4, '#5b5b5b');
-box(3.9, -2.35, 2.2, 4.8, .2, 1.5, '#1d1d1d', { left: '#0f7a3c' });
-texto(6.3, -2.13, 2.7, 'ApostAR', 26, '#fff'); texto(6.3, -2.13, 2.35, 'cada gol paga doble*', 11, '#c9ffd9');
+// cartel de sponsor en el barrio
+box(12.2, -1.6, 0, .15, .15, 2.4, '#5b5b5b'); box(16.2, -1.6, 0, .15, .15, 2.4, '#5b5b5b');
+box(11.9, -1.75, 2.2, 4.8, .2, 1.5, '#1d1d1d', { left: '#0f7a3c' });
+texto(14.3, -1.53, 2.7, 'ApostAR', 26, '#fff'); texto(14.3, -1.53, 2.35, 'cada gol paga doble*', 11, '#c9ffd9');
 
-// ---------- plataforma y césped ----------
-box(0, 0, -.6, 16, 16, .6, '#a0703f', { top: '#a0703f' });
-for (let x = 0; x < 16; x++) for (let y = 0; y < 16; y++) poly([P(x, y), P(x + 1, y), P(x + 1, y + 1), P(x, y + 1)], (x + y) % 2 ? '#6cc24a' : '#5fb53f', { stroke: 'none' });
-// caminos de baldosa
-const camino = (x, y, w, d) => poly([P(x, y), P(x + w, y), P(x + w, y + d), P(x, y + d)], '#e8d9b5', { stroke: '#cbb88e' });
-camino(3.3, 3.3, 9.4, 9.4); // explanada alrededor del estadio
-camino(7.4, 12.7, 1.2, 3.3); camino(12.7, 7.4, 3.3, 1.2); camino(0, 7.4, 3.3, 1.2);
+// plataforma y césped
+const GX = 19, GY = 14;
+box(0, 0, -.6, GX, GY, .6, '#a0703f', { top: '#a0703f' });
+for (let x = 0; x < GX; x++) for (let y = 0; y < GY; y++) poly([P(x, y), P(x + 1, y), P(x + 1, y + 1), P(x, y + 1)], (x + y) % 2 ? '#6cc24a' : '#5fb53f', { stroke: 'none' });
+const piso = (x, y, w, d, c, s) => poly([P(x, y), P(x + w, y), P(x + w, y + d), P(x, y + d)], c, { stroke: s || shade(c, -.2) });
 
-// ---------- lotes bloqueados ----------
+// ===== ESTADIO: terreno reservado completo =====
+const SX = .6, SY = .6, SW = 9.2, SD = 12.8;          // terreno del estadio
+piso(SX, SY, SW, SD, '#7fd05a', '#4f9a35');            // césped más claro y prolijo
+for (let x = 0; x < SW; x += 1) for (let y = 0; y < SD; y += 1) if ((x + y) % 2) piso(SX + x, SY + y, 1, 1, '#88d763', 'none');
+// borde: murito bajo de ladrillo alrededor del terreno
+box(SX, SY, 0, SW, .18, .25, '#c96f4a'); box(SX, SY, 0, .18, SD, .25, '#c96f4a');
+// estacas de obra futura (marcan dónde irán las tribunas)
+const estaca = (x, y) => { box(x, y, 0, .08, .08, .7, '#e0a800'); const [sx, sy] = P(x, y, .7); el('path', { d: `M${sx},${sy} l12,-5 l0,8 z`, fill: '#ff7a00' }); };
+for (let x = 1.4; x < 9.4; x += 2) { estaca(x, 1.5); estaca(x, 12.5); }
+for (let y = 3.5; y < 12; y += 2) { estaca(1.4, y); estaca(9, y); }
+el('polyline', { points: pts([P(1.45, 1.55, .35), P(9.05, 1.55, .35), P(9.05, 12.55, .35)]), stroke: '#ffcf33', 'stroke-width': 1.5, 'stroke-dasharray': '6 4', fill: 'none' });
+el('polyline', { points: pts([P(1.45, 1.55, .35), P(1.45, 12.55, .35), P(9.05, 12.55, .35)]), stroke: '#ffcf33', 'stroke-width': 1.5, 'stroke-dasharray': '6 4', fill: 'none' });
+
+// tablón del fondo (lado izquierdo de la cancha, x chico)
+for (let i = 0; i < 2; i++) box(2.3 + i * .45, 4.4, 0, .45, 5.2, .7 - i * .35, '#c08a52', { shine: 1, top: '#d9a56b' });
+// vestuario de chapa
+box(3.5, 2.4, 0, 2, 1.2, 1, '#b9c4cf', { shine: 1 }); techo(3.4, 2.3, 1, 2.2, 1.4, .35, '#8a96a3');
+box(4.1, 3.6, 0, .6, .02, .7, '#5b3a1e'); texto(4.5, 3.62, .82, 'VESTUARIO', 8, '#fff');
+// la cancha (chica, cat. 1)
+const CXa = 3.4, CYa = 4.4, CW = 4.4, CD = 6.6;
+piso(CXa, CYa, CW, CD, '#3fa34d', '#2a7a37');
+for (let s = 0; s < 6; s++) if (s % 2) piso(CXa, CYa + s * CD / 6, CW, CD / 6, '#4bb35a', 'none');
+const L = { fill: 'none', stroke: '#fff', 'stroke-width': 1.6 };
+el('polygon', Object.assign({ points: pts([P(CXa + .3, CYa + .3), P(CXa + CW - .3, CYa + .3), P(CXa + CW - .3, CYa + CD - .3), P(CXa + .3, CYa + CD - .3)]) }, L));
+el('polyline', Object.assign({ points: pts([P(CXa + .3, CYa + CD / 2), P(CXa + CW - .3, CYa + CD / 2)]) }, L));
+{ const [ex, ey] = P(CXa + CW / 2, CYa + CD / 2); el('ellipse', Object.assign({ cx: ex, cy: ey, rx: 34, ry: 17 }, L)); }
+el('polygon', Object.assign({ points: pts([P(CXa + 1.4, CYa + .3), P(CXa + 3, CYa + .3), P(CXa + 3, CYa + 1.1), P(CXa + 1.4, CYa + 1.1)]) }, L));
+el('polygon', Object.assign({ points: pts([P(CXa + 1.4, CYa + CD - .3), P(CXa + 3, CYa + CD - .3), P(CXa + 3, CYa + CD - 1.1), P(CXa + 1.4, CYa + CD - 1.1)]) }, L));
+box(CXa + 1.8, CYa + .12, 0, .8, .14, .45, '#fff', { top: '#fff' });
+box(CXa + 1.8, CYa + CD - .26, 0, .8, .14, .45, '#fff', { top: '#fff' });
+[[4.4, 6.2, ROJO], [5.9, 7.4, ROJO], [4.9, 9.1, ROJO], [6.4, 9.8, '#2b5bd7'], [5.5, 5.4, '#2b5bd7']].forEach(([x, y, c]) => { const [sx, sy] = P(x, y); el('ellipse', { cx: sx, cy: sy + 2, rx: 5, ry: 2.5, fill: 'rgba(0,0,0,.25)' }); el('rect', { x: sx - 3, y: sy - 12, width: 6, height: 11, rx: 2, fill: c }); el('circle', { cx: sx, cy: sy - 15, r: 3.5, fill: '#e8b98a' }); });
+{ const [sx, sy] = P(5.6, 7.7); el('circle', { cx: sx, cy: sy - 2, r: 2.6, fill: '#fff', stroke: '#333', 'stroke-width': .8 }); }
+// alambrado alrededor de la cancha
+const AL = [[CXa - .2, CYa - .2], [CXa + CW + .2, CYa - .2], [CXa + CW + .2, CYa + CD + .2], [CXa - .2, CYa + CD + .2]];
+for (let k = 0; k < 4; k++) { const [a, b] = [AL[k], AL[(k + 1) % 4]]; const n = 8; for (let i = 0; i <= n; i++) { const x = a[0] + (b[0] - a[0]) * i / n, y = a[1] + (b[1] - a[1]) * i / n; const [p1, p2] = [P(x, y, 0), P(x, y, .8)]; el('line', { x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], stroke: '#8a8f99', 'stroke-width': 1.2 }); } el('polyline', { points: pts([P(a[0], a[1], .8), P(b[0], b[1], .8)]), stroke: '#a6abb4', 'stroke-width': 1.2, fill: 'none' }); el('polygon', { points: pts([P(a[0], a[1], 0), P(b[0], b[1], 0), P(b[0], b[1], .8), P(a[0], a[1], .8)]), fill: 'rgba(200,205,215,.12)', stroke: 'none' }); }
+// tablón del frente (lado derecho de la cancha, x grande) — bajo para no tapar
+for (let i = 0; i < 2; i++) box(8.05 + i * .45, 5.2, 0, .45, 5, .3 + i * .3, '#c08a52', { shine: 1, top: '#d9a56b' });
+// hinchas en los tablones
+for (let k = 0; k < 9; k++) { const [sx, sy] = P(8.55, 5.5 + k * .5, .62); el('circle', { cx: sx, cy: sy - 5, r: 3.2, fill: k % 3 ? ROJO : '#fff', stroke: 'rgba(0,0,0,.25)', 'stroke-width': .6 }); }
+for (let k = 0; k < 9; k++) { const [sx, sy] = P(2.5, 4.8 + k * .55, .72); el('circle', { cx: sx, cy: sy - 5, r: 3.2, fill: k % 2 ? ROJO : '#fff', stroke: 'rgba(0,0,0,.25)', 'stroke-width': .6 }); }
+// bandera y trapo
+function bandera(x, y, c = ROJO) { box(x, y, 0, .06, .06, 2.2, '#ddd'); const [sx, sy] = P(x, y, 2.2); el('path', { d: `M${sx},${sy} q14,-6 28,0 v16 q-14,6 -28,0 z`, fill: c, stroke: '#fff', 'stroke-width': 1.2 }); }
+bandera(2.1, 3.9); bandera(8.9, 11.6);
+// árboles y bancos dentro del terreno (que se vea cuidado)
+[[1.2, 11.6], [1.3, 2.1], [8.8, 2.1], [8.9, 12.9], [1.2, 6.8]].forEach(([x, y]) => arbol(x, y, .8));
+[[6.3, 12.1], [3.6, 12.1]].forEach(([x, y]) => { box(x, y, 0, 1, .3, .25, '#9b6a3c', { top: '#b9824e' }); });
+
+// ===== CALLE entre el estadio y la villa =====
+piso(10, 0, 1.1, GY, '#7c7f87', '#5f626a');
+for (let y = .4; y < GY; y += 1.4) piso(10.5, y, .1, .7, '#f4f4f4', 'none');
+
+// ===== LA VILLA =====
+const vereda = (x, y, w, d) => piso(x, y, w, d, '#e8d9b5', '#cbb88e');
+vereda(11.1, 0, 7.9, .9); vereda(11.1, 4.6, 7.9, .8); vereda(11.1, 9.4, 7.9, .8); vereda(14.6, 0, .8, GY);
+
+// oficinas (el Despacho) — arriba
+sombra(11.5, 1.2, 2.2, 2.6);
+box(11.5, 1.2, 0, 2.2, 2.6, 2.2, '#f1ece2', { shine: 1 });
+box(11.4, 1.1, 2.2, 2.4, 2.8, .18, ROJO, { shine: 1 });
+for (let f = 0; f < 2; f++) for (let c = 0; c < 2; c++) poly([P(11.8 + c * .95, 3.81, .45 + f * .95), P(12.4 + c * .95, 3.81, .45 + f * .95), P(12.4 + c * .95, 3.81, 1.0 + f * .95), P(11.8 + c * .95, 3.81, 1.0 + f * .95)], '#8fc8ff');
+for (let f = 0; f < 2; f++) for (let r = 0; r < 2; r++) poly([P(13.71, 1.5 + r * 1.1, .45 + f * .95), P(13.71, 2.1 + r * 1.1, .45 + f * .95), P(13.71, 2.1 + r * 1.1, 1.0 + f * .95), P(13.71, 1.5 + r * 1.1, 1.0 + f * .95)], '#6fa9e0');
+bandera(13.4, 1.4);
+texto(12.6, 3.82, 1.95, "OFICINAS", 11, ROJO);
+
+// prensa y redes
+sombra(16.2, 2.6, 2.2, 2.2);
+box(16.2, 2.6, 0, 2.2, 2.2, 1.8, '#3d4a5c', { shine: 1, top: '#56657a' });
+box(17.6, 3, 1.8, .1, .1, 1.3, "#9aa3b1"); { const [sx, sy] = P(17.65, 3.05, 3.15); el('circle', { cx: sx, cy: sy, r: 4, fill: ROJO }); }
+poly([P(16.35, 4.81, .35), P(18.25, 4.81, .35), P(18.25, 4.81, 1.55), P(16.35, 4.81, 1.55)], '#0e1622');
+texto(17.3, 4.82, 1.1, '● EN VIVO', 12, '#ff4d6d'); texto(17.3, 4.82, .72, '12,4k viendo', 9, '#cfe3ff');
+
+// cancha de entrenamiento
+piso(11.4, 5.8, 2.8, 3.4, "#3fa34d", "#fff");
+el("polyline", Object.assign({ points: pts([P(11.4, 7.5), P(14.2, 7.5)]) }, L));
+box(12.4, 5.7, 0, .8, .12, .4, '#fff', { top: '#fff' }); box(12.4, 9.1, 0, .8, .12, .4, '#fff', { top: '#fff' });
+[[11.9, 6.3], [13.8, 6.7], [12.3, 8.2], [13.9, 8.6]].forEach(([x, y]) => { const [sx, sy] = P(x, y); el('path', { d: `M${sx - 4},${sy} L${sx},${sy - 10} L${sx + 4},${sy} Z`, fill: '#ff7a00' }); });
+
+// ojeadores
+sombra(16.2, 7.2, 2, 1.8);
+box(16.2, 7.2, 0, 2, 1.8, 1.1, '#e9d8b4', { shine: 1 }); techo(16.1, 7.1, 1.1, 2.2, 2, .6, '#2f6fb5');
+box(16.8, 9.0, 0, .8, .02, .7, '#6b4a2a'); texto(17.2, 9.02, .85, '🔭', 16, '#000');
+
+// parrilla
+sombra(11.8, 10.5, 1.8, 1.4);
+box(11.8, 10.5, 0, 1.8, 1.4, 1, '#f3c9a0', { shine: 1 }); techo(11.7, 10.4, 1, 2, 1.6, .5, '#2E8B3A');
+box(12.1, 11.92, .45, 1.2, .02, .35, '#5b3a1e'); texto(12.7, 11.94, .58, 'PARRILLA', 9, '#ffd8a8');
+box(13.35, 10.8, 1.2, .2, .2, .7, '#555');
+for (let s = 0; s < 3; s++) { const [sx, sy] = P(13.45, 10.9, 2.1 + s * .45); el('circle', { cx: sx + s * 4, cy: sy, r: 6 + s * 2, fill: 'rgba(240,240,240,.75)' }); }
+
+// lote bloqueado
 function baldio(x, y, nv) {
   poly([P(x, y), P(x + 2.4, y), P(x + 2.4, y + 2.4), P(x, y + 2.4)], '#b98a52', { stroke: '#8a6236', 'stroke-dasharray': '4 3' });
   for (let i = 0; i < 4; i++) { const [sx, sy] = P(x + .5 + (i % 2) * 1.3, y + .5 + (i >> 1) * 1.2); el('circle', { cx: sx, cy: sy, r: 3, fill: '#9a7041' }); }
@@ -195,89 +277,19 @@ function baldio(x, y, nv) {
   box(x + .7, y + 1.15, .75, .9, .06, .5, '#f1e3c3');
   texto(x + 1.15, y + 1.21, .9, '🔒 Nv ' + nv, 11, '#5b3d1e');
 }
-baldio(.6, .6, 9);
+baldio(16, 10.8, 9);
 
-// ---------- estadio ----------
-const ROJO = '#D7263D', BLANCO = '#f4f4f4';
-sombra(3.8, 3.8, 8.6, 8.6, .18);
-// tribuna norte (platea techada, la más alta)
-for (let i = 0; i < 4; i++) box(5.4, 3.8 + i * .5, 0, 5.2, .5, 2.4 - i * .55, i % 2 ? BLANCO : ROJO, { shine: 1 });
-box(5.2, 3.6, 2.4, 5.6, 1.5, .25, '#dfe3ea', { shine: 1 }); // techo
-for (let k = 0; k < 4; k++) box(5.3 + k * 1.75, 3.65, 0, .12, .12, 2.4, '#9aa3b1');
-texto(8, 5.12, 2.05, 'PLATEA "EL TANO" ', 13, '#fff');
-// tribuna oeste (cemento, popular)
-for (let i = 0; i < 3; i++) box(3.8 + i * .55, 5.4, 0, .55, 5.2, 1.8 - i * .55, '#b8bcc4', { shine: 1 });
-const [bx, by] = P(4.2, 7.9, 1.9); // trapo de la barra
-el('path', { d: `M${bx - 40},${by - 4} l60,-30 l0,16 l-60,30 z`, fill: ROJO, stroke: '#fff', 'stroke-width': 2 });
-el('text', { x: bx - 10, y: by - 6, transform: `rotate(-26.5 ${bx - 10} ${by - 6})`, 'font-family': 'Lilita One', 'font-size': 11, fill: '#fff', 'text-anchor': 'middle' }).textContent = 'LA 12 DE VILLA';
-// torre de luz del fondo
-box(3.7, 3.7, 0, .18, .18, 4, '#7d8796'); box(3.45, 3.45, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
-// cancha
-poly([P(5.4, 5.4), P(10.6, 5.4), P(10.6, 10.6), P(5.4, 10.6)], '#3fa34d', { stroke: '#2a7a37' });
-for (let s = 0; s < 6; s++) if (s % 2) poly([P(5.4 + s * 5.2 / 6, 5.4), P(5.4 + (s + 1) * 5.2 / 6, 5.4), P(5.4 + (s + 1) * 5.2 / 6, 10.6), P(5.4 + s * 5.2 / 6, 10.6)], '#4bb35a', { stroke: 'none' });
-const L = { fill: 'none', stroke: '#fff', 'stroke-width': 1.6 };
-el('polygon', Object.assign({ points: pts([P(5.8, 5.8), P(10.2, 5.8), P(10.2, 10.2), P(5.8, 10.2)]) }, L));
-el('polyline', Object.assign({ points: pts([P(8, 5.8), P(8, 10.2)]) }, L));
-{ const [ex, ey] = P(8, 8); el('ellipse', Object.assign({ cx: ex, cy: ey, rx: 40, ry: 20 }, L)); }
-el('polygon', Object.assign({ points: pts([P(5.8, 7.1), P(6.6, 7.1), P(6.6, 8.9), P(5.8, 8.9)]) }, L));
-el('polygon', Object.assign({ points: pts([P(10.2, 7.1), P(9.4, 7.1), P(9.4, 8.9), P(10.2, 8.9)]) }, L));
-box(5.65, 7.6, 0, .15, .8, .45, '#ffffff', { top: '#fff' }); // arcos
-box(10.2, 7.6, 0, .15, .8, .45, '#ffffff', { top: '#fff' });
-// jugadores entrenando (puntitos)
-[[7, 7, ROJO], [8.6, 8.4, ROJO], [7.6, 9.3, ROJO], [9.2, 6.9, '#2b5bd7']].forEach(([x, y, c]) => { const [sx, sy] = P(x, y); el('ellipse', { cx: sx, cy: sy + 2, rx: 5, ry: 2.5, fill: 'rgba(0,0,0,.25)' }); el('rect', { x: sx - 3, y: sy - 12, width: 6, height: 11, rx: 2, fill: c }); el('circle', { cx: sx, cy: sy - 15, r: 3.5, fill: '#e8b98a' }); });
-{ const [sx, sy] = P(8.1, 8.1); el('circle', { cx: sx, cy: sy - 2, r: 2.6, fill: '#fff', stroke: '#333', 'stroke-width': .8 }); }
-// tribuna este (tablones)
-for (let i = 0; i < 2; i++) box(10.6 + i * .5, 5.4, 0, .5, 5.2, .45 + i * .45, '#c08a52', { shine: 1, top: '#d9a56b' });
-for (let k = 0; k < 7; k++) { const [sx, sy] = P(11.05, 5.6 + k * .75, .9); el('line', { x1: sx, y1: sy, x2: sx, y2: sy + 10, stroke: '#7a4b22', 'stroke-width': 2 }); }
-// tribuna sur (en obra)
-poly([P(5.4, 10.6), P(10.6, 10.6), P(10.6, 12.2), P(5.4, 12.2)], '#b98a52', { stroke: '#8a6236' });
-box(5.6, 11.3, 0, 4.8, .5, .5, '#b8bcc4');
-for (let k = 0; k < 6; k++) for (const yy of [10.8, 12]) box(5.6 + k * .95, yy, 0, .07, .07, 1.6, '#e0a800');
-for (const yy of [10.8, 12]) for (const zz of [.8, 1.6]) el('polyline', { points: pts([P(5.6, yy, zz), P(10.4, yy, zz)]), stroke: '#e0a800', 'stroke-width': 2.5, fill: 'none' });
-[[6, 12.4], [8, 12.45], [10, 12.4]].forEach(([x, y]) => { const [sx, sy] = P(x, y); el('path', { d: `M${sx - 5},${sy} L${sx},${sy - 14} L${sx + 5},${sy} Z`, fill: '#ff7a00', stroke: '#fff', 'stroke-width': 1 }); });
-// torres de luz del frente
-box(12.1, 3.7, 0, .18, .18, 4, '#7d8796'); box(11.85, 3.45, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
-box(3.7, 12.1, 0, .18, .18, 4, '#7d8796'); box(3.45, 11.85, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
-box(12.1, 12.1, 0, .18, .18, 4, '#7d8796'); box(11.85, 11.85, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
+// árboles de la villa
+[[18.6, .6], [18.6, 4.8], [18.6, 9.2], [14.9, 12.9], [18.5, 13.4], [11.3, 13.2]].forEach(([x, y], i) => arbol(x, y, .85 + (i % 3) * .1));
 
-// ---------- edificios ----------
-// oficina de ojeadores (arriba a la derecha)
-sombra(12.9, 12.6, 2.4, 2.2);
-box(12.9, 12.6, 0, 2.4, 2.2, 1.3, '#e9d8b4', { shine: 1 }); techo(12.8, 12.5, 1.3, 2.6, 2.4, .8, "#2f6fb5");
-box(13.6, 14.8, 0, .9, .02, .8, "#6b4a2a"); // puerta
-texto(14.1, 14.82, .95, '🔭', 18, '#000');
-// cancha de entrenamiento (izquierda)
-poly([P(.5, 9.2), P(3.1, 9.2), P(3.1, 14.6), P(.5, 14.6)], '#3fa34d', { stroke: '#fff', 'stroke-width': 1.5 });
-el('polyline', Object.assign({ points: pts([P(.5, 11.9), P(3.1, 11.9)]) }, L));
-box(1.4, 9.05, 0, .8, .12, .4, '#fff', { top: '#fff' }); box(1.4, 14.5, 0, .8, .12, .4, '#fff', { top: '#fff' });
-[[1.1, 10.2], [2.5, 10.6], [1.6, 12.8], [2.6, 13.6]].forEach(([x, y]) => { const [sx, sy] = P(x, y); el('path', { d: `M${sx - 4},${sy} L${sx},${sy - 10} L${sx + 4},${sy} Z`, fill: '#ff7a00' }); });
-// prensa y redes (derecha)
-sombra(13, .8, 2.4, 2.6);
-box(13, .8, 0, 2.4, 2.6, 2.3, '#3d4a5c', { shine: 1, top: '#56657a' });
-box(13.05, .9, 2.3, 2.3, 2.4, .12, '#2a3442');
-box(14.6, 1.3, 2.42, .1, .1, 1.4, "#9aa3b1"); { const [sx, sy] = P(14.65, 1.35, 3.85); el('circle', { cx: sx, cy: sy, r: 4, fill: ROJO }); }
-poly([P(13.15, 3.41, .5), P(15.25, 3.41, .5), P(15.25, 3.41, 1.9), P(13.15, 3.41, 1.9)], '#0e1622');
-texto(14.2, 3.42, 1.4, '● EN VIVO', 13, '#ff4d6d'); texto(14.2, 3.42, .95, '12,4k viendo', 10, '#cfe3ff');
-// buffet / parrilla (abajo)
-sombra(4.8, 13.2, 1.8, 1.4);
-box(4.8, 13.2, 0, 1.8, 1.4, 1, '#f3c9a0', { shine: 1 }); techo(4.7, 13.1, 1, 2, 1.6, .5, '#2E8B3A');
-box(5.1, 14.62, .45, 1.2, .02, .35, '#5b3a1e'); texto(5.7, 14.64, .58, 'PARRILLA', 9, '#ffd8a8');
-box(6.35, 13.5, 1.2, .2, .2, .7, '#555');
-for (let s = 0; s < 3; s++) { const [sx, sy] = P(6.45, 13.6, 2.1 + s * .45); el('circle', { cx: sx + s * 4, cy: sy, r: 6 + s * 2, fill: 'rgba(240,240,240,.75)' }); }
-
-// árboles
-[[.4, 3.4], [3.6, .4], [.4, 8.1], [15.3, 4.9], [15.4, 11], [12.6, 15.3], [3.8, 15.4], [6.2, .5], [11, .5], [15.5, 15.5]].forEach(([x, y], i) => arbol(x, y, .85 + (i % 3) * .12));
-
-// banderas
-function bandera(x, y) { box(x, y, 0, .06, .06, 2.2, '#ddd'); const [sx, sy] = P(x, y, 2.2); el('path', { d: `M${sx},${sy} q14,-6 28,0 q-14,6 -28,0 v16 q14,-6 28,0 v-16`, fill: ROJO, stroke: '#fff', 'stroke-width': 1.2 }); }
-bandera(3.4, 7.9); bandera(7.9, 3.3);
-
-// ---------- carteles y burbujas ----------
-cartel(13.9, 15.1, 0, 'Ojeadores · Nv 2'); burbuja(14.1, 13.7, 3, '⬆ Mejorar');
-cartel(1.8, 15.2, 0, 'Entrenamiento · Nv 3');
-cartel(14.4, 3.7, 0, 'Prensa y redes · Nv 1'); burbuja(14.2, 2.1, 4.4, '👤 Vacante', '#ff6b81', '#fff');
-burbuja(8, 12.3, 1.9, '🚧 Tribuna sur · 2 fechas', '#ffb020');
-cartel(5.7, 15.1, 0, 'Parrilla · Nv 1');
+// ===== carteles y burbujas =====
+cartel(5.4, 13.3, 0, 'Estadio · Cancha de barrio · 1.800 personas');
+burbuja(5.6, 7.6, 2.4, '⬆ Categoría 2: Estadio de ascenso');
+cartel(12.6, 4.25, 0, 'Oficinas · el Despacho'); burbuja(12.6, 2.4, 3.1, '📣 3 situaciones', '#ff6b81', '#fff');
+cartel(17.3, 5.2, 0, 'Prensa y redes · Nv 1');
+cartel(12.8, 9.7, 0, 'Entrenamiento · Nv 3');
+cartel(17.2, 9.4, 0, 'Ojeadores · Nv 2'); burbuja(17.2, 7.9, 2.2, '🚧 1 fecha', '#ffb020');
+cartel(12.7, 12.3, 0, 'Parrilla · Nv 1');
 
 // ---------- escala ----------
 function fit() { const s = Math.min(innerWidth / 1280, innerHeight / 720); document.getElementById('stage').style.transform = `translate(-50%,-50%) scale(${s})`; }
