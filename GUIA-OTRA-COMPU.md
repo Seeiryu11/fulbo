@@ -5,75 +5,85 @@ Repo: https://github.com/Seeiryu11/fulbo
 ## Lo importante primero
 
 **GitHub NO guarda solo.** Los cambios quedan en la compu donde se hicieron hasta que se hace **commit + push**.
-Antes de irte de una compu, pedile a Claude:
+Antes de irte de una compu, pedile a Claude: **"commiteá y pusheá todo"**.
 
-> "commiteá y pusheá todo"
-
-(o hacelo vos con los comandos de abajo). Si no, la otra compu no va a ver esos cambios.
+**La conversación con Claude no viaja.** Lo que sí viaja es el proyecto, y en especial `CLAUDE.md`, que tiene todas las decisiones, el estado y el próximo paso. Una sesión nueva lo lee sola y sigue desde ahí.
 
 ---
 
-## 1. Primera vez en una compu nueva (se hace una sola vez)
+## 1. Primera vez en una compu nueva (una sola vez)
 
-1. Instalar git (si no lo tiene). En una terminal:
+1. Instalar git y Node.js. En una terminal:
    ```bash
    winget install Git.Git
+   winget install OpenJS.NodeJS.LTS
    ```
-   Cerrá y volvé a abrir la terminal después de instalarlo.
+   Cerrá y volvé a abrir la terminal después.
 2. Ir a la carpeta donde quieras tener el proyecto (por ejemplo, Documentos):
    ```bash
    cd ~/Documents
    ```
-3. Bajar el proyecto:
+3. Bajar el proyecto (crea la carpeta `fulbo` con todo adentro):
    ```bash
    git clone https://github.com/Seeiryu11/fulbo.git
    ```
-   Esto crea la carpeta `fulbo` con todo adentro. **No copies la carpeta vieja a mano**: usá solo esta.
-4. Decirle a git quién sos (una vez por compu):
+   **No copies la carpeta vieja a mano**: usá solo esta.
+4. Decirle a git quién sos:
    ```bash
    git config --global user.name "Seeiryu11"
    git config --global user.email "320675400+Seeiryu11@users.noreply.github.com"
    ```
-5. Abrir la carpeta `fulbo` en Claude Code. La sesión lee `CLAUDE.md` y ya sabe todo el contexto.
-6. La primera vez que subas cambios, Windows te va a abrir una ventana para iniciar sesión en GitHub: aceptala.
+5. Abrir la carpeta `fulbo` en Claude Code (app de escritorio → Code → elegir la carpeta).
+6. La primera vez que se suban cambios, Windows abre una ventana para iniciar sesión en GitHub: aceptala.
 
-Opcional, para cuando programemos o haya que sacar fotogramas:
-```bash
-winget install OpenJS.NodeJS.LTS
-winget install Gyan.FFmpeg
-```
-
-Los videos `.mov` de referencia **no están en GitHub** (pesan demasiado). Si los querés, copialos aparte a `referencias/videos/`. No hacen falta para seguir.
+Opcional: `winget install Gyan.FFmpeg` (solo para sacar fotogramas de videos). Los videos `.mov` de referencia no están en GitHub; no hacen falta.
 
 ---
 
-## 2. Cada vez que te sentás a trabajar
+## 2. Cómo retomar la sesión con Claude
 
-**Al empezar** (en la carpeta `fulbo`), bajá lo último:
-```bash
-git pull
-```
-o pedile a Claude: *"hacé git pull"*.
+En la sesión nueva, escribí algo así como primer mensaje:
 
-**Al terminar**, subí lo que hiciste:
+> Seguimos con FULBO. Leé CLAUDE.md, steering/roadmap.md y specs/nucleo/. Hacé git pull, decime en qué estado quedó todo y cuál es el próximo paso.
+
+Claude va a encontrar:
+- `CLAUDE.md`: decisiones tomadas (no se vuelven a discutir), estado actual y próximo paso.
+- `steering/roadmap.md`: las fases y en cuál estamos.
+- `specs/`: todo lo especificado, módulo por módulo.
+- `.claude/agents/`: los 6 agentes del proyecto (club, mercado, liga, partido, movidas, economía) y `steering/agentes.md` con sus reglas comunes.
+
+### Usar los agentes
+
+Pedíselo a Claude en lenguaje normal, por ejemplo:
+> Usá el agente liga para hacer el design.md de la liga.
+> Lanzá en paralelo los agentes club, mercado y movidas para que armen sus design.md.
+
+Cada agente trabaja solo en su módulo, respeta el núcleo y al terminar deja un informe; Claude (el coordinador) revisa, te consulta lo que haga falta y commitea.
+
+---
+
+## 3. Cada vez que te sentás a trabajar
+
+**Al empezar** (en la carpeta `fulbo`): `git pull`, o pedile a Claude *"hacé git pull"*.
+
+**Al terminar**: pedile a Claude *"commiteá y pusheá todo"*, o a mano:
 ```bash
 git add -A
 git commit -m "lo que hice"
 git push
 ```
-o pedile a Claude: *"commiteá y pusheá todo"*.
 
 ---
 
-## 3. Si algo sale mal
+## 4. Si algo sale mal
 
-- **`git pull` dice que hay conflictos**: pasa si se cambió el mismo archivo en las dos compus sin subir antes. Pedile a Claude: *"resolvé los conflictos del pull"*.
-- **`git push` es rechazado** ("fetch first" / "rejected"): alguien subió algo antes. Hacé `git pull` y después `git push` de nuevo.
-- **No sé si subí todo**: `git status`. Si dice "nothing to commit, working tree clean" y "up to date with origin/main", está todo subido.
+- **`git pull` dice que hay conflictos**: se cambió lo mismo en las dos compus sin subir antes. Pedile a Claude: *"resolvé los conflictos del pull"*.
+- **`git push` es rechazado** ("rejected" / "fetch first"): alguien subió algo antes. `git pull` y después `git push`.
+- **¿Subí todo?**: `git status`. Si dice "nothing to commit, working tree clean" y "up to date with 'origin/main'", está todo subido.
 
 ---
 
-## 4. Para tus amigos
+## 5. Para tus amigos
 
-- Ver y bajar el proyecto: cualquiera con el link (es público).
-- Para que puedan **subir** cambios: agregalos en https://github.com/Seeiryu11/fulbo/settings/access → **Add people** → su usuario de GitHub. Ellos siguen la sección 1 de esta guía (con su propio nombre y mail en el paso 4).
+- Ver y bajar: cualquiera con el link (el repo es público).
+- Para que puedan **subir** cambios: https://github.com/Seeiryu11/fulbo/settings/access → **Add people** → su usuario de GitHub. Siguen la sección 1 con su propio nombre y mail en el paso 4.

@@ -156,7 +156,9 @@ MVP: Ciudad, Campo y Montaña. V1: el resto.
 ### CLU-12 · Competencia: arrancás en la B Nacional — MVP
 **Historia:** Como dueño, quiero arrancar desde abajo y pelear el ascenso, para que llegar a Primera se sienta ganado.
 1. EL SISTEMA DEBE empezar la partida con el club en la **B Nacional** (liga ficticia de segunda división, equipos ficticios).
-2. EL SISTEMA DEBE organizar cada temporada en fechas de todos contra todos, con tabla de posiciones (puntos, PJ, G, E, P, GF, GC, DG).
+2. EL SISTEMA DEBE tener **20 equipos en la B Nacional y 20 en Primera División**, todos contra todos **ida y vuelta (38 fechas)**, una temporada por año calendario, como la Premier League pero con el fútbol argentino. Tabla con puntos, PJ, G, E, P, GF, GC y DG.
+2b. EL SISTEMA DEBE sumar **copas entre semana** (martes/miércoles): una **copa nacional** por eliminación directa (tipo Copa Argentina) con equipos de las dos divisiones, y una **copa continental** ficticia (tipo Libertadores) para los mejores de Primera.
+2c. EL SISTEMA DEBE dar a cada club rival una **personalidad** (vendedor de pibes, gastador, ordenado, caótico, de presidente loco) que guíe sus fichajes, su rendimiento y sus noticias, para que la liga se sienta viva y coherente.
 3. CUANDO termina la temporada, EL SISTEMA DEBE ascender directo al **1.º** de la B Nacional.
 4. CUANDO termina la temporada, EL SISTEMA DEBE hacer jugar al **2.º** de la B un **repechaje** a ida y vuelta contra el **anteúltimo de Primera**; el ganador juega la temporada siguiente en Primera.
 5. CUANDO termina la temporada, EL SISTEMA DEBE descender directo al **último** de Primera.
@@ -173,6 +175,7 @@ MVP: Ciudad, Campo y Montaña. V1: el resto.
 - **D5 (2026-10-07)** El estadio es la atracción principal de la aldea, a un costado y bien grande; el resto del club ("la villa") se agrupa del otro lado. No es pantalla partida literal → CLU-1.
 - **D7 (2026-10-07)** El fondo del club es un **entorno cambiable** (ciudad, campo, montaña, frío, Caribe, costa, desierto…) → CLU-13.
 - **D6 (2026-10-07)** Mucha variedad de estadios: categorías × estilos (ascenso, Primera, europeo, andino, invierno extremo, tropical…) × piezas. La ambientación no está atada a Argentina como país → CLU-2, DES-8.
+- **D8 (2026-10-07)** 20 equipos por división, ida y vuelta (38 fechas), una temporada por año; copa entre semana; clubes rivales con personalidad → CLU-12. Lo desarrolla el agente `liga`.
 - **D4 (2026-10-07)** Se arranca en la **B Nacional**: el 1.º asciende directo y el 2.º juega repechaje contra un equipo de Primera → CLU-12.
 
 ## Preguntas abiertas

@@ -66,11 +66,19 @@ El partido es el corazón jugable. Hay un solo motor de simulación que sirve pa
 ### PAR-11 · VAR — Después
 1. EL SISTEMA PUEDE revisar goles o penales con una pausa dramática y un resultado según la simulación.
 
+### PAR-12 · Highlights del partido simulado — MVP (2D), V1 (3D)
+**Historia:** Como dueño, aunque simule, quiero ver los goles y las jugadas clave, para vivir el partido.
+1. EL SISTEMA DEBE guardar, para cada jugada clave (gol, atajada, palo, expulsión, penal), una **reconstrucción aproximada**: posiciones de los jugadores involucrados y de la pelota durante unos segundos.
+2. CUANDO termina un partido simulado, EL SISTEMA DEBE mostrar de 3 a 6 highlights con relato.
+3. MVP: los highlights se ven en una **pizarra 2D animada** (cancha vista de arriba, puntitos con los colores de cada equipo). V1: se recrean en el **estadio 3D** del club.
+4. EL SISTEMA DEBE poder saltear los highlights.
+
 ## Fuera de alcance
 - Multijugador en vivo. Contra amigos se juega contra su club controlado por la IA (como BOLA).
 - Selecciones / World Battle (queda para una spec aparte).
 
 ## Decisiones tomadas
+- **D2 (2026-10-07)** Aunque sea simulado, el partido muestra highlights recreados (PAR-12). El motor tiene en cuenta estadísticas, probabilidad, moral, hinchada, DT y forma de los jugadores (PAR-6, PAR-7).
 - **D1 (2026-10-07)** El MVP es Simular + minijuegos en jugadas clave. El partido jugable (PAR-2, PAR-3) se hace **al final**, después de toda la interfaz.
 
 ## Preguntas abiertas (no bloquean el MVP)

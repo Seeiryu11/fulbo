@@ -1,13 +1,18 @@
 # Roadmap
 
-Orden acordado (2026-10-07): **primero toda la interfaz, al final el partido jugable.**
+Orden original (2026-10-07): primero toda la interfaz, al final el partido jugable.
+**Cambio (2026-10-07):** el usuario pidió dejar lo visual y pasar al funcionamiento con agentes. Nuevo orden: **base → los agentes construyen cada módulo → interfaz y 3D con datos reales → partido jugable al final.**
 
-| Fase | Qué | Specs | Resultado |
-|------|-----|-------|-----------|
-| 0 | Especificación | todas (`requirements.md`) | Requisitos aprobados |
-| 1 | Diseño técnico y de UI | `steering/tecnica.md`, `design.md` de interfaz, club y despacho | Stack elegido, modelo de datos, wireframes |
-| 2 | Interfaz con datos mock | `specs/interfaz` | Se navega todo el juego: predio, despacho, plantel, modales, flujo de fecha con resultados inventados |
-| 3 | Lógica del club y del Despacho | `specs/club`, `specs/despacho` | Economía, obras por fechas, DTs, sponsors, eventos con consecuencias reales |
-| 4 | Simulación + minijuegos | `specs/partido` PAR-1, 4, 5, 6, 8, 9 | Temporada completa jugable simulando y definiendo jugadas clave |
-| 5 | Partido jugable | `specs/partido` PAR-2, 3, 7, 10 | El partido 3/4 estilo BOLA |
-| 6 | Social y extras | CLU-11, PAR-11, selecciones | Amigos, ligas, VAR, World Battle |
+| Fase | Qué | Quién | Estado |
+|------|-----|-------|--------|
+| 0 | Requisitos de todas las specs | coordinador | ✅ aprobados |
+| 0b | Dirección de arte | coordinador | ✅ 3D con Three.js (`referencias/mockups/predio-europeo.*`) |
+| 1 | **Base / núcleo**: tiempo (semanas y días), ciclo entre partidos, estado por porciones, efectos, azar con semilla, guardado | coordinador | ✅ requisitos · ⏳ `specs/nucleo/design.md` en revisión |
+| 1b | **Economía**: modelo y números | coordinador / agente `economia` | ⏳ `specs/economia/design.md` |
+| 2 | **Diseño por módulo** (`design.md` + `tasks.md`) | agentes `club`, `mercado`, `liga`, `partido`, `movidas` en paralelo | pendiente |
+| 3 | **Esqueleto de código**: Vite + TS, núcleo programado, test de temporada sin pantalla | coordinador (requiere Node.js) | pendiente |
+| 4 | **Módulos programados** sobre el núcleo | agentes en paralelo | pendiente |
+| 5 | **Interfaz + escena 3D** del club con datos reales | coordinador + agente `club` | pendiente |
+| 6 | **Highlights 2D** y minijuegos de jugadas clave | agente `partido` | pendiente |
+| 7 | **Highlights 3D** y partido jugable | agente `partido` | pendiente |
+| 8 | Social, carrera de jugador, IA en vivo | — | más adelante |

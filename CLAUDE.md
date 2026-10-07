@@ -29,7 +29,9 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - **Arte: 3D con Three.js (decidido)**. Look profesional como `referencias/estadios-bola/`. Prototipo del estadio europeo: `referencias/mockups/predio-europeo.html` (vista del club) y `?hero` (toma cercana). Las secciones SVG de `specs/interfaz/design.md` están obsoletas y hay que reescribirlas.
 - **Entorno de fondo cambiable** (ciudad, campo, montaña, frío, Caribe, costa, desierto) → CLU-13.
 - Ojo con la cámara: el usuario quiere el estadio protagonista pero sin que tape todo; la villa tiene que tener peso.
-- Próximo paso (pedido del usuario): dejar lo visual y pasar al **funcionamiento**: partidos, ligas, puntos, recompensas, mercado de pases y movidas (design.md de partido, club y despacho).
+- **Base armada (2026-10-07):** `specs/nucleo` (tiempo en semanas y días, ciclo entre partidos, estado por porciones, contrato de módulos, efectos), `specs/economia` (principios, sin pay-to-win), liga de 20 equipos ida y vuelta + copas entre semana (nacional y continental tipo Libertadores), highlights 2D y 3D (PAR-12).
+- **Agentes del proyecto** en `.claude/agents/`: club, mercado, liga, partido, movidas, economia. Reglas comunes en `steering/agentes.md`. El coordinador (sesión principal) los lanza, revisa y commitea.
+- **Próximo paso:** el usuario revisa `specs/nucleo/design.md`; se hace `specs/economia/design.md`; después se lanzan los agentes en paralelo para sus `design.md`. Ver `steering/roadmap.md`.
 
 ## Herramientas
 - `referencias/_tools/serve.ps1`: servidor estático local (configurado en `.claude/launch.json` como `bola-static`, puerto 8765).

@@ -26,6 +26,9 @@ Ver [steering/proceso.md](steering/proceso.md): requisitos → diseño → tarea
 | [specs/partido/requirements.md](specs/partido/requirements.md) | Partido: jugar / mirar / simular, minijuegos, relato | aprobado |
 | [specs/club/requirements.md](specs/club/requirements.md) | Estadio por piezas, predio, staff, plantel, camiseta, sponsors, economía | aprobado |
 | [specs/despacho/requirements.md](specs/despacho/requirements.md) | Movidas y decisiones de todo el club, estilo Potrero | aprobado |
+| [specs/nucleo/requirements.md](specs/nucleo/requirements.md) · [design](specs/nucleo/design.md) | Base: tiempo, ciclo, estado, contrato de módulos | aprobado · diseño en revisión |
+| [specs/economia/requirements.md](specs/economia/requirements.md) | Economía: principios, sin pay-to-win | aprobado |
+| [.claude/agents/](.claude/agents/) · [steering/agentes.md](steering/agentes.md) | Los 6 agentes que construyen el juego | — |
 | [specs/carrera-jugador/requirements.md](specs/carrera-jugador/requirements.md) | Jugador propio estilo Potrero (separado para después) | postergado |
 | [referencias/analisis.md](referencias/analisis.md) | Qué vimos en los videos de BOLA y Potrero | — |
 
