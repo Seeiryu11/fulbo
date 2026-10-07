@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predio — mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --amarillo:#F5C518; --amarillo-osc:#C99500; --crema:#FFF6D5;
+    --rojo:#D7263D; --verde:#2E8B3A; --hud1:#2F6FB5; --hud2:#1B3F73;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#0f2238;overflow:hidden;font-family:Nunito,Tahoma,sans-serif}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;overflow:hidden;
+    background:linear-gradient(#7cc4f2 0%,#bfe6ff 38%,#d9f0d0 60%,#9ccf7a 100%)}
+  svg#scene{position:absolute;inset:0}
+  .titulo{font-family:'Lilita One',sans-serif;color:#fff;letter-spacing:.5px;
+    text-shadow:-2px -2px 0 #2a1a00,2px -2px 0 #2a1a00,-2px 2px 0 #2a1a00,2px 2px 0 #2a1a00,0 4px 0 #2a1a00}
+  /* HUD */
+  .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;gap:10px;align-items:stretch}
+  .pan{background:linear-gradient(var(--hud1),var(--hud2));border:3px solid #fff;border-radius:14px;
+    box-shadow:0 4px 0 rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.35);color:#fff;padding:6px 12px;display:flex;align-items:center;gap:10px}
+  .club{min-width:360px}
+  .club .nombre{font-family:'Lilita One';font-size:22px;line-height:1;text-shadow:0 2px 0 #0b2140}
+  .estrellas{color:#FFD43B;font-size:15px;letter-spacing:1px;text-shadow:0 1px 0 #7a5a00}
+  .nivel{display:flex;align-items:center;gap:6px;margin-top:3px}
+  .barra{width:150px;height:14px;border-radius:8px;background:#0b2140;border:2px solid #fff;overflow:hidden}
+  .barra i{display:block;height:100%;width:62%;background:linear-gradient(#9cf06b,#3fae2a)}
+  .nv{font-family:'Lilita One';background:var(--amarillo);color:#3a2800;border:2px solid #fff;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:16px;box-shadow:0 2px 0 #7a5a00}
+  .monto{font-family:'Lilita One';font-size:22px;text-shadow:0 2px 0 #0b2140}
+  .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:20px;border:2px solid #fff;box-shadow:0 2px 0 rgba(0,0,0,.3)}
+  .mas{font-family:'Lilita One';background:linear-gradient(#7ee35a,#2f9a1f);border:2px solid #fff;border-radius:8px;width:26px;height:26px;display:grid;place-items:center;font-size:18px;box-shadow:0 2px 0 #1a5c10}
+  .esp{flex:1}
+  .badge{position:absolute;top:-8px;right:-8px;background:var(--rojo);color:#fff;font-family:'Lilita One';font-size:14px;border:2px solid #fff;border-radius:12px;padding:0 6px}
+  /* abajo */
+  .play{position:absolute;left:22px;bottom:22px;width:138px;height:138px;border-radius:50%;
+    background:radial-gradient(circle at 50% 35%,#4a4a4a,#111 70%);border:6px solid var(--amarillo);
+    box-shadow:0 6px 0 #6b4f00,0 10px 20px rgba(0,0,0,.4),inset 0 -8px 0 rgba(0,0,0,.4);display:grid;place-items:center}
+  .play span{font-size:40px}
+  .play::after{content:"";position:absolute;left:18px;right:18px;top:10px;height:46px;border-radius:50%;background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,0))}
+  .play b{position:absolute;bottom:-14px;font-family:'Lilita One';font-size:30px;color:#fff;
+    text-shadow:-2px -2px 0 #2a1a00,2px -2px 0 #2a1a00,-2px 2px 0 #2a1a00,2px 2px 0 #2a1a00,0 4px 0 #2a1a00}
+  .nav{position:absolute;left:190px;right:190px;bottom:16px;height:74px;border-radius:18px;border:4px solid #fff;
+    background:linear-gradient(#ffe066,var(--amarillo) 55%,var(--amarillo-osc));box-shadow:0 6px 0 #7a5a00,0 12px 24px rgba(0,0,0,.35);
+    display:flex;justify-content:space-around;align-items:center;padding:0 10px}
+  .tab{display:flex;flex-direction:column;align-items:center;font-family:'Lilita One';color:#4a3200;font-size:17px;position:relative;padding:4px 14px;border-radius:12px}
+  .tab .e{font-size:28px;line-height:1.1;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+  .tab.on{background:rgba(255,255,255,.55);box-shadow:inset 0 2px 0 rgba(0,0,0,.12)}
+  .tab .badge{right:2px;top:-6px}
+  .diario{position:absolute;right:22px;bottom:22px;width:140px;height:110px;border-radius:14px;border:4px solid #fff;
+    background:linear-gradient(#f4f1ea,#d9d2c3);box-shadow:0 6px 0 #6d6455,0 10px 20px rgba(0,0,0,.35);transform:rotate(3deg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Lilita One';color:#2b2b2b}
+  .diario .t{font-size:20px}.diario .s{font-family:Nunito;font-weight:800;font-size:12px;color:#6b6b6b;text-align:center;padding:0 8px}
+  /* tarjeta del muro */
+  .toast{position:absolute;left:14px;top:112px;width:320px;background:#fff;border-radius:16px;border:3px solid #fff;
+    box-shadow:0 6px 0 rgba(0,0,0,.2),0 10px 24px rgba(0,0,0,.25);overflow:hidden}
+  .toast .cab{background:linear-gradient(#ff5470,var(--rojo));color:#fff;font-family:'Lilita One';font-size:15px;padding:6px 12px;display:flex;justify-content:space-between}
+  .toast .cue{display:flex;gap:10px;padding:10px 12px}
+  .toast .av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ffb36b,#e0732b);display:grid;place-items:center;font-size:24px;flex:none;border:2px solid #fff;box-shadow:0 0 0 2px #e0732b}
+  .toast p{margin:0;font-weight:800;font-size:14px;color:#222;line-height:1.25}
+  .toast small{color:#888;font-weight:700}
+  .toast .bot{display:flex;gap:8px;padding:0 12px 12px}
+  .btn{flex:1;text-align:center;font-family:'Lilita One';font-size:15px;color:#fff;border-radius:10px;padding:7px 0;border:2px solid rgba(0,0,0,.25);
+    box-shadow:0 3px 0 rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.4);text-shadow:0 1px 0 rgba(0,0,0,.4)}
+  .btn.v{background:linear-gradient(#7ee35a,#2f9a1f)}.btn.a{background:linear-gradient(#ffe066,#e0a800);color:#4a3200;text-shadow:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg id="scene" viewBox="0 0 1280 720"></svg>
+
+  <div class="hud">
+    <div class="pan club">
+      <svg width="48" height="56" viewBox="0 0 48 56"><path d="M24 2 L44 9 V27 C44 41 34 50 24 54 C14 50 4 41 4 27 V9 Z" fill="#fff"/><path d="M24 6 L40 11.5 V27 C40 38.5 32 46 24 49.5 C16 46 8 38.5 8 27 V11.5 Z" fill="#D7263D"/><path d="M8 22 H40 V30 H8 Z" fill="#fff"/><text x="24" y="29" text-anchor="middle" font-family="Lilita One" font-size="9" fill="#D7263D">AVF</text><circle cx="24" cy="40" r="4" fill="#fff"/></svg>
+      <div>
+        <div class="nombre">Atlético Villa Ferro</div>
+        <div class="estrellas">★★★☆☆ <span style="font-family:Nunito;font-size:12px;color:#cfe3ff;font-weight:800">B Nacional · 4.º</span></div>
+        <div class="nivel"><div class="barra"><i></i></div><div class="nv">7</div></div>
+      </div>
+    </div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#ffe066,#e0a800)">💰</div><div class="monto">$ 1.245.000</div><div class="mas">+</div></div>
+    <div class="pan"><div class="ico" style="background:linear-gradient(#ff8fd0,#c2369a)">⭐</div><div class="monto">4,3k</div></div>
+    <div class="esp"></div>
+    <div class="pan" style="position:relative"><div class="ico" style="background:linear-gradient(#ff7a8a,#D7263D)">📣</div><span class="badge">3</span><div class="ico" style="background:linear-gradient(#cfd8e6,#8a99b0)">⚙️</div></div>
+  </div>
+
+  <div class="toast">
+    <div class="cab"><span>📱 vía TikTok · hace 12 min</span><span>Muro</span></div>
+    <div class="cue">
+      <div class="av">🧔</div>
+      <div><p>"El Tucu" Medina se tatuó la copa en el gemelo… y la final es el domingo 😳</p><small>❤️ 48,2k · 💬 3.101 · "ese tatuaje se infecta seguro"</small></div>
+    </div>
+    <div class="bot"><div class="btn v">Bancarlo</div><div class="btn a">Ver opciones</div></div>
+  </div>
+
+  <div class="play"><span>⚽</span><b>JUGAR</b></div>
+  <div class="nav">
+    <div class="tab on"><span class="e">🏟️</span>Predio</div>
+    <div class="tab"><span class="e">📣</span>Muro<span class="badge">3</span></div>
+    <div class="tab"><span class="e">👥</span>Plantel</div>
+    <div class="tab"><span class="e">📋</span>Táctica</div>
+    <div class="tab"><span class="e">📅</span>Fixture</div>
+    <div class="tab"><span class="e">⋯</span>Más</div>
+  </div>
+  <div class="diario"><div class="t">📰 EL DIARIO</div><div class="s">"El Loco" Bermúdez, libre: ¿lo traés?</div></div>
+</div>
+
+<script>
+// ---------- utilidades isométricas ----------
+const TW = 58, TH = 29, ZH = 27, CX = 660, CY = 158;
+const svg = document.getElementById('scene');
+const NS = 'http://www.w3.org/2000/svg';
+const P = (x, y, z = 0) => [CX + (x - y) * TW / 2, CY + (x + y) * TH / 2 - z * ZH];
+const pts = a => a.map(p => p.join(',')).join(' ');
+function el(tag, attrs, parent = svg) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function shade(hex, amt) {
+  let n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  const f = v => Math.max(0, Math.min(255, Math.round(amt < 0 ? v * (1 + amt) : v + (255 - v) * amt)));
+  return '#' + [f(r), f(g), f(b)].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+function poly(a, fill, extra = {}) { return el('polygon', Object.assign({ points: pts(a), fill, stroke: shade(fill, -0.35), 'stroke-width': .8, 'stroke-linejoin': 'round' }, extra)); }
+function box(x, y, z, w, d, h, c, opt = {}) {
+  const top = [P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)];
+  const left = [P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)];
+  const right = [P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)];
+  poly(left, opt.left || c); poly(right, opt.right || shade(c, -0.22)); const t = poly(top, opt.top || shade(c, 0.22));
+  if (opt.shine) el('polyline', { points: pts([P(x, y + d, z + h), P(x, y, z + h), P(x + w, y, z + h)]), fill: 'none', stroke: 'rgba(255,255,255,.55)', 'stroke-width': 1.5 });
+  return t;
+}
+function sombra(x, y, w, d, op = .22) { const [sx, sy] = P(x + w / 2 + .25, y + d / 2 + .25); el('ellipse', { cx: sx, cy: sy, rx: (w + d) * TW / 4 + 6, ry: (w + d) * TH / 4 + 3, fill: `rgba(20,40,10,${op})` }); }
+function techo(x, y, z, w, d, h, c) { // techo a dos aguas sobre eje x
+  const m = y + d / 2;
+  poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, m, z + h), P(x, m, z + h)], shade(c, .05));
+  poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, m, z + h)], shade(c, -.25));
+  poly([P(x, y, z), P(x + w, y, z), P(x + w, m, z + h), P(x, m, z + h)], shade(c, -.1));
+}
+function arbol(x, y, s = 1) {
+  sombra(x - .2, y - .2, .5 * s, .5 * s, .25);
+  const [bx, by] = P(x, y, 0);
+  el('rect', { x: bx - 3 * s, y: by - 18 * s, width: 6 * s, height: 18 * s, rx: 2, fill: '#7a4b22' });
+  el('circle', { cx: bx, cy: by - 30 * s, r: 17 * s, fill: '#2f8f2f' });
+  el('circle', { cx: bx - 5 * s, cy: by - 35 * s, r: 10 * s, fill: '#4fb84a' });
+  el('circle', { cx: bx - 8 * s, cy: by - 39 * s, r: 4 * s, fill: 'rgba(255,255,255,.35)' });
+}
+function texto(x, y, z, str, size, fill, ang = 'x', extra = {}) { // texto pegado a una cara
+  const [sx, sy] = P(x, y, z); const m = ang === 'x' ? '1,0.5,0,1' : '1,-0.5,0,1';
+  const t = el('text', Object.assign({ transform: `matrix(${m},${sx},${sy})`, 'font-family': 'Lilita One', 'font-size': size, fill, 'text-anchor': 'middle' }, extra)); t.textContent = str; return t;
+}
+function burbuja(x, y, z, str, color = '#F5C518', tcolor = '#3a2800') {
+  const [sx, sy] = P(x, y, z); const w = str.length * 8.5 + 22;
+  const g = el('g', {});
+  el('path', { d: `M${sx - 7},${sy - 4} L${sx},${sy + 6} L${sx + 7},${sy - 4} Z`, fill: '#fff' }, g);
+  el('rect', { x: sx - w / 2, y: sy - 30, width: w, height: 28, rx: 14, fill: '#fff' }, g);
+  el('rect', { x: sx - w / 2 + 3, y: sy - 27, width: w - 6, height: 22, rx: 11, fill: color }, g);
+  const t = el('text', { x: sx, y: sy - 11, 'text-anchor': 'middle', 'font-family': 'Lilita One', 'font-size': 15, fill: tcolor }, g); t.textContent = str;
+}
+function cartel(x, y, z, str) { // cartel de nombre bajo edificios
+  const [sx, sy] = P(x, y, z); const w = str.length * 7.2 + 18;
+  el('rect', { x: sx - w / 2, y: sy, width: w, height: 20, rx: 6, fill: 'rgba(16,40,70,.82)', stroke: '#fff', 'stroke-width': 1.5 });
+  const t = el('text', { x: sx, y: sy + 14.5, 'text-anchor': 'middle', 'font-family': 'Nunito', 'font-weight': 900, 'font-size': 12, fill: '#fff' }); t.textContent = str;
+}
+
+// ---------- barrio de fondo ----------
+const casas = [];
+for (let i = -1; i < 16; i += 2.2) casas.push([i, -4.2], [-4.2, i]);
+for (let i = 0; i < 16; i += 2.6) casas.push([i + 1, -6.6], [-6.6, i + 1]);
+casas.sort((a, b) => (a[0] + a[1]) - (b[0] + b[1]));
+const paredes = ['#f2e2c4', '#e9d1d1', '#d8e6f2', '#f6edc0', '#dfe9d2'];
+casas.forEach(([x, y], i) => {
+  const c = paredes[i % paredes.length];
+  box(x, y, 0, 1.4, 1.4, 1.1 + (i % 3) * .25, c);
+  techo(x - .05, y - .05, 1.1 + (i % 3) * .25, 1.5, 1.5, .6, i % 2 ? '#c4553a' : '#a8432f');
+});
+// tanque de agua y cartel de sponsor en el barrio
+box(-2.4, -2.4, 0, .3, .3, 3.2, '#8a8f99'); box(-2.75, -2.75, 3.2, 1, 1, .8, '#cfd5de', { shine: 1 });
+box(4.2, -2.2, 0, .15, .15, 2.4, '#5b5b5b'); box(8.2, -2.2, 0, .15, .15, 2.4, '#5b5b5b');
+box(3.9, -2.35, 2.2, 4.8, .2, 1.5, '#1d1d1d', { left: '#0f7a3c' });
+texto(6.3, -2.13, 2.7, 'ApostAR', 26, '#fff'); texto(6.3, -2.13, 2.35, 'cada gol paga doble*', 11, '#c9ffd9');
+
+// ---------- plataforma y césped ----------
+box(0, 0, -.6, 16, 16, .6, '#a0703f', { top: '#a0703f' });
+for (let x = 0; x < 16; x++) for (let y = 0; y < 16; y++) poly([P(x, y), P(x + 1, y), P(x + 1, y + 1), P(x, y + 1)], (x + y) % 2 ? '#6cc24a' : '#5fb53f', { stroke: 'none' });
+// caminos de baldosa
+const camino = (x, y, w, d) => poly([P(x, y), P(x + w, y), P(x + w, y + d), P(x, y + d)], '#e8d9b5', { stroke: '#cbb88e' });
+camino(3.3, 3.3, 9.4, 9.4); // explanada alrededor del estadio
+camino(7.4, 12.7, 1.2, 3.3); camino(12.7, 7.4, 3.3, 1.2); camino(0, 7.4, 3.3, 1.2);
+
+// ---------- lotes bloqueados ----------
+function baldio(x, y, nv) {
+  poly([P(x, y), P(x + 2.4, y), P(x + 2.4, y + 2.4), P(x, y + 2.4)], '#b98a52', { stroke: '#8a6236', 'stroke-dasharray': '4 3' });
+  for (let i = 0; i < 4; i++) { const [sx, sy] = P(x + .5 + (i % 2) * 1.3, y + .5 + (i >> 1) * 1.2); el('circle', { cx: sx, cy: sy, r: 3, fill: '#9a7041' }); }
+  box(x + 1.1, y + 1.1, 0, .12, .12, 1, '#6b4a2a');
+  box(x + .7, y + 1.15, .75, .9, .06, .5, '#f1e3c3');
+  texto(x + 1.15, y + 1.21, .9, '🔒 Nv ' + nv, 11, '#5b3d1e');
+}
+baldio(.6, .6, 9);
+
+// ---------- estadio ----------
+const ROJO = '#D7263D', BLANCO = '#f4f4f4';
+sombra(3.8, 3.8, 8.6, 8.6, .18);
+// tribuna norte (platea techada, la más alta)
+for (let i = 0; i < 4; i++) box(5.4, 3.8 + i * .5, 0, 5.2, .5, 2.4 - i * .55, i % 2 ? BLANCO : ROJO, { shine: 1 });
+box(5.2, 3.6, 2.4, 5.6, 1.5, .25, '#dfe3ea', { shine: 1 }); // techo
+for (let k = 0; k < 4; k++) box(5.3 + k * 1.75, 3.65, 0, .12, .12, 2.4, '#9aa3b1');
+texto(8, 5.12, 2.05, 'PLATEA "EL TANO" ', 13, '#fff');
+// tribuna oeste (cemento, popular)
+for (let i = 0; i < 3; i++) box(3.8 + i * .55, 5.4, 0, .55, 5.2, 1.8 - i * .55, '#b8bcc4', { shine: 1 });
+const [bx, by] = P(4.2, 7.9, 1.9); // trapo de la barra
+el('path', { d: `M${bx - 40},${by - 4} l60,-30 l0,16 l-60,30 z`, fill: ROJO, stroke: '#fff', 'stroke-width': 2 });
+el('text', { x: bx - 10, y: by - 6, transform: `rotate(-26.5 ${bx - 10} ${by - 6})`, 'font-family': 'Lilita One', 'font-size': 11, fill: '#fff', 'text-anchor': 'middle' }).textContent = 'LA 12 DE VILLA';
+// torre de luz del fondo
+box(3.7, 3.7, 0, .18, .18, 4, '#7d8796'); box(3.45, 3.45, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
+// cancha
+poly([P(5.4, 5.4), P(10.6, 5.4), P(10.6, 10.6), P(5.4, 10.6)], '#3fa34d', { stroke: '#2a7a37' });
+for (let s = 0; s < 6; s++) if (s % 2) poly([P(5.4 + s * 5.2 / 6, 5.4), P(5.4 + (s + 1) * 5.2 / 6, 5.4), P(5.4 + (s + 1) * 5.2 / 6, 10.6), P(5.4 + s * 5.2 / 6, 10.6)], '#4bb35a', { stroke: 'none' });
+const L = { fill: 'none', stroke: '#fff', 'stroke-width': 1.6 };
+el('polygon', Object.assign({ points: pts([P(5.8, 5.8), P(10.2, 5.8), P(10.2, 10.2), P(5.8, 10.2)]) }, L));
+el('polyline', Object.assign({ points: pts([P(8, 5.8), P(8, 10.2)]) }, L));
+{ const [ex, ey] = P(8, 8); el('ellipse', Object.assign({ cx: ex, cy: ey, rx: 40, ry: 20 }, L)); }
+el('polygon', Object.assign({ points: pts([P(5.8, 7.1), P(6.6, 7.1), P(6.6, 8.9), P(5.8, 8.9)]) }, L));
+el('polygon', Object.assign({ points: pts([P(10.2, 7.1), P(9.4, 7.1), P(9.4, 8.9), P(10.2, 8.9)]) }, L));
+box(5.65, 7.6, 0, .15, .8, .45, '#ffffff', { top: '#fff' }); // arcos
+box(10.2, 7.6, 0, .15, .8, .45, '#ffffff', { top: '#fff' });
+// jugadores entrenando (puntitos)
+[[7, 7, ROJO], [8.6, 8.4, ROJO], [7.6, 9.3, ROJO], [9.2, 6.9, '#2b5bd7']].forEach(([x, y, c]) => { const [sx, sy] = P(x, y); el('ellipse', { cx: sx, cy: sy + 2, rx: 5, ry: 2.5, fill: 'rgba(0,0,0,.25)' }); el('rect', { x: sx - 3, y: sy - 12, width: 6, height: 11, rx: 2, fill: c }); el('circle', { cx: sx, cy: sy - 15, r: 3.5, fill: '#e8b98a' }); });
+{ const [sx, sy] = P(8.1, 8.1); el('circle', { cx: sx, cy: sy - 2, r: 2.6, fill: '#fff', stroke: '#333', 'stroke-width': .8 }); }
+// tribuna este (tablones)
+for (let i = 0; i < 2; i++) box(10.6 + i * .5, 5.4, 0, .5, 5.2, .45 + i * .45, '#c08a52', { shine: 1, top: '#d9a56b' });
+for (let k = 0; k < 7; k++) { const [sx, sy] = P(11.05, 5.6 + k * .75, .9); el('line', { x1: sx, y1: sy, x2: sx, y2: sy + 10, stroke: '#7a4b22', 'stroke-width': 2 }); }
+// tribuna sur (en obra)
+poly([P(5.4, 10.6), P(10.6, 10.6), P(10.6, 12.2), P(5.4, 12.2)], '#b98a52', { stroke: '#8a6236' });
+box(5.6, 11.3, 0, 4.8, .5, .5, '#b8bcc4');
+for (let k = 0; k < 6; k++) for (const yy of [10.8, 12]) box(5.6 + k * .95, yy, 0, .07, .07, 1.6, '#e0a800');
+for (const yy of [10.8, 12]) for (const zz of [.8, 1.6]) el('polyline', { points: pts([P(5.6, yy, zz), P(10.4, yy, zz)]), stroke: '#e0a800', 'stroke-width': 2.5, fill: 'none' });
+[[6, 12.4], [8, 12.45], [10, 12.4]].forEach(([x, y]) => { const [sx, sy] = P(x, y); el('path', { d: `M${sx - 5},${sy} L${sx},${sy - 14} L${sx + 5},${sy} Z`, fill: '#ff7a00', stroke: '#fff', 'stroke-width': 1 }); });
+// torres de luz del frente
+box(12.1, 3.7, 0, .18, .18, 4, '#7d8796'); box(11.85, 3.45, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
+box(3.7, 12.1, 0, .18, .18, 4, '#7d8796'); box(3.45, 11.85, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
+box(12.1, 12.1, 0, .18, .18, 4, '#7d8796'); box(11.85, 11.85, 4, .7, .7, .35, '#3b4250', { top: '#fff7b0' });
+
+// ---------- edificios ----------
+// oficina de ojeadores (arriba a la derecha)
+sombra(12.9, 12.6, 2.4, 2.2);
+box(12.9, 12.6, 0, 2.4, 2.2, 1.3, '#e9d8b4', { shine: 1 }); techo(12.8, 12.5, 1.3, 2.6, 2.4, .8, "#2f6fb5");
+box(13.6, 14.8, 0, .9, .02, .8, "#6b4a2a"); // puerta
+texto(14.1, 14.82, .95, '🔭', 18, '#000');
+// cancha de entrenamiento (izquierda)
+poly([P(.5, 9.2), P(3.1, 9.2), P(3.1, 14.6), P(.5, 14.6)], '#3fa34d', { stroke: '#fff', 'stroke-width': 1.5 });
+el('polyline', Object.assign({ points: pts([P(.5, 11.9), P(3.1, 11.9)]) }, L));
+box(1.4, 9.05, 0, .8, .12, .4, '#fff', { top: '#fff' }); box(1.4, 14.5, 0, .8, .12, .4, '#fff', { top: '#fff' });
+[[1.1, 10.2], [2.5, 10.6], [1.6, 12.8], [2.6, 13.6]].forEach(([x, y]) => { const [sx, sy] = P(x, y); el('path', { d: `M${sx - 4},${sy} L${sx},${sy - 10} L${sx + 4},${sy} Z`, fill: '#ff7a00' }); });
+// prensa y redes (derecha)
+sombra(13, .8, 2.4, 2.6);
+box(13, .8, 0, 2.4, 2.6, 2.3, '#3d4a5c', { shine: 1, top: '#56657a' });
+box(13.05, .9, 2.3, 2.3, 2.4, .12, '#2a3442');
+box(14.6, 1.3, 2.42, .1, .1, 1.4, "#9aa3b1"); { const [sx, sy] = P(14.65, 1.35, 3.85); el('circle', { cx: sx, cy: sy, r: 4, fill: ROJO }); }
+poly([P(13.15, 3.41, .5), P(15.25, 3.41, .5), P(15.25, 3.41, 1.9), P(13.15, 3.41, 1.9)], '#0e1622');
+texto(14.2, 3.42, 1.4, '● EN VIVO', 13, '#ff4d6d'); texto(14.2, 3.42, .95, '12,4k viendo', 10, '#cfe3ff');
+// buffet / parrilla (abajo)
+sombra(4.8, 13.2, 1.8, 1.4);
+box(4.8, 13.2, 0, 1.8, 1.4, 1, '#f3c9a0', { shine: 1 }); techo(4.7, 13.1, 1, 2, 1.6, .5, '#2E8B3A');
+box(5.1, 14.62, .45, 1.2, .02, .35, '#5b3a1e'); texto(5.7, 14.64, .58, 'PARRILLA', 9, '#ffd8a8');
+box(6.35, 13.5, 1.2, .2, .2, .7, '#555');
+for (let s = 0; s < 3; s++) { const [sx, sy] = P(6.45, 13.6, 2.1 + s * .45); el('circle', { cx: sx + s * 4, cy: sy, r: 6 + s * 2, fill: 'rgba(240,240,240,.75)' }); }
+
+// árboles
+[[.4, 3.4], [3.6, .4], [.4, 8.1], [15.3, 4.9], [15.4, 11], [12.6, 15.3], [3.8, 15.4], [6.2, .5], [11, .5], [15.5, 15.5]].forEach(([x, y], i) => arbol(x, y, .85 + (i % 3) * .12));
+
+// banderas
+function bandera(x, y) { box(x, y, 0, .06, .06, 2.2, '#ddd'); const [sx, sy] = P(x, y, 2.2); el('path', { d: `M${sx},${sy} q14,-6 28,0 q-14,6 -28,0 v16 q14,-6 28,0 v-16`, fill: ROJO, stroke: '#fff', 'stroke-width': 1.2 }); }
+bandera(3.4, 7.9); bandera(7.9, 3.3);
+
+// ---------- carteles y burbujas ----------
+cartel(13.9, 15.1, 0, 'Ojeadores · Nv 2'); burbuja(14.1, 13.7, 3, '⬆ Mejorar');
+cartel(1.8, 15.2, 0, 'Entrenamiento · Nv 3');
+cartel(14.4, 3.7, 0, 'Prensa y redes · Nv 1'); burbuja(14.2, 2.1, 4.4, '👤 Vacante', '#ff6b81', '#fff');
+burbuja(8, 12.3, 1.9, '🚧 Tribuna sur · 2 fechas', '#ffb020');
+cartel(5.7, 15.1, 0, 'Parrilla · Nv 1');
+
+// ---------- escala ----------
+function fit() { const s = Math.min(innerWidth / 1280, innerHeight / 720); document.getElementById('stage').style.transform = `translate(-50%,-50%) scale(${s})`; }
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

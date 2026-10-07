@@ -1,0 +1,13 @@
+# Videos de referencia: pesan ~620 MB y dos superan el límite de 100 MB de GitHub.
+# Se comparten aparte (Drive, etc.). Los fotogramas extraídos sí se versionan.
+referencias/videos/*.mov
+
+# Node / build (para cuando haya código)
+node_modules/
+dist/
+.vite/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
