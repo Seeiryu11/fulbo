@@ -32,7 +32,8 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - Ojo con la cámara: el usuario quiere el estadio protagonista pero sin que tape todo; la villa tiene que tener peso.
 - **Base armada (2026-10-07):** `specs/nucleo` (tiempo en semanas y días, ciclo entre partidos, estado por porciones, contrato de módulos, efectos), `specs/economia` (principios, sin pay-to-win), liga de 20 equipos ida y vuelta + copas entre semana (nacional y continental tipo Libertadores), highlights 2D y 3D (PAR-12).
 - **Agentes del proyecto** en `.claude/agents/`: club, mercado, liga, partido, movidas, economia. Reglas comunes en `steering/agentes.md`. El coordinador (sesión principal) los lanza, revisa y commitea.
-- **Próximo paso:** el usuario revisa `specs/nucleo/design.md` y `specs/economia/design.md` (tiene 3 preguntas al final); después se lanzan los agentes en paralelo para sus `design.md`. Ver `steering/roadmap.md`.
+- **Estado 2026-10-09:** núcleo programado (src/nucleo, 34 tests). Los 5 agentes entregaron `design.md` + `tasks.md` (club, liga, mercado, partido, despacho), en revisión del usuario; cada uno tiene "Preguntas para el usuario" y "Pedidos a otros módulos".
+- **Próximo paso:** que el usuario conteste las preguntas de los diseños; reconciliar pedidos cruzados entre módulos; aprobar diseños; lanzar los agentes a programar sus módulos sobre el núcleo (fase 4).
 
 ## Herramientas
 - `referencias/_tools/serve.ps1`: servidor estático local (configurado en `.claude/launch.json` como `bola-static`, puerto 8765).

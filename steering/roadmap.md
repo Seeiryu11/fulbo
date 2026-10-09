@@ -9,8 +9,8 @@ Orden original (2026-10-07): primero toda la interfaz, al final el partido jugab
 | 0b | Dirección de arte | coordinador | ✅ 3D con Three.js (`referencias/mockups/predio-europeo.*`) |
 | 1 | **Base / núcleo**: tiempo (semanas y días), ciclo entre partidos, estado por porciones, efectos, azar con semilla, guardado | coordinador | ✅ requisitos y diseño aprobados · ⏳ programando (N1–N10) |
 | 1b | **Economía**: modelo y números | coordinador | ✅ `specs/economia/design.md` aprobado |
-| 2 | **Diseño por módulo** (`design.md` + `tasks.md`) | agentes `club`, `mercado`, `liga`, `partido`, `movidas` en paralelo | pendiente |
-| 3 | **Esqueleto de código**: Vite + TS, núcleo programado, test de temporada sin pantalla | coordinador (requiere Node.js) | pendiente |
+| 2 | **Diseño por módulo** (`design.md` + `tasks.md`) | agentes `club`, `mercado`, `liga`, `partido`, `movidas` en paralelo | ✅ entregados (2026-10-09) · ⏳ revisión del usuario |
+| 3 | **Esqueleto de código**: Vite + TS, núcleo programado, test de temporada sin pantalla | coordinador | ✅ hecho (34 tests en verde) |
 | 4 | **Módulos programados** sobre el núcleo | agentes en paralelo | pendiente |
 | 5 | **Interfaz + escena 3D** del club con datos reales | coordinador + agente `club` | pendiente |
 | 6 | **Highlights 2D** y minijuegos de jugadas clave | agente `partido` | pendiente |
