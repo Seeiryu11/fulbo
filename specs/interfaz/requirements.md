@@ -11,7 +11,7 @@ Toda la interfaz del juego, construida **antes** que el partido jugable: HUD est
 ```
 Juego (pantalla completa)
 ├── HUD (escudo y nombre, nivel+XP, Pesos, Fama, contador del Despacho, configuración)
-├── PREDIO (pantalla principal, isométrica)
+├── CLUB (pantalla principal, escena 3D)
 │   ├── Estadio → modal Estructura (sectores y piezas)
 │   ├── Edificio → modal Edificio (nivel, efecto, mejorar, staff)
 │   └── Botón JUGAR → flujo de fecha
@@ -39,7 +39,7 @@ Juego (pantalla completa)
 2. CUANDO un valor cambia, EL SISTEMA DEBE animar el cambio (contador que sube o baja, "+5.000").
 
 ### INT-3 · Predio — MVP
-1. EL SISTEMA DEBE mostrar el club como una aldea isométrica con el **estadio grande a un costado** como protagonista y la **villa** (resto de edificios) agrupada del otro lado, con paisaje según la ambientación (CLU-1).
+1. EL SISTEMA DEBE mostrar el club como una aldea **en 3D** con el **estadio grande a un costado** como protagonista y la **villa** (resto de edificios) agrupada del otro lado, con paisaje según la ambientación (CLU-1).
 2. EL SISTEMA DEBE tener un **mapa más grande que la pantalla** (estadio, villa y entorno alrededor) y una cámara que se mueve: arrastrar para desplazar, rueda o pellizcar para zoom. La cámara arranca encuadrando estadio y villa completos, sin cortar ninguno.
 3. EL SISTEMA DEBE mostrar sobre cada edificio su estado: en obra (fechas restantes), mejora disponible o staff vacante.
 

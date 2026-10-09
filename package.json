@@ -1,0 +1,24 @@
+{
+  "name": "fulbo",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "FULBO: juego de fútbol argentino para navegador (sos el dueño del club).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/three": "^0.186.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  }
+}

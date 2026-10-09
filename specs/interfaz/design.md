@@ -1,106 +1,127 @@
 # Interfaz — Diseño
 
-Estado: `en revisión` · Cubre: INT-1 a INT-8 · Stack: ver `steering/tecnica.md`
+Estado: `en revisión` · Cubre: INT-1 a INT-9 · Reescrito el 2026-10-09 para 3D (reemplaza la versión SVG isométrica, descartada).
+Referencias visuales: `referencias/mockups/predio-europeo.png`, `predio-montana.png`, `estadio-europeo-hero.png`, `referencias/estadios-bola/`.
 
-## 1. Layout de escritorio (referencia)
-
-El juego ocupa toda la ventana del navegador. Sin marco de ninguna red.
+## 1. Capas de la pantalla
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ [escudo] Club Atlético X  ★★★☆☆   Nv 3 ▓▓▓▓░░   💰 $1.2M   ⭐ Fama 4.3k  📣3 ⚙ │  HUD
-│                                                                              │
-│                                                                              │
-│        ESTADIO (protagonista, grande)      │        LA VILLA                   │
-│        la atracción principal, crece       │  oficinas, entrenamiento, prensa, │
-│        categorías × estilos × piezas      │  inferiores, sede, parrilla…      │
-│                                                                              │
-│                                                                              │
-│  ( PLAY )                                                       [ Diario ]   │
-│ ┌──────────────────────────────────────────────────────────────────────────┐ │
-│ │  🏟 Predio   📣 Despacho (3)   👥 Plantel   📋 Táctica   📅 Fixture   ⋯ Más   │ │  navegación
-│ └──────────────────────────────────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ HUD  [escudo] Atlético Villa Ferro ★★★☆☆ Nv 7 ▓▓▓░  │ 💰 $ 1.245M │ ⭐ 4,3k │      │  capa 3: HUD (HTML)
+│      📅 Semana 41 · martes 6 · Próximo: vs Deportivo Sur (Copa, mar 6)  ⚙       │
+├───────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│     ESTADIO (protagonista, a un costado)          LA VILLA                    │  capa 1: escena 3D (canvas WebGL)
+│     categoría × estilo × piezas                   sede/Despacho, prensa, …    │  capa 2: etiquetas y burbujas (HTML
+│                                                                               │           proyectadas desde 3D)
+│     entorno de fondo: ciudad / campo / montaña / frío / Caribe…               │
+│                                                                               │
+│ ( JUGAR )                                                       [ Diario ]    │  capa 3
+│ ┌───────────────────────────────────────────────────────────────────────────┐ │
+│ │ 🏟 Club   📣 Despacho (3)   👥 Plantel   📋 Táctica   📅 Fixture   ⋯ Más   │ │  capa 3: navegación
+│ └───────────────────────────────────────────────────────────────────────────┘ │
+└───────────────────────────────────────────────────────────────────────────────┘
+            capa 4: modales (encima de todo, fondo oscurecido)
 ```
 
-- Se diseña sobre un lienzo de referencia de **1280 × 720** que escala proporcionalmente para llenar la ventana (`transform: scale` sobre un contenedor fijo). El predio, en cambio, usa todo el espacio disponible y se puede desplazar.
-- Los modales se abren centrados sobre el predio, con el fondo oscurecido.
-- **Celular (V1):** HUD compacto en dos líneas y navegación como barra inferior fija.
-## 2. Dirección visual (arte intermedio)
+- **Capa 1 — escena 3D:** un único `<canvas>` Three.js a pantalla completa. Se pausa (no renderiza) mientras hay un modal a pantalla completa.
+- **Capa 2 — etiquetas:** divs HTML posicionados proyectando puntos 3D (como en el prototipo). Se ocultan si quedan detrás de la cámara o fuera de cuadro.
+- **Capa 3 — HUD y navegación:** HTML/CSS con el estilo gordito de BOLA (paneles con brillo, botones gruesos, tipografía con contorno).
+- **Capa 4 — modales:** paneles BOLA para todas las pantallas secundarias.
 
-> **Nota (2026-10-07):** las secciones de isometría SVG de abajo quedaron **obsoletas** por la decisión de pasar a 3D (D2 en `requirements.md`); se reescriben con la escena 3D. Referencia visual actual: `referencias/mockups/predio-europeo.png` y `estadio-europeo-hero.png`.
+Lienzo de referencia **1280×720**, escalado para llenar la ventana; la escena 3D usa el tamaño real de la ventana.
 
-**Tokens** (`ui/tema.css`):
+## 2. Escena 3D del club
 
-```css
---cielo: #4FA3E0; --cielo-claro: #BDE3FF; --azul: #2F6FD0; --gris: #F2F2F2;
---panel-amarillo: #F5C518; --panel-amarillo-osc: #D9A400; --panel-crema: #FFF6D5;
---verde-cancha: #2E8B3A; --verde-claro: #5CB85C; --rojo: #E02424; --naranja: #F08A24;
---texto: #1C1E21; --texto-suave: #606770;
---borde-grueso: 3px solid #fff;  --sombra-panel: 0 4px 0 rgba(0,0,0,.25), 0 8px 16px rgba(0,0,0,.2);
---radio: 10px;
-```
+> El contenido de la escena (estadio por piezas, villa, entornos) lo diseña el agente `club` en `specs/club/design.md`. Acá se define el marco común.
 
-- **Tipografías** (Google Fonts): títulos con contorno y sombra en **Lilita One** o **Bowlby One** (la vibra gordita de BOLA); texto en **Nunito** (redonda y legible), con Tahoma / Verdana como respaldo.
-- **Botones**: gordos, con gradiente vertical (claro arriba, oscuro abajo), brillo blanco semitransparente en la mitad superior, borde oscuro de 2 px, sombra inferior "sólida" de 3 px que baja al apretar.
-- **Modales**: panel amarillo con degradé y borde blanco grueso, título centrado con contorno, botón X rojo redondo arriba a la derecha, fondo oscurecido.
-- **Isometría** (SVG): proyección 2:1. Cada bloque tiene tres caras con el mismo color en tres tonos (techo claro, frente medio, costado oscuro), una sombra elíptica suave en el piso y un brillo en el borde superior. Césped a cuadros en dos verdes, caminos de tierra o baldosa y árboles redondos de dos tonos.
-- **Estadio**: 4 tribunas independientes alrededor de la cancha. Cada pieza (tablón → cemento → platea → techada) es un SVG distinto con color del club en butacas o techo. Las luces, la pantalla y los palcos son piezas que se suman.
-- **Íconos**: emoji como placeholder en el MVP. Después se reemplazan por íconos dibujados.
+- **Cámara:** perspectiva con FOV ~32°, ángulo 3/4 fijo (mirando hacia el horizonte para que se vea el entorno de fondo). Se define por un **punto de mira** + **distancia**:
+  - arrastrar = desplazar el punto de mira (limitado al mapa);
+  - rueda / pellizco = distancia (zoom) entre un mínimo y un máximo;
+  - doble clic en un edificio = acercarse a él.
+  - Al abrir el juego encuadra estadio y villa completos (INT-3.2).
+- **Selección:** raycast sobre los objetos del club; cada objeto seleccionable lleva `userData = { tipo: 'pieza'|'edificio'|'lote', id }`. Al pasar el mouse se resalta y aparece la etiqueta.
+- **Luz:** sol direccional con sombras + luz hemisférica; el entorno define colores y niebla.
+- **Rendimiento:** 60 fps en una notebook común con GPU integrada. Árboles, butacas, autos y público con `InstancedMesh`. Mapa de sombras de 2048 en juego (4096 solo para capturas).
+- **Render bajo demanda:** se renderiza cuando cambia la cámara, la escena o hay animación (obras, banderas). Si no, queda quieta y no consume.
 
-## 3. Navegación y rutas
+## 3. HUD
 
-Router simple por hash (`#/predio`, `#/despacho`, ...) para que funcione el botón atrás (INT-4.3).
+| Elemento | Contenido | Interacción |
+|----------|-----------|-------------|
+| Club | escudo, nombre, estrellas, división y posición, nivel y XP | abre Identidad |
+| Pesos | caja actual, abreviada ($ 1.245M) | abre el balance económico |
+| Fama | seguidores | tooltip con tendencia |
+| **Calendario** | "Semana 41 · martes 6" y el próximo partido (rival, competición, día) | abre Fixture |
+| Despacho | contador de movidas pendientes | abre el Despacho |
+| Configuración | sonido, guardado, créditos | modal |
+
+Todo número que cambia se anima ("+5.000", contador que corre).
+
+## 4. Pantallas
 
 | Ruta | Pantalla | Tipo |
 |------|----------|------|
-| `#/crear` | Creación (jugador → club → camiseta) | pantalla completa, primera vez |
-| `#/predio` | Predio isométrico | principal |
-| `#/predio/estadio` | Estructura del estadio | modal |
-| `#/predio/edificio/:tipo` | Edificio | modal |
-| `#/despacho` | Feed | principal |
-| `#/despacho/:id` | Decisión → Desenlace | modal |
-| `#/plantel` · `#/plantel/:id` | Lista · Ficha | principal · modal |
+| `#/crear` | Creación del club: nombre → colores y escudo → camiseta → ambientación y estilo de estadio ("Al azar" en cada paso) | pantalla completa |
+| `#/club` | Escena 3D (por defecto) | principal |
+| `#/club/estadio` | Estadio: categoría, Capacidad/Valor/Lujo, sectores y piezas, salto de categoría | modal |
+| `#/club/edificio/:id` | Edificio: nivel, efectos, mejora, staff | modal |
+| `#/despacho` · `#/despacho/:id` | Movidas por ámbito · decisión → desenlace | principal · modal |
+| `#/plantel` · `#/plantel/:id` | Plantel · ficha del jugador | principal · modal |
 | `#/tactica` | Formación, titulares, estilo, charla, cábala | principal |
-| `#/dts` · `#/mercado` · `#/sponsors` · `#/identidad` · `#/diario` | Menú "Más" | principal |
-| `#/fixture` | Fixture y tablas (B Nacional / Primera) | principal |
-| `#/fecha/previa` → `/sim` → `/jugada` → `/resumen` | Flujo de fecha | pantalla completa en la ventana |
+| `#/mercado` | Mercado de pases, ojeadores, ofertas recibidas | principal |
+| `#/staff` | Staff y DT | principal |
+| `#/fixture` | Calendario por semanas, tablas (B Nacional, Primera), copas | principal |
+| `#/economia` | Balance por semana/temporada, préstamos, **precio de entradas** por sector, dólar e inflación | principal |
+| `#/sponsors` · `#/identidad` · `#/diario` | Menú "Más" | principal |
+| `#/fecha/previa` → `/partido` → `/jugada` → `/resumen` | Flujo del partido | pantalla completa |
 
-## 4. Pantallas clave
+### Flujo del partido (INT-5)
 
-**Predio** — una aldea isométrica continua: a un costado el **estadio**, grande y protagonista, sobre su terreno reservado completo (al principio una cancha chica pero prolija, con espacio preparado para crecer); del otro lado **la villa**, con las oficinas (Despacho), entrenamiento, ojeadores, prensa y parrilla; el resto de los lotes aparecen como "terreno baldío — se desbloquea en Nv X". Sobre cada edificio: cartel con nivel y, si corresponde, una burbuja ("🚧 2 fechas", "⬆", "👤 vacante"). Abajo a la izquierda, el botón **PLAY** redondo y gigante (como BOLA). Paisaje según la ambientación.
+1. **Previa:** rival, competición y estadio; comparación de equipos en barras (como el World Battle de BOLA); táctica, charla y cábala; **precio de entradas** si es de local, con asistencia estimada y riesgo de sobreventa (ECO-5).
+2. **Partido simulado:** marcador, reloj, barra de Aguante y relato línea a línea, a x1 / x4 / saltar.
+3. **Jugada clave:** minijuego (penal, tiro libre, mano a mano). Placeholder simple hasta que el agente `partido` lo implemente.
+4. **Resumen:** publicación de las redes del club con resultado, figura y comentarios, más los **highlights 2D** (pizarra animada, PAR-12). Después: recompensas animadas, obras que avanzan y movidas nuevas.
 
-**Estructura del estadio** — panel izquierdo con el estadio y las stats Capacidad / Valor / Lujo; panel derecho con una grilla 3×3 de piezas del sector elegido (miniatura, precio, candado con nivel). Pestañas de sector arriba. Al elegir una pieza se ve la vista previa en el estadio antes de confirmar.
+### Pantalla de avance (NUC-2)
 
-**Despacho** — feed vertical de tarjetas. Cada tarjeta toma la forma de su origen, dibujada con el estilo del juego: video vertical con caption (tipo TikTok), tuit, story, burbuja de audio de WhatsApp, recorte de diario o captura de stream. Lleva avatar, autor ficticio, texto, imagen de plantilla, reacciones y 1–2 comentarios de hinchas. Las tarjetas pendientes muestran el botón **Decidir**. Arriba, un filtro: Todo / Pendientes / Jugadores / Club.
+Al tocar JUGAR el calendario corre día por día ("miércoles 7… jueves 8…") con un mini resumen de lo que pasó. Si aparece una interrupción (movida urgente, oferta) se frena y la abre. El **avance rápido** simula varios partidos seguidos hasta el próximo evento importante.
 
-**Decisión** — modal con la imagen de plantilla, el texto y de 2 a 4 botones de opción apilados. No se muestran los efectos exactos, solo pistas de íconos (💵 🔥 😠). Después, el **Desenlace**: texto corto + lista de cambios aplicados ("Moral del Tucu −10", "Fama +2.000").
+## 5. Estilo visual de la UI
 
-**Previa** — dos camisetas enfrentadas (como el World Battle de BOLA), comparación de equipos en barras (DEF / MED / ATQ / FÍS / MORAL), selector de charla técnica (3 tarjetas), cábala y botón **Empezar partido**.
+```css
+--amarillo: #F5C518; --amarillo-osc: #C99500; --crema: #FFF6D5;
+--azul-hud: #2F6FB5; --azul-hud-osc: #1B3F73;
+--verde: #2E8B3A; --verde-claro: #5CB85C; --rojo: #C8202F; --naranja: #F08A24;
+--texto: #1C1E21; --texto-suave: #606770;
+--radio: 14px; --borde: 3px solid #fff;
+--sombra-solida: 0 4px 0 rgba(0,0,0,.35); --brillo: inset 0 2px 0 rgba(255,255,255,.35);
+```
 
-**Simulación** — marcador grande arriba con reloj, barra de Aguante y relato en vivo que cae línea por línea ("12' ¡La agarra el Tucu, encara, la pisa...!") a velocidad x1 / x4 / Saltar.
+- Tipografía: **Lilita One** para títulos y números grandes (con contorno y sombra), **Nunito** para texto.
+- Botones gordos con gradiente, brillo arriba y sombra sólida que baja al apretar. Objetivos de clic de al menos 44 px.
+- Modales: panel amarillo/crema con borde blanco grueso, título con contorno, X roja redonda.
 
-**Jugada clave** — en el MVP es un placeholder: tarjeta "¡PENAL!" con 3 arcos para elegir (izq / centro / der) y resultado aleatorio ponderado. El minijuego real llega en la fase 4.
+## 6. Tecnología de la UI
 
-**Resumen** — publicación de las redes del club: "Club Atlético X 2 – 1 Deportivo Y", foto de plantilla, figura del partido, calificaciones y comentarios. Después, una secuencia de recompensas animada: Pesos, XP, Fama, obras que avanzan y eventos nuevos.
+- Escena: **Three.js** (decidido).
+- Capa HTML (HUD, modales, pantallas): **opción recomendada Preact** + CSS propio; queda abierta (`steering/tecnica.md`). Se decide al empezar la fase 5.
+- La UI **solo lee** la `Partida` y despacha **acciones** a los módulos (`reducir`); nunca modifica el estado directo.
 
-## 5. Componentes base
+## 7. Datos de prueba (INT-7)
 
-`HUD`, `Navegacion`, `Ventana` (contenedor escalado), `Modal`, `Boton` (variantes: amarillo, verde, rojo, azul), `Panel`, `Pestanas`, `Contador` (número animado), `BarraProgreso`, `Avatar` (generado por semilla), `Escudo`, `Camiseta` (SVG paramétrico por patrón y colores), `Post`, `TarjetaJugador`, `Iso.Terreno`, `Iso.Bloque`, `Iso.Estadio`, `Iso.Edificio`, `Toast`.
+Mientras los módulos no estén programados, la UI arranca desde `src/datos/mock/partida.json` con el mismo formato que la `Partida` del núcleo (`specs/nucleo/design.md` §7).
 
-## 6. Datos mock (INT-7)
-
-`src/datos/mock/partida.json` con una `Partida` completa según el modelo de `steering/tecnica.md`: club recién creado en la B Nacional, plantel de 22 jugadores, 6 movidas del Despacho pendientes, 4 DTs, 5 sponsors y fixture de 20 equipos. La UI arranca desde este archivo hasta que la lógica de las fases 3 y 4 lo reemplace.
-
-## 7. Trazabilidad
+## 8. Trazabilidad
 
 | Requisito | Dónde |
 |-----------|-------|
-| INT-1 | §1 layout a pantalla completa |
-| INT-2 | §1 HUD, `HUD`, `Contador` |
-| INT-3 | §4 Predio, `Iso.*` |
-| INT-4 | §3 rutas, `Modal`, `Navegacion` |
-| INT-5 | §4 Previa → Resumen |
-| INT-6 | `#/crear` |
-| INT-7 | §6 |
-| INT-8 (V1) | §1 celular, §2 botones ≥ 44 px |
+| INT-1 | §1 capas, lienzo de referencia |
+| INT-2 | §3 HUD |
+| INT-3 | §2 escena 3D, cámara y selección |
+| INT-4 | §4 rutas, §5 modales |
+| INT-5 | §4 flujo del partido, pantalla de avance |
+| INT-6 | §4 `#/crear` |
+| INT-7 | §7 |
+| INT-8 (V1) | §5 objetivos táctiles; layout celular a diseñar en V1 |
+| INT-9 (después) | — |
