@@ -40,3 +40,12 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - Los videos de referencia son HEVC: para sacar fotogramas hace falta ffmpeg (`winget install Gyan.FFmpeg`). Ya están extraídos en `referencias/frames/` y analizados en `referencias/analisis.md`.
 - Mockup a PNG: Edge headless con `--screenshot` sobre la página servida por `serve.ps1`.
 - Repo: https://github.com/Seeiryu11/fulbo (público). Guía para otra compu: `GUIA-OTRA-COMPU.md`. Al terminar una sesión, siempre commit + push. Los videos `.mov` no se suben (pasan los 100 MB).
+
+## Respuestas del usuario a los diseños (2026-10-09)
+1. Moneda: nombre provisional "Áureo" OK (sigue abierto si quiere otro). 2. Federación ficticia **FAF** (Federación Argentina de Fútbol) en vez de AFA.
+3. **Ascensos y descensos de a 2** en cada división de 20: en Primera desciende el último directo y el anteúltimo juega repechaje contra el 2.º de la B; de la B asciende el 1.º directo y el 2.º vía repechaje; de la B descienden 2 a un Federal simulado.
+4. **Club propio** (reemplaza a uno de la B). 5. Jugadores: **siempre estrellas** (números 1–99 a medida que los ojeadores los conocen).
+6. Extranjeros: países reales, clubes y jugadores inventados, cupo 6. 7. Partidos: 2,5 goles promedio, relator partidario, **que pase de todo**: perros en la cancha, clima, incidentes, desmayos y emergencias médicas (con respeto, tipo Eriksen/Agüero), suspensiones. Límite propuesto por Claude: amenaza de bomba con evacuación sí, **ataques terroristas no**.
+8. **Cadenas de movidas en el MVP.** 9. Las obras **avanzan en el receso**.
+- Pendiente de Claude: la cancha inicial (2.200) no alcanza para la demanda base de la B (6.000); ajustar.
+- Demo jugable mínima: `src/demo/` + `src/main.ts` (liga de 20, partidos simulados, movidas, caja). Publicada en GitHub Pages: https://seeiryu11.github.io/fulbo/

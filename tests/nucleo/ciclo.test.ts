@@ -88,7 +88,7 @@ describe('ciclo (N5)', () => {
       club: { alAvanzarDia: (ctx) => ({ porcion: { ...(ctx.partida.club as object), diasVistos: ((ctx.partida.club as { diasVistos?: number }).diasVistos ?? 0) + 1 } }) },
     });
     const r = avanzarHasta(nueva(1, reg), reg, instante(2026, 2, 'lun'));
-    expect((r.partida.club as { diasVistos: number }).diasVistos).toBe(7);
+    expect((r.partida.club as unknown as { diasVistos: number }).diasVistos).toBe(7);
   });
 
   it('juega el partido del sábado: previa, partido, resumen y vuelve a gestión el domingo', () => {

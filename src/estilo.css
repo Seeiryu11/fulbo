@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800;900&display=swap');
+:root { --amarillo:#F5C518; --amarillo-osc:#C99500; --azul:#2F6FB5; --azul-osc:#1B3F73; --verde:#3fae2a; --rojo:#C8202F; --crema:#FFF6D5; }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; font-family:Nunito,Tahoma,sans-serif; color:#1c1e21;
+  background: linear-gradient(#7cc4f2, #bfe6ff 30%, #8fc46a 30.1%, #6aa84a); }
+.titulo, h1, h2 { font-family:'Lilita One',sans-serif; letter-spacing:.5px; }
+.panel { background: var(--crema); border:4px solid #fff; border-radius:18px; box-shadow:0 6px 0 rgba(0,0,0,.25), 0 12px 24px rgba(0,0,0,.2); padding:16px; }
+.hud { display:flex; flex-wrap:wrap; gap:10px; padding:12px; }
+.pan { background:linear-gradient(var(--azul),var(--azul-osc)); color:#fff; border:3px solid #fff; border-radius:14px; padding:6px 12px; display:flex; align-items:center; gap:8px; box-shadow:0 4px 0 rgba(0,0,0,.3), inset 0 2px 0 rgba(255,255,255,.3); }
+.pan .nombre, .monto { font-family:'Lilita One'; font-size:20px; text-shadow:0 2px 0 #0b2140; }
+.sub { font-size:12px; color:#cfe3ff; font-weight:800; }
+.escudo { width:40px; height:46px; background:var(--rojo); border:3px solid #fff; border-radius:8px 8px 20px 20px; display:grid; place-items:center; font-family:'Lilita One'; color:#fff; }
+.ico { font-size:20px; } .rojo { color:#ff8a8a; }
+.fecha { flex:1; min-width:260px; flex-direction:column; align-items:flex-start; gap:0; font-weight:900; }
+main { display:grid; grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.2fr); gap:14px; padding:0 12px 24px; }
+@media (max-width: 760px) { main { grid-template-columns: 1fr; } }
+.btn { font-family:'Lilita One'; font-size:16px; color:#fff; border:2px solid rgba(0,0,0,.25); border-radius:12px; padding:10px 14px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,.3), inset 0 2px 0 rgba(255,255,255,.4); text-shadow:0 1px 0 rgba(0,0,0,.4); margin:4px 4px 4px 0; }
+.btn:active { transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,.3); }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+.btn.grande { font-size:22px; padding:14px 20px; width:100%; }
+.verde { background:linear-gradient(#7ee35a,#2f9a1f); } .amarillo { background:linear-gradient(#ffe066,#e0a800); color:#4a3200; text-shadow:none; }
+.azul { background:linear-gradient(#5aa0f0,#1f5fb8); } .gris { background:linear-gradient(#b8c0cc,#7d8796); }
+.noticias { list-style:none; padding:0; margin:0; max-height:52vh; overflow:auto; }
+.noticias li { background:#fff; border-radius:10px; padding:8px 10px; margin-bottom:6px; position:relative; border-left:5px solid #ccc; }
+.noticias li.imp2 { border-color:var(--azul); } .noticias li.imp3 { border-color:var(--rojo); background:#fff2f2; }
+.noticias li span { font-size:14px; color:#555; } .noticias em { position:absolute; right:8px; top:6px; font-size:11px; color:#999; font-style:normal; }
+.tabla { width:100%; border-collapse:collapse; font-size:14px; }
+.tabla th { text-align:left; background:var(--azul-osc); color:#fff; padding:4px 6px; }
+.tabla td { padding:4px 6px; border-bottom:1px solid #eadfb8; }
+.tabla tr.asc td:first-child { background:#9be38a; } .tabla tr.rep td:first-child { background:#ffe066; } .tabla tr.desc td:first-child { background:#ff9b9b; }
+.tabla tr.propio { background:#fff3c4; font-weight:900; }
+.chico { font-size:12px; color:#666; }
+.crear { max-width:460px; margin:10vh auto; text-align:center; }
+.crear .titulo { font-size:64px; margin:0; color:#fff; text-shadow:-3px -3px 0 #2a1a00,3px -3px 0 #2a1a00,-3px 3px 0 #2a1a00,3px 3px 0 #2a1a00,0 6px 0 #2a1a00; }
+.crear input { display:block; width:100%; margin:8px 0 14px; padding:10px; font-size:18px; border-radius:10px; border:2px solid #ccc; font-family:inherit; }
+.velo { position:fixed; inset:0; background:rgba(0,0,0,.55); display:grid; place-items:center; padding:16px; }
+.modal { max-width:480px; width:100%; }
+.modal .etiqueta { display:inline-block; background:linear-gradient(#ff7a8e,#d63650); color:#fff; font-family:'Lilita One'; padding:3px 12px; border-radius:12px; border:2px solid #fff; }
+.opciones { display:flex; flex-direction:column; } .opciones .btn { text-align:left; }

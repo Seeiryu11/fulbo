@@ -35,10 +35,10 @@ describe('temporada completa sin pantalla (N10)', () => {
   });
 
   it('los resultados cierran: un partido jugado = un resultado anotado', () => {
-    const movidas = p.movidas as { puntos: number; partidos: number };
+    const movidas = p.movidas as unknown as { puntos: number; partidos: number };
     expect(movidas.partidos).toBe(c.posts);
     expect(movidas.puntos).toBeLessThanOrEqual(movidas.partidos * 3);
-    expect((p.economia as { caja: number }).caja).toBe(c.posts * 1_000_000);
+    expect((p.economia as unknown as { caja: number }).caja).toBe(c.posts * 1_000_000);
   });
 
   it('es determinista: misma semilla, misma partida', () => {
