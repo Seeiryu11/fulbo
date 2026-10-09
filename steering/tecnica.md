@@ -40,7 +40,9 @@ src/
 
 Regla: `dominio/` no importa nada de `ui/`. La UI solo lee el estado y llama acciones.
 
-## Modelo de dominio (compartido por todas las specs)
+## Modelo de dominio (OBSOLETO)
+
+> **2026-10-09:** este modelo quedó viejo (tenía pesos, jugador propio y el plantel dentro de `Club`). El contrato vigente está en `specs/nucleo/design.md` y `src/nucleo/tipos.ts`; el modelo de cada porción, en el `design.md` de su módulo. Se deja abajo solo como referencia histórica.
 
 ```ts
 type Id = string

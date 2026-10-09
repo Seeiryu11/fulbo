@@ -60,47 +60,62 @@ fase gestion ──(JUGAR)──► avanzarHasta(díaDelPartido)
 
 ```ts
 interface Contexto {
-  partida: Readonly<Partida>          // todo el estado, solo lectura
-  rng: Rng                            // flujo de azar propio del módulo
+  partida: Readonly<Partida>          // todo el estado, solo lectura (en modo estricto, congelado)
+  rng: Rng                            // flujo de azar propio del módulo; rng.derivar('etiqueta') da un hijo estable
   hoy: Instante
 }
 interface Salida {
-  efectos?: Efecto[]                  // cambios sobre cualquier porción, los aplica el núcleo
-  noticias?: Noticia[]
+  porcion?: unknown                   // nueva versión de la porción PROPIA (solo el dueño la devuelve)
+  efectos?: Efecto[]                  // cambios sobre otras porciones, los aplica el núcleo
+  noticias?: { titulo; texto?; importancia }[]   // el núcleo les pone módulo y fecha
   interrupcion?: Interrupcion         // frena el avance (movida con vencimiento, oferta)
 }
-interface Modulo<Porcion> {
-  id: IdModulo
-  iniciar(ctx: Contexto): Porcion                       // partida nueva
-  reducir(porcion: Porcion, accion: Accion): Porcion    // acciones del jugador sobre su porción (puras)
-  alAvanzarDia?(ctx: Contexto): Salida
-  antesDelPartido?(ctx: Contexto, partido: IdPartido): Salida
-  despuesDelPartido?(ctx: Contexto, resultado: Resultado): Salida
-  alCerrarSemana?(ctx: Contexto): Salida
-  alCerrarTemporada?(ctx: Contexto): Salida
+interface Modulo<Id> {
+  id: Id
+  iniciar(ctx, creacion): Porcion                        // partida nueva; `creacion` = lo elegido en #/crear
+  reducir?(porcion, accion, ctx): { porcion; salida? }   // acciones del jugador; puede emitir efectos (ej. cobrar una obra)
+  efectosQueAplica?: TipoEfecto[]                        // tipos de efecto de los que es dueño
+  aplicarEfecto?(porcion, efecto, ctx): Porcion
+  alAvanzarDia?(ctx): Salida
+  antesDelPartido?(ctx, partido): Salida                 // solo partidos del club del usuario
+  despuesDelPartido?(ctx, resultado): Salida             // solo partidos del club del usuario
+  alCerrarSemana?(ctx): Salida
+  alCerrarTemporada?(ctx): Salida
+}
+interface Registro {
+  modulos: Record<IdModulo, Modulo>
+  proximoPartido(partida): { partido; cuando; local? } | undefined   // lo provee liga
+  jugarPartido(ctx, partido): { resultado; salida? }                 // lo provee partido
 }
 ```
 
 - Todo es **puro**: misma entrada + misma semilla ⇒ misma salida. Nada de `Math.random()` ni de fechas del sistema.
-- El orden fijo de ejecución por día es: `liga → mercado → club → economia → movidas`. El `partido` corre solo en las fases de partido.
+- El orden fijo de ejecución por día es: `liga → mercado → club → economia → movidas`. Los ganchos de partido y de cierre usan `liga → mercado → club → partido → economia → movidas`.
+- **Convención de días:** `hoy` es el día que el usuario gestiona y todavía no se procesó. Avanzar procesa hoy y pasa al siguiente. El día de un partido se procesa después de jugarlo: cada día se procesa una sola vez.
+- Implementación: `src/nucleo/` (`ciclo.ts`: `avanzarHasta`, `irAlPartido`, `jugarPartidoActual`, `jugarProximaFecha`; `avanceRapido.ts`; `efectos.ts`; `guardado.ts`).
 
 ## 5. Efectos (lenguaje común)
 
-Amplía el `Efecto` de `steering/tecnica.md`. Cada efecto lleva su **origen** para poder auditar de dónde salió cada peso.
+Cada efecto lleva su **origen** para poder auditar de dónde salió cada cambio. Cada tipo tiene **un único dueño** que lo aplica (el registro lo valida); `azar` y `accion` los resuelve el núcleo.
 
 ```ts
 type Efecto = { origen: string } & (
-  | { tipo: 'pesos'; valor: number; concepto: ConceptoEconomico }
-  | { tipo: 'fama'; valor: number }
-  | { tipo: 'relacion'; con: Relacion; valor: number }
-  | { tipo: 'jugador'; jugador: IdJugador | 'plantel'; campo: 'moral'|'fisico'|Atributo; valor: number }
-  | { tipo: 'temporal'; jugador: IdJugador | 'plantel'; efecto: string; partidos: number }
-  | { tipo: 'obra'; edificio: string; fechas: number }                 // adelanta o atrasa una obra
-  | { tipo: 'marca'; clave: string; valor: number | boolean }
-  | { tipo: 'azar'; probabilidad: number; si: Efecto[]; sino?: Efecto[] }
+  | { tipo: 'plata'; valor: number; concepto: ConceptoEconomico }        // dueño: economia
+  | { tipo: 'fama'; valor: number }                                      // dueño: club
+  | { tipo: 'relacion'; con: Relacion; valor: number }                   // dueño: club
+  | { tipo: 'jugador'; jugador: IdJugador | 'plantel'; campo: 'moral'|'condicion'|Atributo; valor: number }  // dueño: mercado
+  | { tipo: 'temporal'; jugador: IdJugador | 'plantel'; efecto: string; partidos: number }                  // dueño: mercado
+  | { tipo: 'obra'; edificio: string; fechas: number }                   // dueño: club
+  | { tipo: 'marca'; clave: string; valor: number | boolean }            // dueño: movidas
+  | { tipo: 'accion'; modulo: IdModulo; accion: Accion }                 // núcleo: ejecuta reducir() del módulo destino
+  | { tipo: 'azar'; probabilidad: number; si: Efecto[]; sino?: Efecto[] } // núcleo
 )
 ```
 
+- `plata` reemplaza a `pesos` (moneda única mundial).
+- `condicion` es el estado físico del día (0–100); `fisico` es el atributo.
+- `accion` sirve para que una movida opere otro módulo sin romper la regla de porciones: "vender a Arabia" = `{ tipo: 'accion', modulo: 'mercado', accion: { tipo: 'vender', jugador, destino } }`; "clausurar la tribuna" = `{ modulo: 'club', accion: { tipo: 'clausurar', sector, fechas } }`.
+- XP y nivel del club viven en la porción `club`.
 ## 6. Noticias e interrupciones
 
 ```ts
@@ -112,7 +127,8 @@ interface Interrupcion { tipo: 'movida'|'oferta'|'obra'|'lesion'; ref: string; m
 
 ```ts
 interface Partida {
-  meta: { version: number; semilla: number; creada: string }
+  meta: { version: number; semilla: number; creada: Instante }
+  rng: Record<IdModulo | 'nucleo', number>   // estado de cada flujo de azar
   tiempo: Tiempo
   noticias: Noticia[]
   club: EstadoClub; mercado: EstadoMercado; liga: EstadoLiga
