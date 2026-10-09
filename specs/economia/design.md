@@ -1,12 +1,12 @@
 # Economía — Diseño
 
-Estado: `aprobado` (2026-10-09, con las respuestas del usuario; los números se recalibran con simulaciones) · Cubre: ECO-1 a ECO-6 · Todos los números van a `src/datos/economia/*.json` y se ajustan con simulaciones (NUC-7).
+Estado: `aprobado` (2026-10-09, con las respuestas del usuario; los números se recalibran con simulaciones) · Cubre: ECO-1, ECO-2, ECO-3, ECO-5, ECO-6 · Todos los números van a `src/datos/economia/*.json` y se ajustan con simulaciones (NUC-7).
 
 ## 1. Escala y moneda
 
-- **Pesos** con números grandes, a la argentina. En pantalla se abrevian: `$ 1.245M`, `$ 18,4M`.
+- **Moneda única mundial** (nombre provisional **Áureo**, ver §8) con números grandes, realistas y algo inflados. En pantalla se abrevian: `AU 1.245M`, `AU 18,4M`.
 - **Fama**: seguidores del club. Arranca en ~5.000 para un club de la B.
-- Referencia de tamaño (temporada 1, sin inflación):
+- Referencia de tamaño (temporada 1):
 
 | | Club típico de la B Nacional | Club típico de Primera |
 |---|---|---|
@@ -40,8 +40,7 @@ El usuario fija el precio de cada sector antes de cada partido de local (o deja 
 - **Demanda por sector** = demanda base × (precio de referencia / precio)^sensibilidad × fama × momento × clásico.
 - **Cara:** la gente no va. Tribunas vacías, baja el Aguante, bajan la relación con los hinchas y los socios, y aparecen movidas ("la gente no va más", banderazo en contra, la prensa te mata).
 - **Barata:** la demanda supera la capacidad y se arma la **sobreventa**. Sube el Aguante, suben los hinchas, pero crece el riesgo de incidentes (avalancha, gente colgada del alambrado). Eso puede terminar en multas, clausura de una tribuna por fechas o una movida de la AFA. Cuanto más pasada la sobreventa, más riesgo.
-- **Justa:** estadio lleno sin sobreventa. Es el punto que tiene que encontrar el usuario, y se mueve con la inflación y con el momento del equipo.
-- Los **precios de referencia** se actualizan con la inflación (§8), así que un precio que hoy es justo en tres meses es regalado.
+- **Justa:** estadio lleno sin sobreventa. Es el punto que tiene que encontrar el usuario, y se mueve con el momento del equipo, la fama y la categoría del estadio.
 
 ## 3. Gastos (sumideros)
 
@@ -92,7 +91,7 @@ Ejemplo: cancha de entrenamiento nivel 3 = 15 × 1,8² ≈ $ 49M, 3 fechas de ob
 
 ## 6. Préstamos y quiebra (sin game over)
 
-- **Préstamo bancario:** hasta el 50 % de los ingresos del último año, a tasa = inflación + 10 %, en 12 cuotas.
+- **Préstamo bancario:** hasta el 50 % de los ingresos del último año, a una tasa fija del 12 % anual, en 12 cuotas.
 - **Caja en rojo:** si la caja baja de 0 se habilita el descubierto (hasta −10 % de los ingresos anuales) con intereses altos.
 - **Quiebra:** si la caja baja de −20 % de los ingresos anuales, arranca la cadena de movidas **Concurso de acreedores** (vender figuras, aceptar una gerenciadora, préstamo de un fondo con condiciones, intervención de la AFA con quita de puntos). Nunca termina la partida.
 
@@ -103,35 +102,11 @@ Ejemplo: cancha de entrenamiento nivel 3 = 15 × 1,8² ≈ $ 49M, 3 fechas de ob
 - **Paracaídas:** el que desciende cobra el 50 % de la TV de Primera durante una temporada.
 - **Fondo de ascenso:** $ 500M al ascender, para no llegar a Primera sin plata.
 
-## 8. Inflación y balón (ECO-4)
+## 8. Moneda única mundial (ECO-6)
 
-> **El Balón (BLN)** es la moneda mundial del juego: la usan las transferencias internacionales, las figuras, los sponsors globales y la copa continental. Reemplaza al dólar a propósito (decisión del usuario, 2026-10-09): un mundo futbolero que no gira alrededor de la moneda yanqui. Se abrevia `BLN 40M` ("la cláusula es de 40 millones de balones").
-
-La caja es **solo en pesos** (sin moneda premium ni ahorro en balones), pero hay dos variables que se mueven cada semana y no siempre juntas:
-
-- **Inflación** (precios en pesos), semanal.
-- **Balón** (tipo de cambio), semanal.
-
-### Qué sigue a cada una
-
-| Sigue a la **inflación** (en pesos) | Sigue al **balón** (precio en BLN convertido) |
-|-------------------------------------|-----------------------------------------------|
-| Obras con materiales locales, sueldos de jugadores locales, staff, entradas, buffet, multas, TV local | Fichajes de y hacia el exterior, sueldos de extranjeros y figuras, sponsors internacionales, premios de la copa continental, la parte importada de las obras (pantallas LED, techo retráctil, césped híbrido: entre 20 % y 60 % de su costo) |
-
-### Regímenes (el clima económico del país)
-
-Cada temporada arranca en un régimen y puede cambiar por movidas:
-
-| Régimen | Inflación | Balón | Qué se siente en el juego |
-|---------|-----------|-------|---------------------------|
-| **Calma** | ~2 % mensual | acompaña | Todo estable |
-| **Atraso cambiario** ("todo carísimo en balones") | 3–5 % mensual | ~1 % mensual | Lo local se encarece en balones. Comprar jugadores y equipamiento afuera conviene; vender afuera rinde pocos pesos; los sueldos locales se comen la caja |
-| **Devaluación** | se dispara después del salto | salto de 30–100 % en una semana | Vender afuera rinde fortunas en pesos; lo importado (y las deudas en balones) se vuelve impagable. Llega con una movida |
-| **Hiperinflación** (movida rara, ~3 % por temporada) | 30–50 % mensual durante 8–12 semanas | corre atrás | Precios que cambian todas las semanas, entradas regaladas si no las actualizás, hinchas y plantel reclamando aumentos |
-
-- TV, entradas de referencia y sponsors locales se actualizan por inflación **con 8 semanas de atraso**: apretón chico, sin romper el poder de compra.
-- Los contratos se pueden firmar **en pesos o en balones** (sueldos de figuras, préstamos, sponsors internacionales). En balones, el riesgo cambiario es del club: es una decisión, no un detalle.
-- Las noticias y las movidas anuncian los cambios de régimen ("se viene una devaluación", "el balón está planchado", "remarcan precios todos los días").
+- Todo el juego usa **una sola moneda mundial**, igual en todos los países y entornos: caja, sueldos, entradas, obras, fichajes, sponsors y premios. Nombre provisional: **Áureo** (`AU 1.245M`); el nombre definitivo lo elige el usuario y se reemplaza en todos lados.
+- **Sin inflación ni tipo de cambio** (decisión del usuario, 2026-10-09): simplifica la economía y la hace más legible. Los precios son estables; la progresión la dan la categoría del estadio, la división y la fama.
+- Para que no haya bola de nieve sin inflación, siguen valiendo §7 (mantenimiento proporcional al Valor, impuesto progresivo) y los jugadores piden más sueldo a medida que el club crece.
 
 ## 9. Objetivos de balance (ECO-2) y cómo se miden
 
@@ -161,8 +136,7 @@ src/datos/economia/
   obras.json         precios y duraciones de piezas, saltos de categoría y edificios
   premios.json       victorias, ascenso, títulos, copas por ronda
   impuestos.json     tramos y aportes
-  inflacion.json     regímenes (calma, atraso, devaluación, hiper), probabilidades y atraso de actualización
-  balon.json         tipo de cambio inicial y dinámica por régimen; qué conceptos se valúan en BLN
+  moneda.json        nombre, símbolo y formato de la moneda mundial
   entradas.json      precios de referencia y sensibilidad por sector, umbrales de sobreventa
   prestamos.json     límites y tasas
 ```
@@ -170,5 +144,5 @@ src/datos/economia/
 ## Decisiones del usuario (2026-10-09)
 - **D1** Números grandes, realistas y hasta un poco inflados ($ 1.245M). Se mantiene la escala de §1.
 - **D2** El precio de la entrada lo maneja el usuario por sector: cara = no va nadie, barata = sobreventa con riesgo (§2b). Pasa a MVP.
-- **D3** Inflación con regímenes, incluida la **hiperinflación** como movida rara y el **atraso cambiario** ("todo caro en balones", como hoy en Argentina) (§8).
-- **D4 (2026-10-09)** La moneda mundial es el **Balón (BLN)**, no el dólar. La caja del club sigue en **pesos**; el Balón es la referencia para todo lo internacional.
+- **D3 (corregida 2026-10-09)** Se **sacan la inflación y el tipo de cambio**: complican mucho. Una sola moneda mundial para todo.
+- **D4 (2026-10-09)** Moneda única mundial, no el dólar. "Balón" se descartó por ser muy futbolero; nombre provisional **Áureo** hasta que el usuario elija.

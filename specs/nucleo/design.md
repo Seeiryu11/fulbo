@@ -1,6 +1,6 @@
 # Núcleo — Diseño
 
-Estado: `en revisión` · Cubre: NUC-1 a NUC-7 · Este documento es el **contrato** que respetan todos los agentes.
+Estado: `aprobado` (2026-10-09) · Cubre: NUC-1 a NUC-7 · Este documento es el **contrato** que respetan todos los agentes.
 
 ## 1. Módulos y dueños
 

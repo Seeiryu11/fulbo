@@ -9,11 +9,11 @@ La economía la diseña el agente `economia` y la revisa el usuario. Tiene que s
 ## Principios (no negociables)
 
 1. **No pay-to-win.** Si algún día hay monetización, solo puede ser cosmética o de comodidad sin efecto deportivo (camisetas especiales, temas, estadios de exhibición). Nunca jugadores, atributos, obras, velocidad de obra ni resultados.
-2. **Monedas:** solo **Pesos** (blanda) y **Fama** (seguidores). Sin moneda premium.
+2. **Monedas:** una **moneda única mundial** (nombre provisional Áureo) y la **Fama** (seguidores). Sin moneda premium.
 3. **Decisiones con trade-off:** cada gasto compite con otro (¿tribuna nueva o un 9?). No hay una estrategia obvia que gane siempre.
 4. **Sin game over por plata:** quebrar dispara una cadena de movidas (concurso de acreedores, venta forzada, intervención) en vez de terminar el juego.
 5. **Anti bola de nieve:** el que crece mucho paga más mantenimiento, sueldos e impuestos; el que va abajo recibe ayudas (premios por ascenso, derechos de TV mínimos).
-6. **Inflación** como chiste y mecánica: precios y sueldos suben cada temporada, los ingresos acompañan.
+6. **Sin inflación ni tipo de cambio** (decisión 2026-10-09): precios estables y legibles.
 
 ## Requisitos
 
@@ -31,16 +31,15 @@ La economía la diseña el agente `economia` y la revisa el usuario. Tiene que s
 ### ECO-3 · Tabla de precios editable — MVP
 1. EL SISTEMA DEBE tener todos los precios, sueldos, premios y factores en archivos de datos editables, no en el código.
 
-### ECO-4 · Inflación — V1
-1. CUANDO termina una temporada, EL SISTEMA DEBE aplicar inflación a precios y sueldos, y ajustar ingresos para que el poder de compra se mantenga cerca del objetivo de ECO-2.
+### ECO-4 · (eliminado 2026-10-09: sin inflación)
 
 ### ECO-5 · Precio de las entradas — MVP
 1. EL SISTEMA DEBE dejar que el usuario fije el precio de cada sector (popular, platea, palcos) antes de cada partido de local.
 2. EL SISTEMA DEBE calcular la asistencia según el precio: muy cara = tribunas vacías y hinchas enojados; muy barata = sobreventa con riesgo de incidentes y sanciones.
 
-### ECO-6 · Balón y regímenes económicos — MVP
-1. EL SISTEMA DEBE manejar inflación y tipo de cambio por separado, con regímenes (calma, atraso cambiario, devaluación, hiperinflación).
-2. EL SISTEMA DEBE valuar en balones lo que corresponde (fichajes con el exterior, figuras, sponsors internacionales, parte importada de las obras) y convertirlo a pesos al tipo de cambio de ese momento. La caja sigue siendo solo en pesos.
+### ECO-6 · Moneda única mundial — MVP
+1. EL SISTEMA DEBE usar una sola moneda mundial para todo (caja, sueldos, entradas, obras, fichajes, sponsors, premios), sin inflación ni tipo de cambio.
+2. EL SISTEMA DEBE tener el nombre, símbolo y formato de la moneda en datos editables, para poder cambiarlo sin tocar código.
 
 ## Preguntas abiertas
 - **P1** Valores concretos: los propone el agente `economia` en `design.md` y los aprueba el usuario.

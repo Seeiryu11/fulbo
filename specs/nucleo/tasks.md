@@ -1,6 +1,6 @@
 # Núcleo — Tareas
 
-Estado: `en curso` · Dueño: coordinador · N0 hecha (2026-10-09); N1–N10 esperan la aprobación de `design.md`
+Estado: `en curso` · Dueño: coordinador · N0 hecha (2026-10-09); design.md aprobado, N1–N10 en curso
 
 | # | Tarea | Cubre | Verificación |
 |---|-------|-------|--------------|

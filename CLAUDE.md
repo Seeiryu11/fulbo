@@ -3,6 +3,7 @@
 Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011) y Potrero (comunidad argentina de Twitter). Leé primero [README.md](README.md) y `steering/`.
 
 ## Cómo trabajamos
+- **El juego final no usa IA ni gasta tokens**: es código que corre en el navegador. Los tokens se gastan solo construyéndolo.
 - **No ser complaciente**: si una idea del usuario está mal, es floja o va a quedar fea, decírselo claro con el motivo y una alternativa antes de hacerla.
 - **Spec driven development** (ver `steering/proceso.md`): requisitos → diseño → tareas → código. No se programa sin `requirements.md` y `design.md` aprobados. Si algo cambia, se actualiza la spec primero.
 - Se habla en español rioplatense.
@@ -13,7 +14,7 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - **No se imita Facebook** ni ninguna red. Que BOLA fuera de Facebook es solo contexto. La nostalgia es el **estilo visual de BOLA**.
 - **Sin "Eras"**: el contenido es el fútbol de hoy (cerveza, apuestas, cripto, TikTok, streamers).
 - Navegador primero (celular después). Look profesional, no de juguete: escala real, mucho espacio, ciudad de fondo, sin casitas genéricas (ver `referencias/estadios-bola/`).
-- Economía: caja en **Pesos** + **Fama**, sin moneda premium. La moneda mundial del juego es el **Balón (BLN)**, NO el dólar (decisión del usuario): todo lo internacional se valúa en balones. Inflación y tipo de cambio peso/balón con regímenes (calma, atraso cambiario, devaluación, hiperinflación). Precio de entradas por sector manejable.
+- Economía: **una sola moneda mundial** para todo (nombre provisional "Áureo", AU; el usuario elige el definitivo) + **Fama**. Sin moneda premium, **sin inflación ni tipo de cambio** (se sacaron por complicar). Precio de entradas por sector manejable por el usuario.
 - Obras por **fechas jugadas**, no tiempo real.
 - Se arranca en la **B Nacional**: el 1.º asciende directo, el 2.º juega repechaje contra el anteúltimo de Primera.
 - Orden: **toda la interfaz primero** (con datos mock), el partido jugable **al final**.

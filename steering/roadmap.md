@@ -7,7 +7,7 @@ Orden original (2026-10-07): primero toda la interfaz, al final el partido jugab
 |------|-----|-------|--------|
 | 0 | Requisitos de todas las specs | coordinador | ✅ aprobados |
 | 0b | Dirección de arte | coordinador | ✅ 3D con Three.js (`referencias/mockups/predio-europeo.*`) |
-| 1 | **Base / núcleo**: tiempo (semanas y días), ciclo entre partidos, estado por porciones, efectos, azar con semilla, guardado | coordinador | ✅ requisitos · ⏳ `specs/nucleo/design.md` en revisión |
+| 1 | **Base / núcleo**: tiempo (semanas y días), ciclo entre partidos, estado por porciones, efectos, azar con semilla, guardado | coordinador | ✅ requisitos y diseño aprobados · ⏳ programando (N1–N10) |
 | 1b | **Economía**: modelo y números | coordinador | ✅ `specs/economia/design.md` aprobado |
 | 2 | **Diseño por módulo** (`design.md` + `tasks.md`) | agentes `club`, `mercado`, `liga`, `partido`, `movidas` en paralelo | pendiente |
 | 3 | **Esqueleto de código**: Vite + TS, núcleo programado, test de temporada sin pantalla | coordinador (requiere Node.js) | pendiente |
