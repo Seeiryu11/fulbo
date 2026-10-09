@@ -17,7 +17,7 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - Economía: **una sola moneda mundial** para todo (nombre provisional "Áureo", AU; el usuario elige el definitivo) + **Fama**. Sin moneda premium, **sin inflación ni tipo de cambio** (se sacaron por complicar). Precio de entradas por sector manejable por el usuario.
 - Obras por **fechas jugadas**, no tiempo real.
 - Se arranca en la **B Nacional**: el 1.º asciende directo, el 2.º juega repechaje contra el anteúltimo de Primera.
-- Orden: **toda la interfaz primero** (con datos mock), el partido jugable **al final**.
+- Orden (cambiado 2026-10-07): **base → agentes construyen cada módulo → interfaz y 3D con datos reales → partido jugable al final** (ver `steering/roadmap.md`).
 - **El estadio es la atracción principal** de la aldea, a un costado y grande (no es pantalla partida literal); la villa (oficinas, entrenamiento, prensa…) se agrupa del otro lado. Al principio la cancha es chica pero el terreno está preparado y se ve lindo.
 - **Variedad de estadios**: categoría (barrio → del futuro) × estilo (ascenso, Primera, europeo, inglés, andino, invierno extremo, tropical, desierto, futurista) × piezas. La ambientación NO está atada a Argentina como país.
 - **El Despacho** (antes "Muro") son las oficinas del club: ahí llegan las movidas.
@@ -33,7 +33,7 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - **Base armada (2026-10-07):** `specs/nucleo` (tiempo en semanas y días, ciclo entre partidos, estado por porciones, contrato de módulos, efectos), `specs/economia` (principios, sin pay-to-win), liga de 20 equipos ida y vuelta + copas entre semana (nacional y continental tipo Libertadores), highlights 2D y 3D (PAR-12).
 - **Agentes del proyecto** en `.claude/agents/`: club, mercado, liga, partido, movidas, economia. Reglas comunes en `steering/agentes.md`. El coordinador (sesión principal) los lanza, revisa y commitea.
 - **Estado 2026-10-09:** núcleo programado (src/nucleo, 34 tests). Los 5 agentes entregaron `design.md` + `tasks.md` (club, liga, mercado, partido, despacho), en revisión del usuario; cada uno tiene "Preguntas para el usuario" y "Pedidos a otros módulos".
-- **Próximo paso:** que el usuario conteste las preguntas de los diseños; reconciliar pedidos cruzados entre módulos; aprobar diseños; lanzar los agentes a programar sus módulos sobre el núcleo (fase 4).
+- **Próximo paso:** el usuario YA contestó las preguntas (ver "Respuestas del usuario" abajo). Falta: volcar esas respuestas en los `design.md` de cada módulo, reconciliar los "Pedidos a otros módulos", ajustar la cancha inicial, aprobar los diseños y lanzar los agentes a programar sus módulos sobre el núcleo (fase 4), reemplazando de a poco los módulos de `src/demo/`.
 
 ## Herramientas
 - `referencias/_tools/serve.ps1`: servidor estático local (configurado en `.claude/launch.json` como `bola-static`, puerto 8765).
