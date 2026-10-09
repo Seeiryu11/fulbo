@@ -13,7 +13,7 @@ Juego de fútbol para navegador inspirado en BOLA Social Soccer (Facebook, 2011)
 - **No se imita Facebook** ni ninguna red. Que BOLA fuera de Facebook es solo contexto. La nostalgia es el **estilo visual de BOLA**.
 - **Sin "Eras"**: el contenido es el fútbol de hoy (cerveza, apuestas, cripto, TikTok, streamers).
 - Navegador primero (celular después). Look profesional, no de juguete: escala real, mucho espacio, ciudad de fondo, sin casitas genéricas (ver `referencias/estadios-bola/`).
-- Economía: solo **Pesos y Fama**, sin moneda premium hasta que el juego esté aceitado.
+- Economía: caja en **Pesos** + **Fama**, sin moneda premium. La moneda mundial del juego es el **Balón (BLN)**, NO el dólar (decisión del usuario): todo lo internacional se valúa en balones. Inflación y tipo de cambio peso/balón con regímenes (calma, atraso cambiario, devaluación, hiperinflación). Precio de entradas por sector manejable.
 - Obras por **fechas jugadas**, no tiempo real.
 - Se arranca en la **B Nacional**: el 1.º asciende directo, el 2.º juega repechaje contra el anteúltimo de Primera.
 - Orden: **toda la interfaz primero** (con datos mock), el partido jugable **al final**.

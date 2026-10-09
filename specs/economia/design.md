@@ -103,16 +103,18 @@ Ejemplo: cancha de entrenamiento nivel 3 = 15 × 1,8² ≈ $ 49M, 3 fechas de ob
 - **Paracaídas:** el que desciende cobra el 50 % de la TV de Primera durante una temporada.
 - **Fondo de ascenso:** $ 500M al ascender, para no llegar a Primera sin plata.
 
-## 8. Inflación y dólar (ECO-4)
+## 8. Inflación y balón (ECO-4)
 
-La caja es **solo en pesos** (sin moneda premium ni ahorro en dólares), pero hay dos variables que se mueven cada semana y no siempre juntas:
+> **El Balón (BLN)** es la moneda mundial del juego: la usan las transferencias internacionales, las figuras, los sponsors globales y la copa continental. Reemplaza al dólar a propósito (decisión del usuario, 2026-10-09): un mundo futbolero que no gira alrededor de la moneda yanqui. Se abrevia `BLN 40M` ("la cláusula es de 40 millones de balones").
+
+La caja es **solo en pesos** (sin moneda premium ni ahorro en balones), pero hay dos variables que se mueven cada semana y no siempre juntas:
 
 - **Inflación** (precios en pesos), semanal.
-- **Dólar** (tipo de cambio), semanal.
+- **Balón** (tipo de cambio), semanal.
 
 ### Qué sigue a cada una
 
-| Sigue a la **inflación** (en pesos) | Sigue al **dólar** (precio en USD convertido) |
+| Sigue a la **inflación** (en pesos) | Sigue al **balón** (precio en BLN convertido) |
 |-------------------------------------|-----------------------------------------------|
 | Obras con materiales locales, sueldos de jugadores locales, staff, entradas, buffet, multas, TV local | Fichajes de y hacia el exterior, sueldos de extranjeros y figuras, sponsors internacionales, premios de la copa continental, la parte importada de las obras (pantallas LED, techo retráctil, césped híbrido: entre 20 % y 60 % de su costo) |
 
@@ -120,16 +122,16 @@ La caja es **solo en pesos** (sin moneda premium ni ahorro en dólares), pero ha
 
 Cada temporada arranca en un régimen y puede cambiar por movidas:
 
-| Régimen | Inflación | Dólar | Qué se siente en el juego |
+| Régimen | Inflación | Balón | Qué se siente en el juego |
 |---------|-----------|-------|---------------------------|
 | **Calma** | ~2 % mensual | acompaña | Todo estable |
-| **Atraso cambiario** ("todo carísimo en dólares") | 3–5 % mensual | ~1 % mensual | Lo local se encarece en dólares. Comprar jugadores y equipamiento afuera conviene; vender afuera rinde pocos pesos; los sueldos locales se comen la caja |
-| **Devaluación** | se dispara después del salto | salto de 30–100 % en una semana | Vender afuera rinde fortunas en pesos; lo importado (y las deudas en dólares) se vuelve impagable. Llega con una movida |
+| **Atraso cambiario** ("todo carísimo en balones") | 3–5 % mensual | ~1 % mensual | Lo local se encarece en balones. Comprar jugadores y equipamiento afuera conviene; vender afuera rinde pocos pesos; los sueldos locales se comen la caja |
+| **Devaluación** | se dispara después del salto | salto de 30–100 % en una semana | Vender afuera rinde fortunas en pesos; lo importado (y las deudas en balones) se vuelve impagable. Llega con una movida |
 | **Hiperinflación** (movida rara, ~3 % por temporada) | 30–50 % mensual durante 8–12 semanas | corre atrás | Precios que cambian todas las semanas, entradas regaladas si no las actualizás, hinchas y plantel reclamando aumentos |
 
 - TV, entradas de referencia y sponsors locales se actualizan por inflación **con 8 semanas de atraso**: apretón chico, sin romper el poder de compra.
-- Los contratos se pueden firmar **en pesos o en dólares** (sueldos de figuras, préstamos, sponsors internacionales). En dólares, el riesgo cambiario es del club: es una decisión, no un detalle.
-- Las noticias y las movidas anuncian los cambios de régimen ("se viene una devaluación", "el dólar está planchado", "remarcan precios todos los días").
+- Los contratos se pueden firmar **en pesos o en balones** (sueldos de figuras, préstamos, sponsors internacionales). En balones, el riesgo cambiario es del club: es una decisión, no un detalle.
+- Las noticias y las movidas anuncian los cambios de régimen ("se viene una devaluación", "el balón está planchado", "remarcan precios todos los días").
 
 ## 9. Objetivos de balance (ECO-2) y cómo se miden
 
@@ -160,7 +162,7 @@ src/datos/economia/
   premios.json       victorias, ascenso, títulos, copas por ronda
   impuestos.json     tramos y aportes
   inflacion.json     regímenes (calma, atraso, devaluación, hiper), probabilidades y atraso de actualización
-  dolar.json         tipo de cambio inicial y dinámica por régimen; qué conceptos se valúan en USD
+  balon.json         tipo de cambio inicial y dinámica por régimen; qué conceptos se valúan en BLN
   entradas.json      precios de referencia y sensibilidad por sector, umbrales de sobreventa
   prestamos.json     límites y tasas
 ```
@@ -168,4 +170,5 @@ src/datos/economia/
 ## Decisiones del usuario (2026-10-09)
 - **D1** Números grandes, realistas y hasta un poco inflados ($ 1.245M). Se mantiene la escala de §1.
 - **D2** El precio de la entrada lo maneja el usuario por sector: cara = no va nadie, barata = sobreventa con riesgo (§2b). Pasa a MVP.
-- **D3** Inflación con regímenes, incluida la **hiperinflación** como movida rara y el **atraso cambiario** ("todo caro en dólares", como hoy en Argentina) (§8).
+- **D3** Inflación con regímenes, incluida la **hiperinflación** como movida rara y el **atraso cambiario** ("todo caro en balones", como hoy en Argentina) (§8).
+- **D4 (2026-10-09)** La moneda mundial es el **Balón (BLN)**, no el dólar. La caja del club sigue en **pesos**; el Balón es la referencia para todo lo internacional.
