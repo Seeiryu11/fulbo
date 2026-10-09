@@ -34,5 +34,13 @@ La economía la diseña el agente `economia` y la revisa el usuario. Tiene que s
 ### ECO-4 · Inflación — V1
 1. CUANDO termina una temporada, EL SISTEMA DEBE aplicar inflación a precios y sueldos, y ajustar ingresos para que el poder de compra se mantenga cerca del objetivo de ECO-2.
 
+### ECO-5 · Precio de las entradas — MVP
+1. EL SISTEMA DEBE dejar que el usuario fije el precio de cada sector (popular, platea, palcos) antes de cada partido de local.
+2. EL SISTEMA DEBE calcular la asistencia según el precio: muy cara = tribunas vacías y hinchas enojados; muy barata = sobreventa con riesgo de incidentes y sanciones.
+
+### ECO-6 · Dólar y regímenes económicos — MVP
+1. EL SISTEMA DEBE manejar inflación y tipo de cambio por separado, con regímenes (calma, atraso cambiario, devaluación, hiperinflación).
+2. EL SISTEMA DEBE valuar en dólares lo que corresponde (fichajes con el exterior, figuras, sponsors internacionales, parte importada de las obras) y convertirlo a pesos al tipo de cambio de ese momento. La caja sigue siendo solo en pesos.
+
 ## Preguntas abiertas
 - **P1** Valores concretos: los propone el agente `economia` en `design.md` y los aprueba el usuario.

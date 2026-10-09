@@ -1,6 +1,6 @@
 # Economía — Diseño
 
-Estado: `en revisión` (esperando aprobación del usuario) · Cubre: ECO-1 a ECO-4 · Todos los números van a `src/datos/economia/*.json` y se ajustan con simulaciones (NUC-7).
+Estado: `aprobado` (2026-10-09, con las respuestas del usuario; los números se recalibran con simulaciones) · Cubre: ECO-1 a ECO-6 · Todos los números van a `src/datos/economia/*.json` y se ajustan con simulaciones (NUC-7).
 
 ## 1. Escala y moneda
 
@@ -26,6 +26,22 @@ Estado: `en revisión` (esperando aprobación del usuario) · Cubre: ECO-1 a ECO
 | **Premios** | Victoria: B $ 4M · Primera $ 15M. Ascenso $ 500M. Campeón de Primera $ 2.000M. Copa nacional y continental: premio por ronda | Al ocurrir |
 | **Ventas de jugadores** | Valor negociado (lo define `mercado`) | En ventanas de pases |
 | **Movidas** | Recitales, eventos, ofertas, golpes de suerte | Variable |
+
+## 2b. Precio de las entradas (lo maneja el usuario)
+
+El usuario fija el precio de cada sector antes de cada partido de local (o deja el automático).
+
+| Sector | Precio de referencia B / Primera | Sensibilidad al precio |
+|--------|----------------------------------|------------------------|
+| Popular | $ 5.000 / $ 12.000 | alta (1,3) |
+| Platea | $ 12.000 / $ 35.000 | media (0,8) |
+| Palcos y hospitality | $ 60.000 / $ 250.000 | baja (0,5) |
+
+- **Demanda por sector** = demanda base × (precio de referencia / precio)^sensibilidad × fama × momento × clásico.
+- **Cara:** la gente no va. Tribunas vacías, baja el Aguante, bajan la relación con los hinchas y los socios, y aparecen movidas ("la gente no va más", banderazo en contra, la prensa te mata).
+- **Barata:** la demanda supera la capacidad y se arma la **sobreventa**. Sube el Aguante, suben los hinchas, pero crece el riesgo de incidentes (avalancha, gente colgada del alambrado). Eso puede terminar en multas, clausura de una tribuna por fechas o una movida de la AFA. Cuanto más pasada la sobreventa, más riesgo.
+- **Justa:** estadio lleno sin sobreventa. Es el punto que tiene que encontrar el usuario, y se mueve con la inflación y con el momento del equipo.
+- Los **precios de referencia** se actualizan con la inflación (§8), así que un precio que hoy es justo en tres meses es regalado.
 
 ## 3. Gastos (sumideros)
 
@@ -87,11 +103,33 @@ Ejemplo: cancha de entrenamiento nivel 3 = 15 × 1,8² ≈ $ 49M, 3 fechas de ob
 - **Paracaídas:** el que desciende cobra el 50 % de la TV de Primera durante una temporada.
 - **Fondo de ascenso:** $ 500M al ascender, para no llegar a Primera sin plata.
 
-## 8. Inflación (ECO-4)
+## 8. Inflación y dólar (ECO-4)
 
-- Al cerrar cada temporada se sortea la inflación del año entre 20 % y 60 % (con una movida que la anuncia en el Despacho).
-- Suben en ese porcentaje: precios de obras, sueldos nuevos, staff, multas.
-- TV, entradas y sponsors se actualizan **igual, pero con 8 semanas de atraso**: un apretón chico al principio de cada temporada, sin romper el poder de compra.
+La caja es **solo en pesos** (sin moneda premium ni ahorro en dólares), pero hay dos variables que se mueven cada semana y no siempre juntas:
+
+- **Inflación** (precios en pesos), semanal.
+- **Dólar** (tipo de cambio), semanal.
+
+### Qué sigue a cada una
+
+| Sigue a la **inflación** (en pesos) | Sigue al **dólar** (precio en USD convertido) |
+|-------------------------------------|-----------------------------------------------|
+| Obras con materiales locales, sueldos de jugadores locales, staff, entradas, buffet, multas, TV local | Fichajes de y hacia el exterior, sueldos de extranjeros y figuras, sponsors internacionales, premios de la copa continental, la parte importada de las obras (pantallas LED, techo retráctil, césped híbrido: entre 20 % y 60 % de su costo) |
+
+### Regímenes (el clima económico del país)
+
+Cada temporada arranca en un régimen y puede cambiar por movidas:
+
+| Régimen | Inflación | Dólar | Qué se siente en el juego |
+|---------|-----------|-------|---------------------------|
+| **Calma** | ~2 % mensual | acompaña | Todo estable |
+| **Atraso cambiario** ("todo carísimo en dólares") | 3–5 % mensual | ~1 % mensual | Lo local se encarece en dólares. Comprar jugadores y equipamiento afuera conviene; vender afuera rinde pocos pesos; los sueldos locales se comen la caja |
+| **Devaluación** | se dispara después del salto | salto de 30–100 % en una semana | Vender afuera rinde fortunas en pesos; lo importado (y las deudas en dólares) se vuelve impagable. Llega con una movida |
+| **Hiperinflación** (movida rara, ~3 % por temporada) | 30–50 % mensual durante 8–12 semanas | corre atrás | Precios que cambian todas las semanas, entradas regaladas si no las actualizás, hinchas y plantel reclamando aumentos |
+
+- TV, entradas de referencia y sponsors locales se actualizan por inflación **con 8 semanas de atraso**: apretón chico, sin romper el poder de compra.
+- Los contratos se pueden firmar **en pesos o en dólares** (sueldos de figuras, préstamos, sponsors internacionales). En dólares, el riesgo cambiario es del club: es una decisión, no un detalle.
+- Las noticias y las movidas anuncian los cambios de régimen ("se viene una devaluación", "el dólar está planchado", "remarcan precios todos los días").
 
 ## 9. Objetivos de balance (ECO-2) y cómo se miden
 
@@ -121,11 +159,13 @@ src/datos/economia/
   obras.json         precios y duraciones de piezas, saltos de categoría y edificios
   premios.json       victorias, ascenso, títulos, copas por ronda
   impuestos.json     tramos y aportes
-  inflacion.json     rango anual y atraso de actualización
+  inflacion.json     regímenes (calma, atraso, devaluación, hiper), probabilidades y atraso de actualización
+  dolar.json         tipo de cambio inicial y dinámica por régimen; qué conceptos se valúan en USD
+  entradas.json      precios de referencia y sensibilidad por sector, umbrales de sobreventa
   prestamos.json     límites y tasas
 ```
 
-## Preguntas para el usuario
-- **P1** ¿Te parece bien la escala de números grandes ($ 1.245M) o preferís números más chicos y legibles ($ 1.245)?
-- **P2** ¿El precio de la entrada lo fija el juego o lo puede tocar el usuario (más caro = más plata, pero menos gente y hinchas enojados)? *Recomendación: que lo toque, en V1.*
-- **P3** ¿Inflación entre 20 % y 60 % por año está bien como chiste, o querés que pueda haber años de hiperinflación (movida rara)?
+## Decisiones del usuario (2026-10-09)
+- **D1** Números grandes, realistas y hasta un poco inflados ($ 1.245M). Se mantiene la escala de §1.
+- **D2** El precio de la entrada lo maneja el usuario por sector: cara = no va nadie, barata = sobreventa con riesgo (§2b). Pasa a MVP.
+- **D3** Inflación con regímenes, incluida la **hiperinflación** como movida rara y el **atraso cambiario** ("todo caro en dólares", como hoy en Argentina) (§8).
